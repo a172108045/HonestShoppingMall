@@ -1,4 +1,4 @@
-package com.song.honestshoppingmall;
+package com.song.honestshoppingmall.event;
 
 /**
  * Created by lizhenquan on 2017/1/7.

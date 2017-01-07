@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.song.honestshoppingmall.SecondActivity">
+    tools:context="com.song.honestshoppingmall.activity.HomeActivity">
     <Button
         android:id="@+id/btn_first_event"
         android:layout_width="match_parent"

@@ -9,9 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.song.honestshoppingmall.FirstEvent;
+import com.song.honestshoppingmall.event.FirstEvent;
 import com.song.honestshoppingmall.R;
-import com.song.honestshoppingmall.SecondActivity;
 import com.song.honestshoppingmall.util.DialogAlertUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,7 +25,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash);
 
 
         mBtn_alertshopcar = (Button) findViewById(R.id.btn_alertshopcar);
@@ -65,7 +64,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btn_try:
                 Intent intent = new Intent(SplashActivity.this,
-                        SecondActivity.class);
+                        HomeActivity.class);
                 startActivity(intent);
 
                 break;
