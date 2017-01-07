@@ -1,4 +1,4 @@
-package com.song.honestshoppingmall;
+package com.song.honestshoppingmall.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.song.honestshoppingmall.FirstEvent;
+import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.SecondActivity;
 import com.song.honestshoppingmall.util.DialogAlertUtils;
 
 import org.greenrobot.eventbus.EventBus;
