@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("李振全提交测试代码");
         System.out.println("test2");
         System.out.println("merge");
+        System.out.println("hahaha!");
 
     }
 }
