@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.song.honestshoppingmall.util.DialogAlertUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -32,7 +34,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
         mBtn_try = (Button) findViewById(R.id.btn_try);
         mTv = (TextView) findViewById(R.id.tv);
-
+        mBtn_try.setOnClickListener(this);
 
     }
 
@@ -55,11 +57,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_alertshopcar:
-
+                DialogAlertUtils.showScanNumberDialog(SplashActivity.this, "自定义文字", R.drawable.dialog_bg);
 
                 break;
             case R.id.btn_try:
-                Intent intent = new Intent(getApplicationContext(),
+                Intent intent = new Intent(SplashActivity.this,
                         SecondActivity.class);
                 startActivity(intent);
 
