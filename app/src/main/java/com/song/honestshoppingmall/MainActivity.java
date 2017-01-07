@@ -2,7 +2,6 @@ package com.song.honestshoppingmall;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +14,5 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("刘宗瓒提交测试代码");
         System.out.println("杨宋鹏程提交测试代码");
 
-        Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
     }
 }
