@@ -194,6 +194,19 @@ public class AddCartBean extends BaseBean {
                 this.v = v;
             }
         }
+
+        @Override
+        public String toString() {
+            return "CartBean{" +
+                    "id=" + id +
+                    ", product=" + product +
+                    ", productCount=" + productCount +
+                    ", productId=" + productId +
+                    ", property=" + property +
+                    ", propertyId=" + propertyId +
+                    ", userId=" + userId +
+                    '}';
+        }
     }
 
     @Override

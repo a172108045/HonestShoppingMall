@@ -1,5 +1,6 @@
 package com.song.honestshoppingmall.util;
 
+import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.bean.SerchResultBean;
@@ -61,4 +62,13 @@ public interface APIRetrofit {
     //Header参数传递  获取用户数据
     @GET("userinfo")
     Call<Userbean>  getUserInfo(@Header("userid") String value);
+
+
+    /**
+     * 添加购物车
+     * @param params
+     * @return
+     */
+    @GET("addCart")
+    Call<AddCartBean> getAddCartBean(@QueryMap Map<String,String> params );
 }
