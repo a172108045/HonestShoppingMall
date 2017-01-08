@@ -17,7 +17,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/bt_tital_login"
+                android:id="@+id/bt_title_login"
                 android:layout_width="180dp"
                 android:layout_height="35dp"
                 android:layout_centerHorizontal="true"
@@ -30,20 +30,18 @@
                 />
 
             <Button
-                android:id="@+id/bt_tital_register"
+                android:id="@+id/bt_title_register"
                 android:layout_width="180dp"
                 android:layout_height="35dp"
-                android:layout_alignTop="@id/bt_tital_login"
-                android:layout_toRightOf="@id/bt_tital_login"
+                android:layout_alignTop="@id/bt_title_login"
+                android:layout_toRightOf="@id/bt_title_login"
                 android:background="@drawable/selector_rectangle_right"
                 android:enabled="false"
-                android:textColor="#fff"
                 android:text="注册"
+                android:textColor="#fff"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 />
-
-
         </LinearLayout>
 
 
@@ -86,6 +84,14 @@
         android:textColor="#fff"
         android:textSize="20sp"
         android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:text="遇到问题点这里!"/>
 
 
 </LinearLayout>
