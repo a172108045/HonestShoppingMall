@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/cb_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"/>
+
+    <ImageView
+        android:id="@+id/iv_card"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="模拟数据，点击标题进入商品详情。请从导购选择添加真实商品"
+            android:textStyle="bold"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_card_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="颜色:"/>
+
+            <TextView
+                android:id="@+id/tv_card_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_card_color"
+                android:text="尺码："/>
+
+            <TextView
+                android:id="@+id/tv_card_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="$100"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_card_remove"
+                android:gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="——"/>
+            <EditText
+                android:text="0"
+                android:id="@+id/et_number"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+            <Button
+                android:id="@+id/btn_card_add"
+                android:gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="+"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

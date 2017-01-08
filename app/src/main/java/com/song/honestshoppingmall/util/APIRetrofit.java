@@ -3,6 +3,7 @@ package com.song.honestshoppingmall.util;
 import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
+import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.bean.SerchResultBean;
 import com.song.honestshoppingmall.bean.Userbean;
 
@@ -15,6 +16,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -71,4 +73,7 @@ public interface APIRetrofit {
      */
     @GET("addCart")
     Call<AddCartBean> getAddCartBean(@QueryMap Map<String,String> params );
+
+    @GET("selectCart")
+    Call<SerchCardBean> getSerchCartBean(@Query("userId") String userId);
 }
