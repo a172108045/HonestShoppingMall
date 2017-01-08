@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.song.honestshoppingmall.R;
@@ -42,9 +43,10 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        SerchCardBean.CartBean cartBean = mData.get(position);
+        final SerchCardBean.CartBean cartBean = mData.get(position);
         SerchCardBean.CartBean.PropertyBean property = cartBean.getProperty();
-        SerchCardBean.CartBean.ProductBean product = cartBean.getProduct();
+
+        final SerchCardBean.CartBean.ProductBean product = cartBean.getProduct();
 
 //        holder.mIv_card.setImageURI(Uri.parse(Urls.BASE_URL + product.getPic()));
         Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + product.getPic()).into(holder.mIv_card);
@@ -54,19 +56,37 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         holder.mBtn_card_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                holder.mBtn_card_remove.setEnabled(true);
                 String text = holder.mEt_number.getText().toString();
                 int i = Integer.parseInt(text);
+                if (i>=product.getBuyLimit()-1){
+                    holder.mBtn_card_add.setEnabled(false);
+                    Toast.makeText(mContext, "超出购买限制！每人只能买"+product.getBuyLimit()+"份哟亲~", Toast.LENGTH_SHORT).show();
+                }
+                if (i>=cartBean.getProductCount()-1){
+                    holder.mBtn_card_add.setEnabled(false);
+                    Toast.makeText(mContext, "现在没有那么多货哟亲~", Toast.LENGTH_SHORT).show();
+                }
                 holder.mEt_number.setText(i+1+"");
             }
         });
         holder.mBtn_card_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                holder.mBtn_card_add.setEnabled(true);
                 String text = holder.mEt_number.getText().toString();
                 int i = Integer.parseInt(text);
+                if (i <=1){
+                    holder.mBtn_card_remove.setEnabled(false);
+                }
                 holder.mEt_number.setText(i-1+"");
             }
         });
+        String text = holder.mEt_number.getText().toString();
+        int number = Integer.parseInt(text);
+        if (number<=1){
+           holder.mBtn_card_remove.setEnabled(false);
+        }
     }
 
 
