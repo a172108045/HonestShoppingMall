@@ -25,4 +25,16 @@ public class HomeFragment extends BaseFragment  {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_menu_home:
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+                break;
+
+            case R.id.iv_cart_home:
+                ((HomeActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, new ShopCartFragment()).commit();
+                break;
+        }
+    }
 }
