@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <Button
+            android:id="@+id/bt_back_myorder"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40sp"
+            android:text="返回"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:background="@drawable/shape_rectangle_pink"/>
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的订单"
+            android:textColor="#000"
+            android:textSize="25sp"
+            />
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DFDFDF"/>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/bt_recent_order"
+            android:enabled="false"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:textColor="#fff"
+            android:background="@drawable/selector_rectangle_left"
+            android:text="近一个月订单"/>
+        <Button
+            android:id="@+id/bt_before_order"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:layout_height="40dp"
+            android:background="#DFDFDF"
+            android:text="一个月前订单"/>
+        <Button
+            android:id="@+id/bt_cancelled_order"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:textColor="#000"
+            android:background="@drawable/selector_rectangle_right"
+            android:text="已取消订单"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_no_order"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/bg_privilege"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lv_recent_order"
+            android:visibility="invisible">
+
+        </ListView>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lv_before_order"
+            android:visibility="invisible">
+
+        </ListView>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lv_cancelled_order"
+            android:visibility="invisible">
+
+        </ListView>
+
+    </FrameLayout>
+
+
+
+
+</LinearLayout>
