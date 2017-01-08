@@ -1,5 +1,6 @@
 package com.song.honestshoppingmall.fragment;
 
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private Button bt_title_register;
     private Button mLogin;
     private TextView mHelp;
+    private TextInputLayout mTextInputLayout;
 
     @Override
     protected View initView() {
@@ -25,6 +27,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         bt_title_register = (Button) view.findViewById(R.id.bt_title_register);
         mLogin = (Button) view.findViewById(R.id.bt_login_login);
         mHelp = (TextView) view.findViewById(R.id.tv_help);
+
+        mTextInputLayout = (TextInputLayout) view.findViewById(R.id.textinputlayou_pass_confirm);
+
         initClick();
         return view;
     }
@@ -49,10 +54,26 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_title_login:
+                    mTextInputLayout.setVisibility(View.GONE);
+                    bt_title_login.setEnabled(false);
+                    bt_title_register.setEnabled(true);
+                    mLogin.setText("登陆");
+
                 break;
             case R.id.bt_title_register:
+                    mTextInputLayout.setVisibility(View.VISIBLE);
+                    bt_title_register.setEnabled(false);
+                    bt_title_login.setEnabled(true);
+                    mLogin.setText("注册");
+
                 break;
             case R.id.bt_login_login:
+                String loginText = mLogin.getText().toString();
+                if(loginText.equals("登陆")) {
+
+                }else {
+                    Toast.makeText(getContext(), "丑拒", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.tv_help:
                 Toast.makeText(getContext(), "就这么着吧,爱用不用!", Toast.LENGTH_SHORT).show();
