@@ -4,6 +4,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <TextView
+        android:text="我的订单"
+        style="@style/Title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        />
+
     <RelativeLayout
         android:padding="5dp"
         android:layout_width="match_parent"
@@ -57,7 +64,7 @@
             android:layout_weight="1"
             android:textColor="#000"
             android:layout_height="40dp"
-            android:background="#DFDFDF"
+            android:background="@drawable/selector_rectangle_middle"
             android:text="一个月前订单"/>
         <Button
             android:id="@+id/bt_cancelled_order"
@@ -79,29 +86,30 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/bg_privilege"/>
+            android:src="@mipmap/bg_privilege"
+            android:visibility="invisible"/>
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/lv_recent_order"
-            android:visibility="invisible">
+            android:visibility="visible">
 
-        </ListView>
-        <ListView
+        </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/lv_before_order"
             android:visibility="invisible">
 
-        </ListView>
-        <ListView
+        </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/lv_cancelled_order"
             android:visibility="invisible">
 
-        </ListView>
+        </android.support.v7.widget.RecyclerView>
 
     </FrameLayout>
 
