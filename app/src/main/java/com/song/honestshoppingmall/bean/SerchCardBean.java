@@ -6,12 +6,12 @@ import java.util.List;
  * Created by lizhenquan on 2017/1/8.
  */
 
-public class AddCartBean extends BaseBean {
+public class SerchCardBean extends BaseBean {
 
     /**
      * id : 3
      * product : {"buyLimit":10,"id":2,"name":"粉色毛衣","number":"13","pic":"/images/product/detail/q1.jpg","price":100}
-     * productCount : 2
+     * productCount : 24
      * productId : 2
      * property : {"id":1,"k":"颜色","v":"红色"}
      * propertyId : 1
@@ -211,7 +211,7 @@ public class AddCartBean extends BaseBean {
 
     @Override
     public String toString() {
-        return "AddCartBean{" +
+        return "SerchCardBean{" +
                 "cart=" + cart
                 +"response="+response
                 +"error="+error
@@ -220,7 +220,3 @@ public class AddCartBean extends BaseBean {
                 '}';
     }
 }
-
-
-
-
