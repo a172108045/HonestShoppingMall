@@ -3,14 +3,10 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <TextView
-        android:text="购物车"
-        style="@style/Title"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"/>
-<Button
-    android:text="点击获取数据"
+<TextView
+    android:id="@+id/title_setting"
+    android:text="设置"
+    style="@style/Title"
     android:layout_width="match_parent"
-    android:id="@+id/btn_get_shopcart"
-    android:layout_height="wrap_content"/>
+    android:layout_height="48dp"/>
 </LinearLayout>

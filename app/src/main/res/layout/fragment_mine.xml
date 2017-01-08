@@ -4,13 +4,10 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <TextView
-        android:text="购物车"
+        android:text="我的"
         style="@style/Title"
         android:layout_width="match_parent"
         android:layout_height="48dp"/>
-<Button
-    android:text="点击获取数据"
-    android:layout_width="match_parent"
-    android:id="@+id/btn_get_shopcart"
-    android:layout_height="wrap_content"/>
+
+
 </LinearLayout>

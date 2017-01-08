@@ -3,6 +3,8 @@ package com.song.honestshoppingmall.fragment;
 import android.view.View;
 import android.widget.TextView;
 
+import com.song.honestshoppingmall.R;
+
 /**
  * Created by Judy on 2017/1/8.
  */
@@ -10,9 +12,10 @@ import android.widget.TextView;
 public class SettingFragment extends BaseFragment {
     @Override
     protected View initView() {
-        TextView tv = new TextView(mContext);
-        tv.setText("这是更多");
-        return tv;
+        View view = View.inflate(mContext, R.layout.fragment_setting,null);
+        TextView textView = (TextView) view.findViewById(R.id.title_setting);
+        textView.setText("设置");
+        return view;
     }
 
     @Override
