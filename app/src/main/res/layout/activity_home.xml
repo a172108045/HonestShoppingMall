@@ -23,7 +23,7 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:drawableTop="@mipmap/tab_home_unselect"
+            android:drawableTop="@drawable/selector_home_icon"
             android:button="@null"
             android:id="@+id/rb_home"
             android:layout_width="0dp"
@@ -36,28 +36,28 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-           android:drawableTop="@mipmap/tab_category_unselect"/>
+           android:drawableTop="@drawable/selector_category_icon"/>
         <RadioButton
             android:button="@null"
             android:id="@+id/rb_shopcart"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:drawableTop="@mipmap/tab_shopcart_unselect"/>
+            android:drawableTop="@drawable/selector_cart_icon"/>
         <RadioButton
             android:id="@+id/rb_mine"
             android:button="@null"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:drawableTop="@mipmap/tab_mine_unselect"/>
+            android:drawableTop="@drawable/selector_mine_icon"/>
         <RadioButton
             android:button="@null"
             android:id="@+id/rb_setting"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:drawableTop="@mipmap/tab_setting_unselect"/>
+            android:drawableTop="@drawable/selector_setting_icon"/>
 
     </RadioGroup>
 </LinearLayout>

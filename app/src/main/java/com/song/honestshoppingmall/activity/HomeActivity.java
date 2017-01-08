@@ -61,6 +61,7 @@ public class HomeActivity extends AppCompatActivity implements  RadioGroup.OnChe
 
     private void initData() {
         mFragmentManager.beginTransaction().replace(R.id.fl_home, new HomeFragment()).commit();
+        mRadioGroup.check(R.id.rb_home);
     }
 
     /**
@@ -108,7 +109,7 @@ public class HomeActivity extends AppCompatActivity implements  RadioGroup.OnChe
     /**
      * 清空回退栈中的所有Fragment
      */
-    private void removeAllFragment() {
+    public void removeAllFragment() {
         getSupportFragmentManager().popBackStack(null, 1);
     }
 

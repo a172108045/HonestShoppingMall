@@ -56,7 +56,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
 
             case R.id.iv_cart_home:
-                ((HomeActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.fl_home, new ShopCartFragment()).commit();
+                ((HomeActivity)mContext).popBackStack();
+                ((HomeActivity)mContext).changeFragment(new ShopCartFragment(), "ShopCartFragment");
                 break;
         }
     }
