@@ -7,9 +7,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.song.honestshoppingmall.activity.HomeActivity">
-    <Button
-        android:id="@+id/btn_first_event"
+
+    <FrameLayout
+        android:id="@+id/fl_home"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </FrameLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="First Event"/>
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_home"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/tab_home_unselect"/>
+        <ImageView
+            android:id="@+id/iv_category"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/tab_category_unselect"/>
+        <ImageView
+            android:id="@+id/iv_shopcart"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/tab_shopcart_unselect"/>
+        <ImageView
+            android:id="@+id/iv_mine"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/tab_mine_unselect"/>
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/tab_setting_unselect"/>
+
+    </LinearLayout>
 </LinearLayout>
