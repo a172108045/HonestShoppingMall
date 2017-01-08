@@ -4,19 +4,17 @@ package com.song.honestshoppingmall.bean;
  * Created by lizhenquan on 2017/1/8.
  */
 
-public class LoginBean extends BaseBean{
+public class LoginResultBean extends BaseBean{
 
     /**
      * response : login
      * userInfo : {"userid":"20428"}
      */
-
     /**
      * userid : 20428
      */
 
     private UserInfoBean userInfo;
-
 
     public UserInfoBean getUserInfo() {
         return userInfo;
@@ -36,16 +34,20 @@ public class LoginBean extends BaseBean{
         public void setUserid(String userid) {
             this.userid = userid;
         }
+
+        @Override
+        public String toString() {
+            return "UserInfoBean{" +
+                    "userid='" + userid + '\'' +
+                    '}';
+        }
     }
 
     @Override
     public String toString() {
-        return "LoginBean{" +
-                "userInfo=" + userInfo
-                +"response="+response
-                +"error="+error
-                +"error_code="+error_code
-                +
+        return "LoginResultBean{" +
+                "response='" + response + '\'' +
+                ", userInfo=" + userInfo +
                 '}';
     }
 }

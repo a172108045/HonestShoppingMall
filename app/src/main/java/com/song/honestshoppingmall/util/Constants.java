@@ -6,4 +6,5 @@ package com.song.honestshoppingmall.util;
  */
 
 public interface Constants {
+
 }

@@ -3,11 +3,10 @@ package com.song.honestshoppingmall.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.song.honestshoppingmall.activity.HomeActivity;
 
 public abstract class BaseFragment extends android.support.v4.app.Fragment {
     public Context mContext;
@@ -15,18 +14,19 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        HomeActivity activity = (HomeActivity) getActivity();
+        FragmentActivity activity = getActivity();
         this.mContext = activity;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = initView(inflater);
+
+        View view = initView();
         return view;
     }
 
-    protected abstract View initView(LayoutInflater inflater);
+    protected abstract View initView();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

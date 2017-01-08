@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,14 +22,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ImageView mIv_cart_home;
 
     @Override
-    protected View initView(LayoutInflater inflater) {
+    protected View initView() {
         View view = View.inflate(mContext, R.layout.fragment_home, null);
         mDrawerLayout = (DrawerLayout) view.findViewById(R.id.drawer_main);
         mNavigationView = (NavigationView) view.findViewById(R.id.nav_view);
         mIv_menu_home = (ImageView) view.findViewById(R.id.iv_menu_home);
         mIv_cart_home = (ImageView) view.findViewById(R.id.iv_cart_home);
-
-
 
         return view;
     }

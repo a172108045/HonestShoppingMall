@@ -1,6 +1,5 @@
 package com.song.honestshoppingmall.fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,7 +9,7 @@ import android.widget.TextView;
 
 public class CategoryFragment extends BaseFragment {
     @Override
-    protected View initView(LayoutInflater inflater) {
+    protected View initView() {
         TextView tv = new TextView(mContext);
         tv.setText("这是分类");
         return tv;
