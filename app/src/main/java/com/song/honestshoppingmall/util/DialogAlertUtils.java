@@ -59,7 +59,7 @@ public class DialogAlertUtils {
         ImageView iv_dialoghint = (ImageView) window
                 .findViewById(R.id.iv_dialoghint);
         // 自定义图片的资源
-        iv_dialoghint.setImageResource(id);
+        iv_dialoghint.setBackgroundResource(id);
         btn_hint_yes.setOnClickListener(new View.OnClickListener() {
 
             @Override
