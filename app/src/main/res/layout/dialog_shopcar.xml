@@ -15,7 +15,14 @@
             android:layout_width="80dp"
             android:layout_height="100dp"
             android:src="@mipmap/ic_launcher"/>
-
+        <ImageView
+            android:id="@+id/iv_carddialog_dismiss"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:src="@mipmap/img_cancel"
+            android:layout_height="wrap_content"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,7 +64,7 @@
         android:layout_height="wrap_content">
 
         <RadioButton
-
+            android:id="@+id/rb_carddialog_color1"
             android:layout_margin="10dp"
             android:background="@drawable/select_card_bg"
             android:padding="10dp"
@@ -107,6 +114,7 @@
         android:layout_height="wrap_content">
 
         <RadioButton
+            android:id="@+id/rb_carddialog_size1"
             android:layout_margin="10dp"
             android:background="@drawable/select_card_bg"
             android:padding="10dp"

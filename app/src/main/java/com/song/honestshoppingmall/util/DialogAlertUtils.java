@@ -10,6 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +58,17 @@ public class DialogAlertUtils {
         final Button btn_card_tianjia = (Button) window.findViewById(R.id.btn_card_tianjia);
         final EditText number = (EditText) window.findViewById(R.id.et_number);
         final TextView tv_price = (TextView) window.findViewById(R.id.tv_price);
-
+        RadioButton rb_carddialog_color1 = (RadioButton) window.findViewById(R.id.rb_carddialog_color1);
+        rb_carddialog_color1.setChecked(true);
+        RadioButton rb_carddialog_size1 = (RadioButton) window.findViewById(R.id.rb_carddialog_size1);
+        rb_carddialog_size1.setChecked(true);
+        ImageView iv_carddialog_dismiss = (ImageView) window.findViewById(R.id.iv_carddialog_dismiss);
+        iv_carddialog_dismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismissScanNumberDialog();
+            }
+        });
         final String num = number.getText().toString();
         int numInt = Integer.parseInt(num);
         if (numInt<=1){
@@ -86,6 +98,7 @@ public class DialogAlertUtils {
         btn_card_tianjia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
                 dismissScanNumberDialog();
             }
