@@ -13,11 +13,7 @@
         android:layout_width="match_parent"
         android:id="@+id/btn_alert_dialog"
         android:layout_height="wrap_content"/>
-<Button
-    android:text="点击获取数据"
-    android:layout_width="match_parent"
-    android:id="@+id/btn_get_shopcart"
-    android:layout_height="wrap_content"/>
+
     
    <ImageView
         android:layout_width="match_parent"

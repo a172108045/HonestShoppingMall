@@ -26,14 +26,16 @@ import java.util.List;
  */
 
 public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapter.MyViewHolder> {
-    private  TextView mTv_price_card;
+    private  CheckBox mCb_card_checkall;
+    private TextView mTv_price_card;
     private Context mContext;
     private List<SerchCardBean.CartBean> mData;
 
-    public CardRecyclerAdapter(Context context, SerchCardBean body,TextView tv_price_card) {
+    public CardRecyclerAdapter(Context context, SerchCardBean body, TextView tv_price_card, CheckBox cb_card_checkall) {
         this.mContext = context;
         this.mData = body.getCart();
         this.mTv_price_card = tv_price_card;
+        this.mCb_card_checkall = cb_card_checkall;
     }
 
 
@@ -50,6 +52,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final SerchCardBean.CartBean cartBean = mData.get(position);
+
         SerchCardBean.CartBean.PropertyBean property = cartBean.getProperty();
 
         final SerchCardBean.CartBean.ProductBean product = cartBean.getProduct();
@@ -103,10 +106,30 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 int price = Integer.parseInt(onePrice);
                 String s = holder.mEt_number.getText().toString();
+
                 if (s!=null){
                     int number = Integer.parseInt(s);
-                    holder.mTv_card_price.setText("$"+(number*price));
-                    mTv_price_card.setText("合计：$"+(number*price));
+                    //一个条目的总价格
+                    int oneItemPrice = number * price;
+                    holder.mTv_card_price.setText("$"+oneItemPrice);
+                   /* for (int j = 0; j < 20; j++) {
+                       if (holder.mCb_card.isChecked()){
+                           checkedNumber++;
+                       }
+                    }*/
+                    int allItemPrice = 0;
+                   //求所有条目的价格,便利所有自条目
+                    for (int j = 0; j < mData.size(); j++) {
+
+                        if (holder.mCb_card.isChecked()){
+                            String s1 = holder.mTv_card_price.getText().toString().substring(1);
+                            int i3 = Integer.parseInt(s1);
+                            allItemPrice+=i3;
+                        }
+
+                    }
+                    mTv_price_card.setText("合计：$"+allItemPrice);
+
                 }
 
 
@@ -121,6 +144,16 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         int number = Integer.parseInt(text);
         if (number<=0){
            holder.mBtn_card_remove.setEnabled(false);
+        }
+
+        if (mCb_card_checkall.isChecked()){
+            for (int i = 0; i < getItemCount(); i++) {
+                holder.mCb_card.setChecked(true);
+            }
+        }else{
+            for (int i = 0; i < getItemCount(); i++) {
+                holder.mCb_card.setChecked(false);
+            }
         }
     }
 

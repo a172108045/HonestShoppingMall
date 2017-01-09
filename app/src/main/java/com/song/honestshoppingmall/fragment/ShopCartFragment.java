@@ -1,5 +1,7 @@
 package com.song.honestshoppingmall.fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -28,28 +30,34 @@ import retrofit2.Response;
 
 public class ShopCartFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
-    private ImageView    mImageView;
-    private RecyclerView mRecyclerView;
+    private ImageView      mImageView;
+    private RecyclerView   mRecyclerView;
     private RelativeLayout mRelative_pay;
-    private TextView mTv_price_card;
+    private TextView       mTv_price_card;
+    private CheckBox       mCb_card_checkall;
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mCardRecyclerAdapter.notifyDataSetChanged();
+        }
+    };
+    private CardRecyclerAdapter mCardRecyclerAdapter;
 
     @Override
     protected View initView() {
 
         View view = View.inflate(mContext, R.layout.fragment_shopcart, null);
-        Button btn_get_shopcart = (Button) view.findViewById(R.id.btn_get_shopcart);
         mImageView = (ImageView) view.findViewById(R.id.iv_getdatafailed);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         Button btn_alert_dialog = (Button) view.findViewById(R.id.btn_alert_dialog);
         mRelative_pay = (RelativeLayout) view.findViewById(R.id.relative_pay);
-        CheckBox cb_card_checkall = (CheckBox) view.findViewById(R.id.cb_card_checkall);
+        mCb_card_checkall = (CheckBox) view.findViewById(R.id.cb_card_checkall);
         mTv_price_card = (TextView) view.findViewById(R.id.tv_price_card);
-        if (cb_card_checkall!=null){
-            cb_card_checkall.setOnCheckedChangeListener(this);
+        if (mCb_card_checkall!=null){
+            mCb_card_checkall.setOnCheckedChangeListener(this);
         }
 
-
-        btn_get_shopcart.setOnClickListener(this);
 
         btn_alert_dialog.setOnClickListener(this);
         return view;
@@ -63,10 +71,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_get_shopcart:
-                getShopCart();
 
-                break;
             case R.id.btn_alert_dialog:
                 DialogAlertUtils.showScanNumberDialog(mContext);
 
@@ -88,19 +93,18 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                             mImageView.setVisibility(View.GONE);
                             mRelative_pay.setVisibility(View.VISIBLE);
                             SerchCardBean body = response.body();
-                            Toast.makeText(mContext, body.toString(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(mContext, body.toString(), Toast.LENGTH_SHORT).show();
 
 
                             System.out.println("name=" + body.getCart().get(0).getProduct().getName());
 
                             //创建RecycleView,设置适配器
-                            CardRecyclerAdapter cardRecyclerAdapter = new CardRecyclerAdapter(mContext, body,mTv_price_card);
+                            mCardRecyclerAdapter = new CardRecyclerAdapter(mContext, body, mTv_price_card, mCb_card_checkall);
 
 
                             mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-                            mRecyclerView.setAdapter(cardRecyclerAdapter);
-
+                            mRecyclerView.setAdapter(mCardRecyclerAdapter);
 
 
                         }
@@ -115,21 +119,10 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 });
 
     }
+
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        if (b){
-            for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
-                View childAt = mRecyclerView.getLayoutManager().getChildAt(i);
-                CheckBox checkBox = (CheckBox) childAt.findViewById(R.id.cb_card);
-                checkBox.setChecked(true);
-            }
-        }else{
-            for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
-                View childAt = mRecyclerView.getLayoutManager().getChildAt(i);
-                CheckBox checkBox = (CheckBox) childAt.findViewById(R.id.cb_card);
-                checkBox.setChecked(false);
-            }
-        }
-
+        mHandler.sendEmptyMessage(0);
     }
 }
+
