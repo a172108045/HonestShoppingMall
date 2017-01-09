@@ -1,5 +1,6 @@
 package com.song.honestshoppingmall.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,31 +8,54 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
+import com.song.honestshoppingmall.bean.MyOrderBean;
+import com.song.honestshoppingmall.fragment.OrderDetailFragment;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * Created by Judy on 2017/1/8.
  */
 
 public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHolder> {
+    private Context mContext;
+    private List<MyOrderBean.OrderListBean> mOrderList;
+
+    public MyOrderAdapter(Context context, List<MyOrderBean.OrderListBean> orderList) {
+        this.mContext = context;
+        this.mOrderList = orderList;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.list_item_myorder, parent, false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HomeActivity)mContext).changeFragment(new OrderDetailFragment(), "OrderDetailFragment");
+            }
+        });
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tv_id.setText("订单编号:20170101");
-        holder.tv_price.setText("订单总额:¥ 200.0");
-        holder.tv_date.setText("2017-01-08 21:26:08");
-        holder.tv_state.setText("状态:未处理");
+        System.out.println("里面" + mOrderList.toString());
+        MyOrderBean.OrderListBean bean = mOrderList.get(position);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        holder.tv_id.setText("订单编号:" + bean.getOrderId());
+        holder.tv_price.setText("订单总额:¥ " + bean.getPrice());
+        holder.tv_date.setText(sdf.format(Long.parseLong(bean.getTime())));
+        holder.tv_state.setText("状态:" + bean.getStatus());
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return mOrderList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

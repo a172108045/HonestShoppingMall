@@ -11,6 +11,7 @@ import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.adapter.CardRecyclerAdapter;
 import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
+import com.song.honestshoppingmall.util.DialogAlertUtils;
 import com.song.honestshoppingmall.util.RetrofitUtil;
 
 import retrofit2.Call;
@@ -23,7 +24,7 @@ import retrofit2.Response;
 
 public class ShopCartFragment extends BaseFragment implements View.OnClickListener {
 
-    private ImageView mImageView;
+    private ImageView    mImageView;
     private RecyclerView mRecyclerView;
 
     @Override
@@ -33,7 +34,9 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
         Button btn_get_shopcart = (Button) view.findViewById(R.id.btn_get_shopcart);
         mImageView = (ImageView) view.findViewById(R.id.iv_getdatafailed);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        Button btn_alert_dialog = (Button) view.findViewById(R.id.btn_alert_dialog);
         btn_get_shopcart.setOnClickListener(this);
+        btn_alert_dialog.setOnClickListener(this);
         return view;
     }
 
@@ -46,15 +49,19 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-                    case R.id.btn_get_shopcart:
-                        getShopCart();
+            case R.id.btn_get_shopcart:
+                getShopCart();
 
-                        break;
+                break;
+            case R.id.btn_alert_dialog:
+                DialogAlertUtils.showScanNumberDialog(mContext);
 
-                    default:
-                        break;
+                break;
 
-                }
+            default:
+                break;
+
+        }
     }
 
     private void getShopCart() {
@@ -71,10 +78,10 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                             Toast.makeText(mContext, body.toString(), Toast.LENGTH_SHORT).show();
 
 
-                            System.out.println("name="+body.getCart().get(0).getProduct().getName());
+                            System.out.println("name=" + body.getCart().get(0).getProduct().getName());
 
                             //创建RecycleView,设置适配器
-                            CardRecyclerAdapter cardRecyclerAdapter = new CardRecyclerAdapter(mContext,body);
+                            CardRecyclerAdapter cardRecyclerAdapter = new CardRecyclerAdapter(mContext, body);
                             mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
                             mRecyclerView.setAdapter(cardRecyclerAdapter);
 
