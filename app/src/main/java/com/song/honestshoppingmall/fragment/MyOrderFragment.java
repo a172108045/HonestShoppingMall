@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.adapter.MyOrderAdapter;
@@ -47,9 +48,21 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
             } else {
                 mRecentAdapter.notifyDataSetChanged();
             }*/
-            mRecentAdapter = null;
-            mRecentAdapter = new MyOrderAdapter(mContext, mMyOrderBean.getOrderList());
-            mLv_recent_order.setAdapter(mRecentAdapter);
+            switch (msg.what) {
+                case 0:
+                    mIv_no_order.setVisibility(View.INVISIBLE);
+                    mLv_recent_order.setVisibility(View.VISIBLE);
+                    mRecentAdapter = null;
+                    mRecentAdapter = new MyOrderAdapter(mContext, mMyOrderBean.getOrderList());
+                    mLv_recent_order.setAdapter(mRecentAdapter);
+                    break;
+
+                case 1:
+                    mIv_no_order.setVisibility(View.VISIBLE);
+                    mLv_recent_order.setVisibility(View.INVISIBLE);
+                    Toast.makeText(mContext, "没有查询到订单", Toast.LENGTH_SHORT).show();
+                    break;
+            }
         }
     };
 
@@ -88,8 +101,11 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
             public void onResponse(Call<MyOrderBean> call, Response<MyOrderBean> response) {
                 if (response.isSuccessful()) {
                     mMyOrderBean = response.body();
-                    System.out.println(mMyOrderBean.toString());
-                    mHandler.sendEmptyMessage(0);
+                    if (mMyOrderBean.getOrderList().size() != 0) {
+                        mHandler.sendEmptyMessage(0);
+                    } else {
+                        mHandler.sendEmptyMessage(1);
+                    }
                 }
             }
 
