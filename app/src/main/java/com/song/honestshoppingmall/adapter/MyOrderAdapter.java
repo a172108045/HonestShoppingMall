@@ -1,6 +1,7 @@
 package com.song.honestshoppingmall.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,20 +33,23 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.list_item_myorder, parent, false);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((HomeActivity)mContext).changeFragment(new OrderDetailFragment(), "OrderDetailFragment");
-            }
-        });
+
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        System.out.println("里面" + mOrderList.toString());
-        MyOrderBean.OrderListBean bean = mOrderList.get(position);
+        final MyOrderBean.OrderListBean bean = mOrderList.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("orderId", bean.getOrderId());
+                ((HomeActivity)mContext).changeFragment(new OrderDetailFragment(), "OrderDetailFragment", bundle);
+
+            }
+        });
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         holder.tv_id.setText("订单编号:" + bean.getOrderId());
         holder.tv_price.setText("订单总额:¥ " + bean.getPrice());
@@ -59,6 +63,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public View itemView;
         public TextView tv_id;
         public TextView tv_price;
         public TextView tv_date;
@@ -75,6 +80,11 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
             this.tv_price = tv_price;
             this.tv_date = tv_date;
             this.tv_state = tv_state;
+            this.itemView = itemView;
+        }
+
+        public View getItemView() {
+            return itemView;
         }
     }
 

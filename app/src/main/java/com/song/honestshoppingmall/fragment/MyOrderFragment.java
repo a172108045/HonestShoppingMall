@@ -89,7 +89,6 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initNetData() {
-        System.out.println("zhixingle");
         Map<String, String> map = new HashMap<>();
         map.put("type", mGetType);
         map.put("page", "0");
@@ -101,7 +100,7 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
             public void onResponse(Call<MyOrderBean> call, Response<MyOrderBean> response) {
                 if (response.isSuccessful()) {
                     mMyOrderBean = response.body();
-                    if (mMyOrderBean.getOrderList().size() != 0) {
+                    if (mMyOrderBean.getOrderList() != null && mMyOrderBean.getOrderList().size() != 0) {
                         mHandler.sendEmptyMessage(0);
                     } else {
                         mHandler.sendEmptyMessage(1);
@@ -164,4 +163,20 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        switch (mGetType) {
+            case "1":
+                mBt_recent_order.performClick();
+                break;
+            case "2":
+                mBt_before_order.performClick();
+                break;
+            case "3":
+                mBt_cancelled_order.performClick();
+                break;
+        }
+        initNetData();
+    }
 }
