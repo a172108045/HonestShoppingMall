@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/drawer_main"
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-<TextView
-    android:text="主页"
-    style="@style/Title"
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-   />
     <FrameLayout
         android:id="@+id/popularrecommoend"
         android:layout_width="match_parent"
@@ -64,9 +59,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
         android:background="#9c9c9c">
 
         <ImageView
@@ -114,6 +109,5 @@
             android:src="@mipmap/home_title_pic2"/>
 
     </LinearLayout>
-
 
 </LinearLayout>

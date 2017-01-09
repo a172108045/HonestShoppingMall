@@ -20,25 +20,25 @@ import com.song.honestshoppingmall.fragment.ShopCartFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AppCompatActivity implements  RadioGroup.OnCheckedChangeListener {
+public class HomeActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
 
     @Bind(R.id.fl_home)
-    FrameLayout  mFlHome;
+    FrameLayout mFlHome;
     @Bind(R.id.rb_home)
-    RadioButton  mRbHome;
+    RadioButton mRbHome;
     @Bind(R.id.rb_category)
-    RadioButton  mRbCategory;
+    RadioButton mRbCategory;
     @Bind(R.id.rb_shopcart)
-    RadioButton  mRbShopcart;
+    RadioButton mRbShopcart;
     @Bind(R.id.rb_mine)
-    RadioButton  mRbMine;
+    RadioButton mRbMine;
     @Bind(R.id.rb_setting)
-    RadioButton  mRbSetting;
+    RadioButton mRbSetting;
+    @Bind(R.id.radio_group)
+    RadioGroup mRadioGroup;
     @Bind(R.id.activity_second)
     LinearLayout mActivitySecond;
-    @Bind(R.id.radio_group)
-    RadioGroup   mRadioGroup;
     private FragmentManager mFragmentManager;
 
     @Override
@@ -48,13 +48,16 @@ public class HomeActivity extends AppCompatActivity implements  RadioGroup.OnChe
         ButterKnife.bind(this);
         initView();
 
+
         //获取FragmentManager
         mFragmentManager = getSupportFragmentManager();
         initData();
 
+
     }
 
     private void initView() {
+
         mRadioGroup.setOnCheckedChangeListener(this);
 
     }
@@ -66,6 +69,7 @@ public class HomeActivity extends AppCompatActivity implements  RadioGroup.OnChe
 
     /**
      * 根据RadioGroup的选中子条目，切换Fragment页面
+     *
      * @param radioGroup
      * @param i
      */
@@ -75,12 +79,15 @@ public class HomeActivity extends AppCompatActivity implements  RadioGroup.OnChe
         removeAllFragment();
         switch (i) {
             case R.id.rb_home:
+                System.out.println("页面切换监听到了");
                 changeFragment(new HomeFragment(), "HomeFragment");
                 break;
             case R.id.rb_category:
+                System.out.println("页面切换监听到了");
                 changeFragment(new CategoryFragment(), "CategoryFragment");
                 break;
             case R.id.rb_shopcart:
+                System.out.println("页面切换监听到了");
                 changeFragment(new ShopCartFragment(), "ShopCartFragment");
                 break;
             case R.id.rb_mine:
@@ -91,6 +98,7 @@ public class HomeActivity extends AppCompatActivity implements  RadioGroup.OnChe
                 break;
         }
     }
+
     /**
      * 切换页面， 并且是有返回栈的
      *
