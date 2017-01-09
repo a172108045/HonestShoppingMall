@@ -10,16 +10,17 @@ import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.bean.MyOrderBean;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * Created by Judy on 2017/1/8.
  */
 
 public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHolder> {
-    private final MyOrderBean myOrderBean;
+    private List<MyOrderBean.OrderListBean> mOrderList;
 
-    public MyOrderAdapter(MyOrderBean myOrderBean) {
-        this.myOrderBean = myOrderBean;
+    public MyOrderAdapter(List<MyOrderBean.OrderListBean> orderList) {
+        this.mOrderList = orderList;
     }
 
     @Override
@@ -32,7 +33,8 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        MyOrderBean.OrderListBean bean = myOrderBean.getOrderList().get(position);
+        System.out.println("里面" + mOrderList.toString());
+        MyOrderBean.OrderListBean bean = mOrderList.get(position);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         holder.tv_id.setText("订单编号:" + bean.getOrderId());
         holder.tv_price.setText("订单总额:¥ " + bean.getPrice());
@@ -42,7 +44,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return myOrderBean.getOrderList().size();
+        return mOrderList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

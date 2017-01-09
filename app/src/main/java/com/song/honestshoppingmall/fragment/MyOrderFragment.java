@@ -34,19 +34,22 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
     private ImageView mIv_no_order;
     private RecyclerView mLv_recent_order;
     private MyOrderBean mMyOrderBean;
-    private String mGetType = "2";
+    private String mGetType = "1";
     private MyOrderAdapter mRecentAdapter;
 
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (mRecentAdapter == null && mMyOrderBean != null && mMyOrderBean.getOrderList() != null) {
-                mRecentAdapter = new MyOrderAdapter(mMyOrderBean);
+/*            if (mRecentAdapter == null && mMyOrderBean != null) {
+                mRecentAdapter = new MyOrderAdapter(mMyOrderBean.getOrderList());
                 mLv_recent_order.setAdapter(mRecentAdapter);
-            } else if(mMyOrderBean.getOrderList() != null){
+            } else {
                 mRecentAdapter.notifyDataSetChanged();
-            }
+            }*/
+            mRecentAdapter = null;
+            mRecentAdapter = new MyOrderAdapter(mMyOrderBean.getOrderList());
+            mLv_recent_order.setAdapter(mRecentAdapter);
         }
     };
 
