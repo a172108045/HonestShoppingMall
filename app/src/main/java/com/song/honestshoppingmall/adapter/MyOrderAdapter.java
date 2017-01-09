@@ -1,5 +1,6 @@
 package com.song.honestshoppingmall.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.bean.MyOrderBean;
+import com.song.honestshoppingmall.fragment.OrderDetailFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -17,9 +20,11 @@ import java.util.List;
  */
 
 public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHolder> {
+    private Context mContext;
     private List<MyOrderBean.OrderListBean> mOrderList;
 
-    public MyOrderAdapter(List<MyOrderBean.OrderListBean> orderList) {
+    public MyOrderAdapter(Context context, List<MyOrderBean.OrderListBean> orderList) {
+        this.mContext = context;
         this.mOrderList = orderList;
     }
 
@@ -27,6 +32,12 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.list_item_myorder, parent, false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HomeActivity)mContext).changeFragment(new OrderDetailFragment(), "OrderDetailFragment");
+            }
+        });
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }

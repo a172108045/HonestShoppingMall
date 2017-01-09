@@ -48,7 +48,7 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
                 mRecentAdapter.notifyDataSetChanged();
             }*/
             mRecentAdapter = null;
-            mRecentAdapter = new MyOrderAdapter(mMyOrderBean.getOrderList());
+            mRecentAdapter = new MyOrderAdapter(mContext, mMyOrderBean.getOrderList());
             mLv_recent_order.setAdapter(mRecentAdapter);
         }
     };
@@ -72,7 +72,6 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
 
         mLv_recent_order.setLayoutManager(new LinearLayoutManager(mContext));
         initNetData();
-
 
     }
 
@@ -117,7 +116,6 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
                 mBt_before_order.setTextColor(Color.BLACK);
                 mBt_cancelled_order.setTextColor(Color.BLACK);
 
-
                 break;
             case R.id.bt_before_order:
                 mGetType = "2";
@@ -143,6 +141,7 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
                 mBt_recent_order.setTextColor(Color.BLACK);
                 mBt_before_order.setTextColor(Color.BLACK);
                 mBt_cancelled_order.setTextColor(Color.WHITE);
+
                 break;
 
         }
