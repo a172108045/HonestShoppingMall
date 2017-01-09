@@ -4,7 +4,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
@@ -22,10 +26,12 @@ import retrofit2.Response;
  * Created by Judy on 2017/1/8.
  */
 
-public class ShopCartFragment extends BaseFragment implements View.OnClickListener {
+public class ShopCartFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private ImageView    mImageView;
     private RecyclerView mRecyclerView;
+    private RelativeLayout mRelative_pay;
+    private TextView mTv_price_card;
 
     @Override
     protected View initView() {
@@ -35,15 +41,23 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
         mImageView = (ImageView) view.findViewById(R.id.iv_getdatafailed);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         Button btn_alert_dialog = (Button) view.findViewById(R.id.btn_alert_dialog);
+        mRelative_pay = (RelativeLayout) view.findViewById(R.id.relative_pay);
+        CheckBox cb_card_checkall = (CheckBox) view.findViewById(R.id.cb_card_checkall);
+        mTv_price_card = (TextView) view.findViewById(R.id.tv_price_card);
+        if (cb_card_checkall!=null){
+            cb_card_checkall.setOnCheckedChangeListener(this);
+        }
+
+
         btn_get_shopcart.setOnClickListener(this);
+
         btn_alert_dialog.setOnClickListener(this);
         return view;
     }
 
     @Override
     protected void initData() {
-        APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
-
+        getShopCart();
     }
 
     @Override
@@ -65,8 +79,6 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void getShopCart() {
-
-
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
         apiRetrofitInstance.getSerchCartBean("20428")
                 .enqueue(new Callback<SerchCardBean>() {
@@ -74,6 +86,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                     public void onResponse(Call<SerchCardBean> call, Response<SerchCardBean> response) {
                         if (response.isSuccessful()) {
                             mImageView.setVisibility(View.GONE);
+                            mRelative_pay.setVisibility(View.VISIBLE);
                             SerchCardBean body = response.body();
                             Toast.makeText(mContext, body.toString(), Toast.LENGTH_SHORT).show();
 
@@ -81,9 +94,14 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                             System.out.println("name=" + body.getCart().get(0).getProduct().getName());
 
                             //创建RecycleView,设置适配器
-                            CardRecyclerAdapter cardRecyclerAdapter = new CardRecyclerAdapter(mContext, body);
+                            CardRecyclerAdapter cardRecyclerAdapter = new CardRecyclerAdapter(mContext, body,mTv_price_card);
+
+
                             mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+
                             mRecyclerView.setAdapter(cardRecyclerAdapter);
+
+
 
                         }
                     }
@@ -91,12 +109,27 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                     @Override
                     public void onFailure(Call<SerchCardBean> call, Throwable t) {
                         mImageView.setVisibility(View.VISIBLE);
+                        mRelative_pay.setVisibility(View.GONE);
                         Toast.makeText(mContext, t.toString(), Toast.LENGTH_SHORT).show();
-
-
                     }
                 });
 
     }
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if (b){
+            for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+                View childAt = mRecyclerView.getLayoutManager().getChildAt(i);
+                CheckBox checkBox = (CheckBox) childAt.findViewById(R.id.cb_card);
+                checkBox.setChecked(true);
+            }
+        }else{
+            for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+                View childAt = mRecyclerView.getLayoutManager().getChildAt(i);
+                CheckBox checkBox = (CheckBox) childAt.findViewById(R.id.cb_card);
+                checkBox.setChecked(false);
+            }
+        }
 
+    }
 }

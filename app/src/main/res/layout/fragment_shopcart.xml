@@ -19,7 +19,7 @@
     android:id="@+id/btn_get_shopcart"
     android:layout_height="wrap_content"/>
     
-    <ImageView
+   <ImageView
         android:layout_width="match_parent"
         android:id="@+id/iv_getdatafailed"
         android:src="@mipmap/bg_privilege"
@@ -28,5 +28,46 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_weight="1"
+        android:layout_height="0dp"></android.support.v7.widget.RecyclerView>
+    <RelativeLayout
+        android:id="@+id/relative_pay"
+        android:visibility="gone"
+        android:padding="10dp"
+        android:background="#bfbebe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:text="全选"
+            android:layout_width="wrap_content"
+            android:id="@+id/cb_card_checkall"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_price_card"
+                android:layout_width="wrap_content"
+                android:textColor="#f00"
+                android:text="合计：100.0"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:text="不含优惠，优惠扣减"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+       <Button
+           android:text="去结算"
+           android:layout_alignParentRight="true"
+           android:layout_marginRight="10dp"
+           android:layout_width="wrap_content"
+          android:background="@drawable/shape_rectangle_pink"
+           android:layout_height="wrap_content"/>
+    </RelativeLayout>
 </LinearLayout>

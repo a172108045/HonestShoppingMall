@@ -2,6 +2,8 @@ package com.song.honestshoppingmall.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +26,17 @@ import java.util.List;
  */
 
 public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapter.MyViewHolder> {
-    private Context                      mContext;
+    private  TextView mTv_price_card;
+    private Context mContext;
     private List<SerchCardBean.CartBean> mData;
 
-    public CardRecyclerAdapter(Context context, SerchCardBean body) {
+    public CardRecyclerAdapter(Context context, SerchCardBean body,TextView tv_price_card) {
         this.mContext = context;
         this.mData = body.getCart();
+        this.mTv_price_card = tv_price_card;
     }
+
+
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -53,6 +59,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         holder.mTv_card_color.setText("颜色：" + property.getV());
         holder.mTv_card_size.setText("尺码：" + product.getNumber());
         holder.mTv_card_price.setText("$" + product.getPrice());
+        mTv_price_card.setText("$" + product.getPrice());
         holder.mBtn_card_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +75,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
                     Toast.makeText(mContext, "现在没有那么多货哟亲~", Toast.LENGTH_SHORT).show();
                 }
                 holder.mEt_number.setText(i+1+"");
+
             }
         });
         holder.mBtn_card_remove.setOnClickListener(new View.OnClickListener() {
@@ -80,11 +88,38 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
                     holder.mBtn_card_remove.setEnabled(false);
                 }
                 holder.mEt_number.setText(i-1+"");
+
+            }
+        });
+        final String onePrice = holder.mTv_card_price.getText().toString().substring(1);
+
+        holder.mEt_number.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int price = Integer.parseInt(onePrice);
+                String s = holder.mEt_number.getText().toString();
+                if (s!=null){
+                    int number = Integer.parseInt(s);
+                    holder.mTv_card_price.setText("$"+(number*price));
+                    mTv_price_card.setText("合计：$"+(number*price));
+                }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
         String text = holder.mEt_number.getText().toString();
         int number = Integer.parseInt(text);
-        if (number<=1){
+        if (number<=0){
            holder.mBtn_card_remove.setEnabled(false);
         }
     }
@@ -98,10 +133,11 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+     class MyViewHolder extends RecyclerView.ViewHolder {
 
 
-        CheckBox  mCb_card;
+
+       CheckBox mCb_card;
         ImageView mIv_card;
         TextView  mTv_card_color;
         TextView  mTv_card_size;
@@ -124,5 +160,9 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
         }
 
+
+
     }
+
+
 }
