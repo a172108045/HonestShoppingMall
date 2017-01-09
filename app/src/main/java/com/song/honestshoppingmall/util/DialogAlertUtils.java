@@ -2,12 +2,15 @@ package com.song.honestshoppingmall.util;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
@@ -52,6 +55,7 @@ public class DialogAlertUtils {
         final Button btn_card_add = (Button) window.findViewById(R.id.btn_card_add);
         final Button btn_card_tianjia = (Button) window.findViewById(R.id.btn_card_tianjia);
         final EditText number = (EditText) window.findViewById(R.id.et_number);
+        final TextView tv_price = (TextView) window.findViewById(R.id.tv_price);
 
         final String num = number.getText().toString();
         int numInt = Integer.parseInt(num);
@@ -84,6 +88,34 @@ public class DialogAlertUtils {
             public void onClick(View view) {
                 Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
                 dismissScanNumberDialog();
+            }
+        });
+        final String mOriginPrice = tv_price.getText().toString().substring(1);
+        number.addTextChangedListener(new TextWatcher() {
+
+
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //一个的时候的价格
+
+                int price = Integer.parseInt(mOriginPrice);
+
+                //选购的数量productNum
+                String s = number.getText().toString();
+                int productNum = Integer.parseInt(s);
+
+                tv_price.setText("$"+(price*productNum));
             }
         });
 
