@@ -3,6 +3,7 @@ package com.song.honestshoppingmall.util;
 import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
+import com.song.honestshoppingmall.bean.OrderDetailBean;
 import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.bean.SerchResultBean;
@@ -80,4 +81,12 @@ public interface APIRetrofit {
 
     @GET("selectCart")
     Call<SerchCardBean> getSerchCartBean(@Query("userId") String userId);
+
+    @GET("orderdetail")
+    Call<OrderDetailBean> getOrderDetailBean(@Query("orderId") String orderId, @Header("userid") String value);
+
+    @FormUrlEncoded
+    @POST("ordercancel")
+    Call<LoginResultBean> cancelOrder(@Field("orderId") String orderId, @Header("userid") String value);
+
 }
