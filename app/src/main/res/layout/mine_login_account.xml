@@ -54,6 +54,18 @@
                 android:textStyle="bold"/>
         </LinearLayout>
 
+        <ImageView
+
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/payment_new"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="53dp"
+            android:id="@+id/imageView"/>
+
 
     </RelativeLayout>
 
@@ -117,13 +129,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:orientation="horizontal">
-
-                <ImageView
-
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/payment_new"/>
 
                 <ImageView
 
@@ -205,71 +210,64 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/payment_new"/>
+                    android:src="@mipmap/location_new"/>
 
                 <ImageView
 
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/send_new"/>
+                    android:src="@mipmap/collect_new"/>
                 <ImageView
 
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/income_new"/>
+                    android:src="@mipmap/attention_new"/>
                 <ImageView
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/say_new"/>
-                <ImageView
+                    android:src="@mipmap/footprint_new"/>
 
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/refund_new"/>
 
             </LinearLayout>
             <LinearLayout
                 android:paddingTop="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="80dp"
                 android:orientation="horizontal">
 
-                <ImageView
 
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/payment_new"/>
 
                 <ImageView
 
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/send_new"/>
+                    android:src="@mipmap/privilege_newnew"/>
                 <ImageView
 
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/income_new"/>
+                    android:src="@mipmap/like_newnew"/>
+
                 <ImageView
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/say_new"/>
+                    android:src="@mipmap/money_new"/>
+
                 <ImageView
 
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/refund_new"/>
+                    android:src="@mipmap/member_newnew"/>
 
             </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 
