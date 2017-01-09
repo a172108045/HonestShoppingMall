@@ -23,6 +23,7 @@
             android:padding="5dp">
 
             <TextView
+                android:id="@+id/send_query"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_kuang_pink"
@@ -218,80 +219,20 @@
                 android:text="商品清单"
                 android:textSize="18sp"/>
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/ll_product_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/shape_kuang"
-                android:padding="5dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_shangpinmingchen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="商品名称:"/>
-                <TextView
-                    android:id="@+id/tv_yanse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_shangpinmingchen"
-                    android:text="颜色:"/>
-                <TextView
-                    android:id="@+id/tv_chima"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_yanse"
-                    android:text="尺码:"/>
-                <TextView
-                    android:id="@+id/tv_shuliang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_chima"
-                    android:text="数量:"/>
-                <TextView
-                    android:id="@+id/tv_danjia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_shuliang"
-                    android:text="单价:"/>
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="裙子"/>
-                <TextView
-                    android:id="@+id/tv_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_name"
-                    android:text="蓝色"/>
-                <TextView
-                    android:id="@+id/tv_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_color"
-                    android:text="S"/>
-                <TextView
-                    android:id="@+id/tv_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_size"
-                    android:text="5"/>
-                <TextView
-                    android:id="@+id/tv_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_number"
-                    android:text="¥300"/>
-
-
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="订单总计"
+                android:textSize="18sp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -305,28 +246,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="数量总计:"/>
-
-                <TextView
-                    android:id="@+id/tv_yuanshijine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_shuliangzongji"
-                    android:text="原始金额:"/>
-
                 <TextView
                     android:id="@+id/tv_yunfei"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_yuanshijine"
+                    android:layout_below="@+id/tv_shuliangzongji"
                     android:text="运费:"/>
-
                 <TextView
                     android:id="@+id/tv_cuxiaoyouhui"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_yunfei"
-                    android:text="促销优惠金额:"/>
-
+                    android:text="商城积分:"/>
                 <TextView
                     android:id="@+id/tv_yingzhifujine"
                     android:layout_width="wrap_content"
@@ -340,23 +271,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="5件"/>
-
-                <TextView
-                    android:id="@+id/tv_origin_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_count"
-                    android:text="¥300.00"/>
-
                 <TextView
                     android:id="@+id/tv_send_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_origin_price"
+                    android:layout_below="@+id/tv_count"
                     android:text="¥10.00"/>
-
                 <TextView
                     android:id="@+id/tv_free_price"
                     android:layout_width="wrap_content"
@@ -364,7 +285,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/tv_send_price"
                     android:text="¥0.00"/>
-
                 <TextView
                     android:id="@+id/tv_deserve_price"
                     android:layout_width="wrap_content"
@@ -377,6 +297,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_cancel_order"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
