@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.RetrofitUtil;
@@ -86,15 +87,27 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.bt_login_login:
                 String loginText = mLogin.getText().toString();
                 if (loginText.equals("登陆")) {
+                    String username = et_user_login.getEditText().getText().toString();
+                    String pass = et_pass_login.getEditText().getText().toString();
                     APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
-                    apiRetrofitInstance.login("test", "test").enqueue(new Callback<LoginResultBean>() {
+                    apiRetrofitInstance.login(username, pass).enqueue(new Callback<LoginResultBean>() {
                         @Override
                         public void onResponse(Call<LoginResultBean> call, Response<LoginResultBean> response) {
                             if (response.isSuccessful()) {
-                                LoginResultBean body = response.body();
+                                if (response.body().error==null){
+                                    ((HomeActivity) mContext).changeFragment(new UserFragment(),"UserFragment");
+                                }else{
+                                    Toast.makeText(mContext, response.body().error_code, Toast.LENGTH_SHORT).show();
+                                }
+                               /* LoginResultBean body = response.body();
+                                LoginResultBean.UserInfoBean userInfo = body.getUserInfo();
+//                                String userid = userInfo.getUserid();*/
+
+
+
 
                             } else {
-
+                                Toast.makeText(mContext,"你的账号密码特么的不正确!",Toast.LENGTH_SHORT).show();
                             }
                         }
 
