@@ -7,6 +7,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.bean.LoginResultBean;
+import com.song.honestshoppingmall.util.APIRetrofit;
+import com.song.honestshoppingmall.util.RetrofitUtil;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Judy on 2017/1/8.
@@ -23,6 +30,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected View initView() {
         View view = View.inflate(mContext, R.layout.fragment_mine, null);
+
+
+
         bt_title_login = (Button) view.findViewById(R.id.bt_title_login);
         bt_title_register = (Button) view.findViewById(R.id.bt_title_register);
         mLogin = (Button) view.findViewById(R.id.bt_login_login);
@@ -59,6 +69,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     bt_title_register.setEnabled(true);
                     mLogin.setText("登陆");
 
+
+
+
                 break;
             case R.id.bt_title_register:
                     mTextInputLayout.setVisibility(View.VISIBLE);
@@ -70,6 +83,23 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.bt_login_login:
                 String loginText = mLogin.getText().toString();
                 if(loginText.equals("登陆")) {
+                    APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
+                    apiRetrofitInstance.login("test","test").enqueue(new Callback<LoginResultBean>() {
+                        @Override
+                        public void onResponse(Call<LoginResultBean> call, Response<LoginResultBean> response) {
+                            if (response.isSuccessful()) {
+                                LoginResultBean body = response.body();
+                                Toast.makeText(mContext, body.toString(), Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<LoginResultBean> call, Throwable t) {
+                            Toast.makeText(mContext, t.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
                 }else {
                     Toast.makeText(getContext(), "丑拒", Toast.LENGTH_SHORT).show();

@@ -143,12 +143,9 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
                 mBt_recent_order.setTextColor(Color.BLACK);
                 mBt_before_order.setTextColor(Color.BLACK);
                 mBt_cancelled_order.setTextColor(Color.WHITE);
-
-
                 break;
 
         }
-
 
     }
 
