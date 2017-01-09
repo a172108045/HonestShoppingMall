@@ -25,7 +25,7 @@ import java.util.List;
  * Created by lizhenquan on 2017/1/8.
  */
 
-public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapter.MyViewHolder> {
+public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapter.MyViewHolder> implements View.OnClickListener {
     private  CheckBox mCb_card_checkall;
     private TextView mTv_price_card;
     private Context mContext;
@@ -42,9 +42,9 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                mContext).inflate(R.layout.recycle_card_item, parent,
-                false));
+        View view = LayoutInflater.from(mContext).inflate(R.layout.recycle_card_item, parent,false);
+        MyViewHolder holder = new MyViewHolder(view);
+        view.setOnClickListener(this);
         return holder;
 
     }
@@ -60,7 +60,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 //        holder.mIv_card.setImageURI(Uri.parse(Urls.BASE_URL + product.getPic()));
         Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + product.getPic()).into(holder.mIv_card);
         holder.mTv_card_color.setText("颜色：" + property.getV());
-        holder.mTv_card_size.setText("尺码：" + product.getNumber());
+        holder.mTv_card_size.setText("      尺码：" + product.getNumber());
         holder.mTv_card_price.setText("$" + product.getPrice());
         mTv_price_card.setText("$" + product.getPrice());
         holder.mBtn_card_add.setOnClickListener(new View.OnClickListener() {
@@ -163,10 +163,15 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         return mData.size();
     }
 
+    @Override
+    public void onClick(View view) {
+        if (mOnItemClickListener !=null){
+            mOnItemClickListener.onItemClick(view, (String) view.getTag());
+        }
+    }
 
 
-
-     class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
 
 
@@ -196,6 +201,12 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
 
     }
-
-
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+    //define interface
+    public static interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view , String data);
+    }
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener){
+        this.mOnItemClickListener = listener;
+    }
 }

@@ -59,6 +59,7 @@
         </LinearLayout>
 
        <Button
+           android:id="@+id/btn_gotopay"
            android:text="去结算"
            android:layout_alignParentRight="true"
            android:layout_marginRight="10dp"
