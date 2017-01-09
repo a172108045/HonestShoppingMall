@@ -42,7 +42,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
             mCardRecyclerAdapter.notifyDataSetChanged();
         }
     };
-    private CardRecyclerAdapter mCardRecyclerAdapter;
+    public CardRecyclerAdapter mCardRecyclerAdapter;
 
     @Override
     protected View initView() {
@@ -57,8 +57,8 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
         if (mCb_card_checkall!=null){
             mCb_card_checkall.setOnCheckedChangeListener(this);
         }
-
-
+        Button btn_gotopay = (Button) view.findViewById(R.id.btn_gotopay);
+        btn_gotopay.setOnClickListener(this);
         btn_alert_dialog.setOnClickListener(this);
         return view;
     }
@@ -71,7 +71,9 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
+            case R.id.btn_gotopay:
+                Toast.makeText(mContext, "点击进入结算页面", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.btn_alert_dialog:
                 DialogAlertUtils.showScanNumberDialog(mContext);
 
@@ -103,8 +105,14 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
 
                             mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-
+                            mRecyclerView.setHasFixedSize(true);
                             mRecyclerView.setAdapter(mCardRecyclerAdapter);
+                            mCardRecyclerAdapter.setOnItemClickListener(new CardRecyclerAdapter.OnRecyclerViewItemClickListener() {
+                                @Override
+                                public void onItemClick(View view, String data) {
+                                    Toast.makeText(mContext, "点击跳转到商品详情页面", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
 
                         }

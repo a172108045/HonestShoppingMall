@@ -16,6 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.bean.AddCartBean;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -98,6 +106,35 @@ public class DialogAlertUtils {
         btn_card_tianjia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //发送get请求
+                Map<String,String> map = new HashMap<String, String>();
+                map.put("userId","20428");
+                map.put("productId","26");
+                map.put("productCount","1");
+                map.put("propertyId","1");
+
+                APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
+                apiRetrofitInstance.getAddCartBean(map).enqueue(new Callback<AddCartBean>() {
+                    @Override
+                    public void onResponse(Call<AddCartBean> call, Response<AddCartBean> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().error==null){
+                                Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+                                dismissScanNumberDialog();
+                            }else{
+                                Toast.makeText(context, response.body().error, Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<AddCartBean> call, Throwable t) {
+                        Toast.makeText(context, t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
                 Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
                 dismissScanNumberDialog();
