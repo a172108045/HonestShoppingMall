@@ -4,6 +4,7 @@ import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.bean.SerchCardBean;
+import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.bean.SerchResultBean;
 import com.song.honestshoppingmall.bean.Userbean;
 
@@ -73,6 +74,9 @@ public interface APIRetrofit {
      */
     @GET("addCart")
     Call<AddCartBean> getAddCartBean(@QueryMap Map<String,String> params );
+
+    @GET("orderlist")
+    Call<MyOrderBean> getMyOrderBean(@QueryMap Map<String,String> params,@Header("userid") String value);
 
     @GET("selectCart")
     Call<SerchCardBean> getSerchCartBean(@Query("userId") String userId);

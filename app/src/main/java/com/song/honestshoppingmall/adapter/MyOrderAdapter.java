@@ -7,12 +7,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.bean.MyOrderBean;
+
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Judy on 2017/1/8.
  */
 
 public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHolder> {
+    private final MyOrderBean myOrderBean;
+
+    public MyOrderAdapter(MyOrderBean myOrderBean) {
+        this.myOrderBean = myOrderBean;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
@@ -23,15 +32,17 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tv_id.setText("订单编号:20170101");
-        holder.tv_price.setText("订单总额:¥ 200.0");
-        holder.tv_date.setText("2017-01-08 21:26:08");
-        holder.tv_state.setText("状态:未处理");
+        MyOrderBean.OrderListBean bean = myOrderBean.getOrderList().get(position);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        holder.tv_id.setText("订单编号:" + bean.getOrderId());
+        holder.tv_price.setText("订单总额:¥ " + bean.getPrice());
+        holder.tv_date.setText(sdf.format(Long.parseLong(bean.getTime())));
+        holder.tv_state.setText("状态:" + bean.getStatus());
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return myOrderBean.getOrderList().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
