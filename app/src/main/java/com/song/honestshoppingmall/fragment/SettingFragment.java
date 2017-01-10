@@ -30,6 +30,17 @@ public class SettingFragment extends BaseFragment {
         });
         ((LinearLayout)view).addView(button1);
 
+        //张业松跳转结算界面用
+        Button button2 = new Button(mContext);
+        button2.setText("结算界面");
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HomeActivity)mContext).changeFragment(new CheckOutFragment(), "CheckOutFragment");
+            }
+        });
+        ((LinearLayout)view).addView(button2);
+
 
         return view;
     }
@@ -38,4 +49,5 @@ public class SettingFragment extends BaseFragment {
     protected void initData() {
 
     }
+
 }

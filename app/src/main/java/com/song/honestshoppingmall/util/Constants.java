@@ -7,4 +7,5 @@ package com.song.honestshoppingmall.util;
 
 public interface Constants {
 
+    String USERID = "userid";
 }

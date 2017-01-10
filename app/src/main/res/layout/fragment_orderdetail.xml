@@ -98,17 +98,10 @@
                     android:text="订单状态:"/>
 
                 <TextView
-                    android:id="@+id/tv_songhuofangshi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_dingdanzhuangtai"
-                    android:text="送货方式:"/>
-
-                <TextView
                     android:id="@+id/tv_zhifufangshi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_songhuofangshi"
+                    android:layout_below="@+id/tv_dingdanzhuangtai"
                     android:text="支付方式:"/>
 
                 <TextView
@@ -154,19 +147,11 @@
                     android:text="未处理"/>
 
                 <TextView
-                    android:id="@+id/tv_send_method"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_state"
-                    android:text="快递"/>
-
-                <TextView
                     android:id="@+id/tv_pay_method"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_send_method"
+                    android:layout_below="@+id/tv_state"
                     android:text="货到付款"/>
 
                 <TextView

@@ -1,6 +1,7 @@
 package com.song.honestshoppingmall.util;
 
 import com.song.honestshoppingmall.bean.AddCartBean;
+import com.song.honestshoppingmall.bean.CheckOutBean;
 import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.bean.OrderDetailBean;
@@ -88,6 +89,10 @@ public interface APIRetrofit {
     @FormUrlEncoded
     @POST("ordercancel")
     Call<LoginResultBean> cancelOrder(@Field("orderId") String orderId, @Header("userid") String value);
+
+    @FormUrlEncoded
+    @POST("checkout")
+    Call<CheckOutBean> getCheckOutBean(@Field("sku") String sku, @Header("userid") String userid);
 
 
 

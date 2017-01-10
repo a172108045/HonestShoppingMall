@@ -28,7 +28,6 @@ public class OrderDetailFragment extends BaseFragment {
     private TextView mTvOrderid;
     private TextView mTvAddress;
     private TextView mTvState;
-    private TextView mTvSendMethod;
     private TextView mTvPayMethod;
     private TextView mTvGeneratedTime;
     private TextView mTvSendTime;
@@ -44,12 +43,8 @@ public class OrderDetailFragment extends BaseFragment {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private String[] payMethod = {"货到付款", "货到POS机", "在线支付"};
     private String[] sendTime = {"周一至周五送货", "双休日及公众假期送货", "送货时间不限"};
-
-
-
     private String mOrderId;
     private OrderDetailBean mOrderDetailBean;
-
 
     private Handler mHandler = new Handler() {
         @Override
@@ -81,7 +76,6 @@ public class OrderDetailFragment extends BaseFragment {
         mTvAddress.setText(mOrderDetailBean.getAddressInfo().getAddressArea() + mOrderDetailBean.getAddressInfo().getAddressDetail());
 
         mTvState.setText(mOrderDetailBean.getOrderInfo().getStatus());
-        mTvSendMethod.setText("顺丰快递");
         mTvPayMethod.setText(payMethod[mOrderDetailBean.getPaymentInfo().getType() - 1]);
         mTvGeneratedTime.setText(sdf.format(Long.parseLong(mOrderDetailBean.getOrderInfo().getTime())));
         mTvSendTime.setText(sdf.format(Long.parseLong(mOrderDetailBean.getOrderInfo().getTime())));
@@ -136,7 +130,6 @@ public class OrderDetailFragment extends BaseFragment {
         mTvAddress = (TextView) view.findViewById(R.id.tv_address);
 
         mTvState = (TextView) view.findViewById(R.id.tv_state);
-        mTvSendMethod = (TextView) view.findViewById(R.id.tv_send_method);
         mTvPayMethod = (TextView) view.findViewById(R.id.tv_pay_method);
         mTvGeneratedTime = (TextView) view.findViewById(R.id.tv_generated_time);
         mTvSendTime = (TextView) view.findViewById(R.id.tv_send_time);
