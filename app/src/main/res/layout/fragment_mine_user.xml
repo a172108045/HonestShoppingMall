@@ -11,7 +11,7 @@
             android:background="@mipmap/user_center_bg">
 
             <ImageView
-                android:id="@+id/iv_back_account"
+                android:id="@+id/iv_comeback_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -36,14 +36,14 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_pictuer_account"
+                    android:id="@+id/iv_pictuer_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:src="@mipmap/usercenter_head"/>
 
                 <TextView
-                    android:id="@+id/tv_username_account"
+                    android:id="@+id/tv_usermsg_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawablePadding="5dp"
@@ -89,7 +89,7 @@
                 >
 
                 <RelativeLayout
-                    android:id="@+id/relativelayout_myaccount"
+                    android:id="@+id/relativelayout_myorder"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:background="@mipmap/regist_bg"
@@ -128,6 +128,13 @@
                     android:layout_height="70dp"
                     android:orientation="horizontal"
                     android:paddingTop="10dp">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@mipmap/payment_new"
+                        />
 
                     <ImageView
 
@@ -211,14 +218,14 @@
                     android:paddingTop="10dp">
 
                     <ImageView
-
+                        android:id="@+id/iv_address_user"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@mipmap/location_new"/>
 
                     <ImageView
-
+                        android:id="@+id/iv_collect_user"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -282,6 +289,7 @@
                 android:layout_height="match_parent">
 
                 <Button
+                    android:id="@+id/bt_logout_user"
                     android:layout_width="200dp"
                     android:layout_height="38dp"
                     android:layout_centerHorizontal="true"
