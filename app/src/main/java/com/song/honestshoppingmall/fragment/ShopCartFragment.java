@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.CardRecyclerAdapter;
 import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
@@ -45,11 +46,14 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
         View view = View.inflate(mContext, R.layout.fragment_shopcart, null);
         mImageView = (ImageView) view.findViewById(R.id.iv_getdatafailed);
+        Button btn_select = (Button) view.findViewById(R.id.btn_select);
+
+        btn_select.setOnClickListener(this);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         Button btn_alert_dialog = (Button) view.findViewById(R.id.btn_alert_dialog);
         mRelative_pay = (RelativeLayout) view.findViewById(R.id.relative_pay);
         mCb_card_checkall = (CheckBox) view.findViewById(R.id.cb_card_checkall);
-        mTv_price_card = (TextView) view.findViewById(R.id.tv_price_card);
+        mTv_price_card = (TextView) view.findViewById(R.id.tv_totalPrice);
         if (mCb_card_checkall != null) {
             mCb_card_checkall.setOnCheckedChangeListener(this);
         }
@@ -71,8 +75,9 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
         super.onResume();
 
     }
-    public void refreshData(){
+    public   void refreshData(){
         getShopCart();
+
         mCardRecyclerAdapter.notifyDataSetChanged();
 
     }
@@ -86,7 +91,9 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 DialogAlertUtils.showScanNumberDialog(mContext);
                 getShopCart();
                 break;
-
+            case R.id.btn_select:
+                ((HomeActivity) mContext).changeFragment(new SerchFragment(),"SerchFragment");
+                break;
             default:
                 break;
 
