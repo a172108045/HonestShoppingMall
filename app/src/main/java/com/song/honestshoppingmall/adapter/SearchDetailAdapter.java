@@ -34,6 +34,7 @@ public class SearchDetailAdapter extends RecyclerView.Adapter<SearchDetailAdapte
         View view = LayoutInflater.from(mContext).inflate(R.layout.recycle_searchdetail_item, parent,false);
         SearchDetailAdapter.MyViewHolder holder = new SearchDetailAdapter.MyViewHolder(view);
         view.setOnClickListener(this);
+
         return holder;
 
     }
@@ -59,7 +60,9 @@ public class SearchDetailAdapter extends RecyclerView.Adapter<SearchDetailAdapte
 
     @Override
     public void onClick(View view) {
-
+        if (mOnItemClickListener!=null){
+            mOnItemClickListener.onItemClick(view,(String)view.getTag());
+        }
     }
 
     class MyViewHolder extends  RecyclerView.ViewHolder{
@@ -76,5 +79,13 @@ public class SearchDetailAdapter extends RecyclerView.Adapter<SearchDetailAdapte
             mTv_product_price = (TextView) itemView.findViewById(R.id.tv_product_price);
             mTv_product_shoucang = (TextView) itemView.findViewById(R.id.tv_product_shoucang);
         }
+    }
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+    //define interface
+    public static interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view , String data);
+    }
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener){
+        this.mOnItemClickListener = listener;
     }
 }
