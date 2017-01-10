@@ -8,6 +8,7 @@ import com.song.honestshoppingmall.bean.OrderDetailBean;
 import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.bean.SerchResultBean;
+import com.song.honestshoppingmall.bean.ShopCategoryBean;
 import com.song.honestshoppingmall.bean.Userbean;
 
 import java.util.Map;
@@ -94,6 +95,9 @@ public interface APIRetrofit {
     @POST("checkout")
     Call<CheckOutBean> getCheckOutBean(@Field("sku") String sku, @Header("userid") String userid);
 
-
-
+    /**
+     * 获取商品分类数据
+     */
+    @GET("category")
+    Call<ShopCategoryBean> getCategoryMsg();
 }
