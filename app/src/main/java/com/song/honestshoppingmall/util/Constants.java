@@ -7,6 +7,11 @@ package com.song.honestshoppingmall.util;
 
 public interface Constants {
 
+
+    /**
+     * 搜索的key
+     */
+    String SEARCH_KEY = "serchkey";
     String USERID = "userid";
     String CHECKBOX = "checkbox";
 }

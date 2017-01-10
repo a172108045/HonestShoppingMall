@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +40,12 @@ import retrofit2.Response;
  * Created by lizhenquan on 2017/1/8.
  */
 
-public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapter.MyViewHolder> implements View.OnClickListener {
-    private  CheckBox mCb_card_checkall;
-    private TextView mTv_price_card;
-    private Context mContext;
-    private boolean[] checkedData;
+public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapter.MyViewHolder> implements View.OnClickListener{
+    private  CheckBox                    mCb_card_checkall;
+    private TextView                     mTvTotalPrice;
+    private Context                      mContext;
     private List<SerchCardBean.CartBean> mData;
+    private boolean checkedData[]  ;
     public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -52,15 +54,14 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             ShopCartFragment shopCartFragment = (ShopCartFragment) supportFragmentManager.findFragmentByTag("ShopCartFragment");
             System.out.println(shopCartFragment);
             shopCartFragment.refreshData();
-            //((HomeActivity) mContext).changeFragment(new ShopCartFragment,"ShopCartFragment");
         }
     };
-    public CardRecyclerAdapter(Context context, List<SerchCardBean.CartBean> body, TextView tv_price_card, CheckBox cb_card_checkall) {
+    public CardRecyclerAdapter(Context context, List<SerchCardBean.CartBean> body, TextView tv_totalPrice, CheckBox cb_card_checkall) {
         this.mContext = context;
         this.mData = body;
-        this.mTv_price_card = tv_price_card;
+        this.mTvTotalPrice = tv_totalPrice;
         this.mCb_card_checkall = cb_card_checkall;
-        this.checkedData = new boolean[mData.size()];
+
     }
 
 
@@ -77,7 +78,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final SerchCardBean.CartBean cartBean = mData.get(position);
-
+        checkedData = new boolean[mData.size()];
         SerchCardBean.CartBean.PropertyBean property = cartBean.getProperty();
         final int productCount = cartBean.getProductCount();
         final int productId = cartBean.getProductId();
@@ -87,54 +88,74 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         holder.mTv_card_color.setText("颜色：" + property.getV());
         holder.mTv_card_size.setText("      尺码：" + product.getNumber());
         holder.mTv_card_price.setText("$" + product.getPrice()*productCount);
-        //mTv_price_card.setText("$" + product.getPrice());
+
+        holder.mCb_card.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+               checkedData[position] = b;
+                calculator();
+            }
+        });
+
+
+
         holder.mEt_number.setText(productCount+"");
-        System.out.println("数量2：" + productCount);
 
 
         holder.mBtn_card_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 updateNetDataAdd(productCount,productId);
+                holder.mBtn_card_remove.setEnabled(true);
 
             }
         });
         holder.mBtn_card_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+               holder.mBtn_card_add.setEnabled(true);
                 updateNetDataRemove(productCount,productId);
 
+
             }
         });
 
-        holder.mCb_card.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.mEt_number.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                checkedData[position] = isChecked;
-                calculate();
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String text = holder.mEt_number.getText().toString();
+                int number = Integer.parseInt(text);
+                if (number<=0){
+                    holder.mBtn_card_remove.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
-        String text = holder.mEt_number.getText().toString();
-        int number = Integer.parseInt(text);
-        if (number<=0){
-           holder.mBtn_card_remove.setEnabled(false);
-        }
+
 
         if (mCb_card_checkall.isChecked()){
             for (int i = 0; i < getItemCount(); i++) {
                 holder.mCb_card.setChecked(true);
                 checkedData[i] = true;
+                calculator();
             }
-            calculate();
         }else{
             for (int i = 0; i < getItemCount(); i++) {
                 holder.mCb_card.setChecked(false);
                 checkedData[i] = false;
+                calculator();
             }
-            calculate();
         }
     }
 
@@ -154,7 +175,6 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
                     UpDateCartBean body = response.body();
                     if (body.error==null){
                         handler.sendEmptyMessage(0);
-                        Toast.makeText(mContext, "更新数据成功+1", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
                     }
@@ -184,7 +204,6 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
                     UpDateCartBean body = response.body();
                     if (body.error==null){
                         handler.sendEmptyMessage(0);
-                        Toast.makeText(mContext, "更新数据成功-1", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
                     }
@@ -208,6 +227,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             mOnItemClickListener.onItemClick(view, (String) view.getTag());
         }
     }
+
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -236,9 +256,23 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
         }
 
+    }
 
+    public void calculator() {
+
+        int totalPrice = 0;
+        for (int i = 0; i < mData.size(); i++) {
+            if (checkedData[i]){
+
+                totalPrice += mData.get(i).getProductCount()*mData.get(i).getProduct().getPrice();
+
+            }
+            mTvTotalPrice.setText("合计："+totalPrice);
+        }
 
     }
+
+
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
     //define interface
     public static interface OnRecyclerViewItemClickListener {
@@ -246,15 +280,5 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     }
     public void setOnItemClickListener(OnRecyclerViewItemClickListener listener){
         this.mOnItemClickListener = listener;
-    }
-    public void calculate() {
-        int totalPrice = 0;
-        for (int i = 0; i < mData.size(); i++) {
-            if (checkedData[i]) {
-                totalPrice += mData.get(i).getProductCount() * mData.get(i).getProduct().getPrice();
-            }
-            mTv_price_card.setText("" + totalPrice);
-
-        }
     }
 }

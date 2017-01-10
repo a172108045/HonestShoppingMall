@@ -7,6 +7,8 @@ import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.bean.OrderDetailBean;
 import com.song.honestshoppingmall.bean.OrderSubmitBean;
+import com.song.honestshoppingmall.bean.SearchDetailBean;
+import com.song.honestshoppingmall.bean.SearchRecommandBean;
 import com.song.honestshoppingmall.bean.RegisterBean;
 import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.bean.SerchResultBean;
@@ -72,10 +74,6 @@ public interface APIRetrofit {
     @GET("userinfo")
     Call<Userbean>  getUserInfo(@Header("userid") String value);
 
-    @FormUrlEncoded
-    @POST("register")
-    Call<RegisterBean> sendRegister(@FieldMap Map<String, String> registerMap);
-
 
     /**
      * 添加购物车
@@ -127,6 +125,16 @@ public interface APIRetrofit {
      */
     @GET("category")
     Call<ShopCategoryBean> getCategoryMsg();
+
+    /***
+     * 搜索推荐
+     * @return
+     */
+    @GET("search/recommend")
+    Call<SearchRecommandBean> getSearchRecommand();
+
+    @GET("search")
+    Call<SearchDetailBean> getSearchDetail(@QueryMap Map<String,String> params);
 
     @FormUrlEncoded
     @POST("ordersumbit")
