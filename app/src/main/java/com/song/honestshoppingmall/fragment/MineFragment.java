@@ -43,16 +43,16 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private String mPassword;
     private String mLoginText;
     private String mConfirm;
-    private APIRetrofit mApiRetrofitInstance;
+
 
     @Override
     protected View initView() {
-        if(SpUtil.getBoolean(mContext, Constants.CHECKBOX, false) == true) {
+
             if (SpUtil.getString(mContext, Constants.USERID, null) != null) {
                 ((HomeActivity) mContext).removeAllFragment();
                 ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
             }
-        }
+
 
         View view = View.inflate(mContext, R.layout.fragment_mine, null);
 
@@ -132,14 +132,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                         return;
                     }
 
-                    mApiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
+                    APIRetrofit mApiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
                     mApiRetrofitInstance.login(mUsername, mPassword).enqueue(new Callback<LoginResultBean>() {
                         @Override
                         public void onResponse(Call<LoginResultBean> call, Response<LoginResultBean> response) {
                             if (response.isSuccessful()) {
                                 if (response.body().error == null) {
                                     boolean checked = cb_aotologin.isChecked();
-                                    if(checked == true) {
+                                    if (checked == true) {
                                         SpUtil.saveBoolean(mContext, Constants.CHECKBOX, true);
                                     } else {
                                         SpUtil.saveBoolean(mContext, Constants.CHECKBOX, false);
@@ -174,8 +174,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                         Toast.makeText(mContext, "密码不一致!", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        register.put(mUsername, mPassword);
-                        mApiRetrofitInstance.sendRegister(register).enqueue(new Callback<RegisterBean>() {
+                        register.put("username", mUsername);
+                        register.put("password", mPassword);
+                        RetrofitUtil.getAPIRetrofitInstance().sendRegister(register).enqueue(new Callback<RegisterBean>() {
                             @Override
                             public void onResponse(Call<RegisterBean> call, Response<RegisterBean> response) {
                                 if (response.isSuccessful()) {

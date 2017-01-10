@@ -40,7 +40,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.bt_logout_user:
                 SpUtil.saveString(mContext, Constants.USERID, null);
-                ((HomeActivity)mContext).changeFragment(new MineFragment(),"MineFragment");
+                ((HomeActivity) mContext).changeFragment(new MineFragment(), "MineFragment");
                 Toast.makeText(mContext, "Good Bye,Honey!", Toast.LENGTH_SHORT).show();
                 break;
         }
