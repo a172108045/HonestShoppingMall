@@ -7,6 +7,7 @@ import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.bean.OrderDetailBean;
 import com.song.honestshoppingmall.bean.OrderSubmitBean;
+import com.song.honestshoppingmall.bean.RegisterBean;
 import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.bean.SerchResultBean;
 import com.song.honestshoppingmall.bean.ShopCategoryBean;
@@ -70,6 +71,10 @@ public interface APIRetrofit {
     //Header参数传递  获取用户数据
     @GET("userinfo")
     Call<Userbean>  getUserInfo(@Header("userid") String value);
+
+    @FormUrlEncoded
+    @POST("register")
+    Call<RegisterBean> sendRegister(@FieldMap Map<String, String> registerMap);
 
 
     /**

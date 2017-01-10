@@ -110,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="自动登录"
+            android:visibility="visible"
             />
 
         <TextView
@@ -119,7 +120,8 @@
             android:id="@+id/tv_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="遇到问题点这里!"/>
+            android:text="遇到问题点这里!"
+            android:visibility="visible"/>
 
     </RelativeLayout>
 
