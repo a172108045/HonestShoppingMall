@@ -1,7 +1,5 @@
 package com.song.honestshoppingmall.fragment;
 
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -39,20 +37,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     private TextView       mTv_price_card;
     private CheckBox       mCb_card_checkall;
     private List<SerchCardBean.CartBean> mData = new ArrayList<>();
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
 
-            switch (msg.what) {
-                case 0:
-
-                    mCardRecyclerAdapter.notifyDataSetChanged();
-                    break;
-
-            }
-        }
-    };
     public CardRecyclerAdapter mCardRecyclerAdapter;
 
     @Override
@@ -76,19 +61,9 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected void initData() {
-        mCardRecyclerAdapter = new CardRecyclerAdapter(mContext, mData, mTv_price_card, mCb_card_checkall);
+        getShopCart();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mCardRecyclerAdapter);
-        mCardRecyclerAdapter.setOnItemClickListener(new CardRecyclerAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, String data) {
-                Toast.makeText(mContext, "点击跳转到商品详情页面", Toast.LENGTH_SHORT).show();
-            }
-        });
-        getShopCart();
-
-
     }
 
     @Override
@@ -99,6 +74,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     public void refreshData(){
         getShopCart();
         mCardRecyclerAdapter.notifyDataSetChanged();
+
     }
     @Override
     public void onClick(View view) {
@@ -131,7 +107,20 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
                             mData.clear();
                             mData.addAll(body.getCart());
-                            mCardRecyclerAdapter.notifyDataSetChanged();
+                            if (mCardRecyclerAdapter == null) {
+                                mCardRecyclerAdapter = new CardRecyclerAdapter(mContext, mData, mTv_price_card, mCb_card_checkall);
+                                mRecyclerView.setAdapter(mCardRecyclerAdapter);
+                                mCardRecyclerAdapter.setOnItemClickListener(new CardRecyclerAdapter.OnRecyclerViewItemClickListener() {
+                                    @Override
+                                    public void onItemClick(View view, String data) {
+                                        Toast.makeText(mContext, "点击跳转到商品详情页面", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                mCardRecyclerAdapter.notifyDataSetChanged();
+
+                            }
+
 
                         }
                     }
@@ -148,7 +137,8 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        mHandler.sendEmptyMessage(0);
+        mCardRecyclerAdapter.notifyDataSetChanged();
     }
+
 }
 
