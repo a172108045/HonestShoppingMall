@@ -14,7 +14,9 @@ import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.adapter.MyOrderAdapter;
 import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
+import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.RetrofitUtil;
+import com.song.honestshoppingmall.util.SpUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +55,7 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
                     mIv_no_order.setVisibility(View.INVISIBLE);
                     mLv_recent_order.setVisibility(View.VISIBLE);
                     mRecentAdapter = null;
-                    mRecentAdapter = new MyOrderAdapter(mContext, mMyOrderBean.getOrderList());
+                    mRecentAdapter = new MyOrderAdapter(mContext, mMyOrderBean.getOrderList(), mGetType);
                     mLv_recent_order.setAdapter(mRecentAdapter);
                     break;
 
@@ -94,8 +96,8 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
         map.put("page", "0");
         map.put("pageNum", "10");
         APIRetrofit retrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
-        String value = 20428 + "";
-        retrofitInstance.getMyOrderBean(map, value).enqueue(new Callback<MyOrderBean>() {
+        String userid = SpUtil.getString(mContext, Constants.USERID, "");
+        retrofitInstance.getMyOrderBean(map, userid).enqueue(new Callback<MyOrderBean>() {
             @Override
             public void onResponse(Call<MyOrderBean> call, Response<MyOrderBean> response) {
                 if (response.isSuccessful()) {

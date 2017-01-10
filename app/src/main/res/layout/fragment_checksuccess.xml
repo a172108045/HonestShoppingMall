@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title_setting"
+        android:text="成功"
+        style="@style/Title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
+
+    <LinearLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="您的订单已提交，我们会尽快发货！"
+            android:textColor="#000"
+            android:textSize="20sp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_kuang"
+            android:padding="10dp">
+
+            <TextView
+                android:textColor="#000"
+                android:id="@+id/tv_dingdanhao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="您的订单号:"/>
+
+            <TextView
+                android:textColor="#000"
+                android:id="@+id/tv_jine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_dingdanhao"
+                android:text="应付金额:"/>
+            <TextView
+                android:textColor="#000"
+                android:id="@+id/tv_zhifufangshi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_jine"
+                android:text="支付方式:"/>
+
+            <TextView
+                android:textColor="#000"
+                android:id="@+id/tv_orderid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="260092"/>
+            <TextView
+                android:textColor="#000"
+                android:id="@+id/tv_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_orderid"
+                android:text="1378元"/>
+            <TextView
+                android:textColor="#000"
+                android:id="@+id/tv_check_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_total_price"
+                android:text="支付宝"/>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_enter_shopping"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_kuang_pink"
+            android:padding="8dp"
+            android:text="继续购物"
+            android:textColor="#fff"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_enter_query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_kuang_pink"
+            android:padding="8dp"
+            android:text="查询订单"
+            android:textColor="#fff"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="如有疑问，可拨打客服电话：400-800-0987"
+            android:textColor="#000"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

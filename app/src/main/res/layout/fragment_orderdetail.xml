@@ -33,6 +33,7 @@
                 android:textSize="18sp"/>
 
             <TextView
+                android:textColor="#000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -47,12 +48,14 @@
                 android:padding="5dp">
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_dingdanhao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="订单号:"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_dizhi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -60,6 +63,7 @@
                     android:text="收货人地址:"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_orderid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,6 +71,7 @@
                     android:text="260092"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,6 +83,7 @@
             </RelativeLayout>
 
             <TextView
+                android:textColor="#000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -92,12 +98,14 @@
                 android:padding="5dp">
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_dingdanzhuangtai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="订单状态:"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_zhifufangshi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,6 +113,7 @@
                     android:text="支付方式:"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_shengchengshijian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,6 +121,7 @@
                     android:text="订单生成时间:"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_fahuoshijian"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -119,6 +129,7 @@
                     android:text="发货时间:"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_kaijufapiao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -126,6 +137,7 @@
                     android:text="是否开具发票:"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_fapiaotaitou"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -133,6 +145,7 @@
                     android:text="发票抬头:"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_songhuoyaoqiu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,6 +153,7 @@
                     android:text="送货要求:"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -147,6 +161,7 @@
                     android:text="未处理"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_pay_method"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,6 +170,7 @@
                     android:text="货到付款"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_generated_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -163,6 +179,7 @@
                     android:text="2017-01-09 13:32:03"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_send_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -171,6 +188,7 @@
                     android:text="2017-01-09 13:32:08"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_has_bill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -179,6 +197,7 @@
                     android:text="是"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_bill_head"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -187,6 +206,7 @@
                     android:text="业松石油公司"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_send_request"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -198,6 +218,7 @@
             </RelativeLayout>
 
             <TextView
+                android:textColor="#000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -213,6 +234,7 @@
             </LinearLayout>
 
             <TextView
+                android:textColor="#000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -227,23 +249,27 @@
                 android:padding="5dp">
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_shuliangzongji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="数量总计:"/>
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_yunfei"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_shuliangzongji"
                     android:text="运费:"/>
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_cuxiaoyouhui"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_yunfei"
                     android:text="商城积分:"/>
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_yingzhifujine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -251,12 +277,14 @@
                     android:text="应支付金额(不含运费):"/>
 
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="5件"/>
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_send_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -264,6 +292,7 @@
                     android:layout_below="@+id/tv_count"
                     android:text="¥10.00"/>
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_free_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -271,6 +300,7 @@
                     android:layout_below="@+id/tv_send_price"
                     android:text="¥0.00"/>
                 <TextView
+                    android:textColor="#000"
                     android:id="@+id/tv_deserve_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -288,7 +318,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_kuang_pink"
                 android:padding="8dp"
-                android:text="取消订单"
+                android:text="删除订单"
                 android:textColor="#fff"
                 android:textSize="18sp"/>
 

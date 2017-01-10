@@ -6,6 +6,7 @@ import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.bean.OrderDetailBean;
+import com.song.honestshoppingmall.bean.OrderSubmitBean;
 import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.bean.SerchResultBean;
 import com.song.honestshoppingmall.bean.ShopCategoryBean;
@@ -121,4 +122,8 @@ public interface APIRetrofit {
      */
     @GET("category")
     Call<ShopCategoryBean> getCategoryMsg();
+
+    @FormUrlEncoded
+    @POST("ordersumbit")
+    Call<OrderSubmitBean> getOrderSubmitBean(@FieldMap Map<String, String> params, @Header("userid") String userid);
 }

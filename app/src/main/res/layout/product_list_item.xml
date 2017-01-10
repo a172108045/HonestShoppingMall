@@ -5,12 +5,19 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/shape_kuang"
                 android:padding="5dp">
+    <ImageView
+        android:id="@+id/iv_product"
+        android:scaleType="fitXY"
+        android:layout_centerHorizontal="true"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
 
     <TextView
         android:id="@+id/tv_shangpinmingchen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="商品名称:"/>
+        android:text="商品名称:"
+        android:textColor="#000"/>
 
     <LinearLayout
         android:id="@+id/ll_product_property"
@@ -22,6 +29,7 @@
     </LinearLayout>
 
     <TextView
+        android:textColor="#000"
         android:id="@+id/tv_shuliang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,6 +37,7 @@
         android:text="数量:"/>
 
     <TextView
+        android:textColor="#000"
         android:id="@+id/tv_danjia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,6 +45,7 @@
         android:text="单价:"/>
 
     <TextView
+        android:textColor="#000"
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,6 +54,7 @@
 
 
     <TextView
+        android:textColor="#000"
         android:id="@+id/tv_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,6 +63,7 @@
         android:text="5"/>
 
     <TextView
+        android:textColor="#000"
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
