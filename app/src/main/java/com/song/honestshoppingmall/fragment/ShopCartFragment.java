@@ -97,7 +97,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
     }
     public   void refreshData(){
-        mCardRecyclerAdapter.notifyDataSetChanged();
+        initData();
     }
     @Override
     public void onClick(View view) {

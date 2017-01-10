@@ -51,7 +51,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             FragmentManager supportFragmentManager = ((HomeActivity) mContext).getSupportFragmentManager();
             ShopCartFragment shopCartFragment = (ShopCartFragment) supportFragmentManager.findFragmentByTag("ShopCartFragment");
             System.out.println(shopCartFragment);
-            //shopCartFragment.refreshData();
+            shopCartFragment.refreshData();
             //((HomeActivity) mContext).changeFragment(new ShopCartFragment,"ShopCartFragment");
         }
     };

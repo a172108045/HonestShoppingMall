@@ -2,13 +2,21 @@ package com.song.honestshoppingmall.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.bean.CheckOutBean;
 import com.song.honestshoppingmall.util.Constants;
+import com.song.honestshoppingmall.util.RetrofitUtil;
 import com.song.honestshoppingmall.util.SpUtil;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Judy on 2017/1/10.
@@ -40,6 +48,13 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
     private final String[] sendTimes = {"周一至周五送货", "双休日及公众假期送货", "时间不限，工作日双休日及公众假期均可送货"};
 
     private String sku;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     protected View initView() {
@@ -83,7 +98,23 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
 
     private void initNetData() {
         String userid = SpUtil.getString(mContext, Constants.USERID, "");
-        //RetrofitUtil.getAPIRetrofitInstance().getCheckOutBean()
+        sku = "2:9:1,2|2:3:2,3";
+        RetrofitUtil.getAPIRetrofitInstance().getCheckOutBean(sku, userid).enqueue(new Callback<CheckOutBean>() {
+            @Override
+            public void onResponse(Call<CheckOutBean> call, Response<CheckOutBean> response) {
+                if (response.isSuccessful()) {
+                    CheckOutBean checkOutBean = response.body();
+                    if (checkOutBean != null) {
+                        mHandler.sendEmptyMessage(0);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CheckOutBean> call, Throwable t) {
+
+            }
+        });
 
 
     }
@@ -106,7 +137,7 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
                 new AlertDialog.Builder(mContext).setTitle("送货时间").setSingleChoiceItems(sendTimes, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mTvCheckMethod.setText(sendTimes[which]);
+                        mTvSendTime.setText(sendTimes[which]);
                     }
                 }).setNegativeButton("取消", null).show();
                 break;
