@@ -102,7 +102,9 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
                     mMyOrderBean = response.body();
                     if (mMyOrderBean.getOrderList() != null && mMyOrderBean.getOrderList().size() != 0) {
                         mHandler.sendEmptyMessage(0);
+
                     } else {
+
                         mHandler.sendEmptyMessage(1);
                     }
                 }

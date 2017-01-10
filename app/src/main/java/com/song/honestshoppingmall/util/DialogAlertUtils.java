@@ -109,7 +109,7 @@ public class DialogAlertUtils {
                 //发送get请求
                 Map<String,String> map = new HashMap<String, String>();
                 map.put("userId","20428");
-                map.put("productId","26");
+                map.put("productId","27");
                 map.put("productCount","1");
                 map.put("propertyId","1");
 
@@ -120,6 +120,7 @@ public class DialogAlertUtils {
                         if (response.isSuccessful()) {
                             if (response.body().error==null){
                                 Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show();
+
                                 dismissScanNumberDialog();
                             }else{
                                 Toast.makeText(context, response.body().error, Toast.LENGTH_SHORT).show();

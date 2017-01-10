@@ -4,11 +4,12 @@ import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.CheckOutBean;
 import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
+import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.bean.OrderDetailBean;
 import com.song.honestshoppingmall.bean.SerchCardBean;
-import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.bean.SerchResultBean;
 import com.song.honestshoppingmall.bean.ShopCategoryBean;
+import com.song.honestshoppingmall.bean.UpDateCartBean;
 import com.song.honestshoppingmall.bean.Userbean;
 
 import java.util.Map;
@@ -78,11 +79,31 @@ public interface APIRetrofit {
     @GET("addCart")
     Call<AddCartBean> getAddCartBean(@QueryMap Map<String,String> params );
 
+    /**
+     * 查询购物车
+     * @param userId
+     * @return
+     */
+    @GET("selectCart")
+    Call<SerchCardBean> getSerchCartBean(@Query("userId") String userId);
+
+    /**
+     * 更新购物车
+     * @return
+     */
+    @GET("updateCart")
+    Call<UpDateCartBean> getUpdateCart(@QueryMap Map<String,String> params);
+
+
+    /**
+     * 订单列表操作
+     * @param params
+     * @param value
+     * @return
+     */
     @GET("orderlist")
     Call<MyOrderBean> getMyOrderBean(@QueryMap Map<String,String> params,@Header("userid") String value);
 
-    @GET("selectCart")
-    Call<SerchCardBean> getSerchCartBean(@Query("userId") String userId);
 
     @GET("orderdetail")
     Call<OrderDetailBean> getOrderDetailBean(@Query("orderId") String orderId, @Header("userid") String value);

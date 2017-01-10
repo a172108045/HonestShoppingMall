@@ -20,6 +20,9 @@ import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.DialogAlertUtils;
 import com.song.honestshoppingmall.util.RetrofitUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,11 +38,19 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     private RelativeLayout mRelative_pay;
     private TextView       mTv_price_card;
     private CheckBox       mCb_card_checkall;
-    private Handler mHandler = new Handler(){
+    private List<SerchCardBean.CartBean> mData = new ArrayList<>();
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mCardRecyclerAdapter.notifyDataSetChanged();
+
+            switch (msg.what) {
+                case 0:
+
+                    mCardRecyclerAdapter.notifyDataSetChanged();
+                    break;
+
+            }
         }
     };
     public CardRecyclerAdapter mCardRecyclerAdapter;
@@ -54,7 +65,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
         mRelative_pay = (RelativeLayout) view.findViewById(R.id.relative_pay);
         mCb_card_checkall = (CheckBox) view.findViewById(R.id.cb_card_checkall);
         mTv_price_card = (TextView) view.findViewById(R.id.tv_price_card);
-        if (mCb_card_checkall!=null){
+        if (mCb_card_checkall != null) {
             mCb_card_checkall.setOnCheckedChangeListener(this);
         }
         Button btn_gotopay = (Button) view.findViewById(R.id.btn_gotopay);
@@ -65,9 +76,29 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected void initData() {
+        mCardRecyclerAdapter = new CardRecyclerAdapter(mContext, mData, mTv_price_card, mCb_card_checkall);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mCardRecyclerAdapter);
+        mCardRecyclerAdapter.setOnItemClickListener(new CardRecyclerAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, String data) {
+                Toast.makeText(mContext, "点击跳转到商品详情页面", Toast.LENGTH_SHORT).show();
+            }
+        });
         getShopCart();
+
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+    public   void refreshData(){
+        mCardRecyclerAdapter.notifyDataSetChanged();
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -76,7 +107,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.btn_alert_dialog:
                 DialogAlertUtils.showScanNumberDialog(mContext);
-
+                getShopCart();
                 break;
 
             default:
@@ -95,25 +126,11 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                             mImageView.setVisibility(View.GONE);
                             mRelative_pay.setVisibility(View.VISIBLE);
                             SerchCardBean body = response.body();
-                            //Toast.makeText(mContext, body.toString(), Toast.LENGTH_SHORT).show();
 
 
-                            System.out.println("name=" + body.getCart().get(0).getProduct().getName());
-
-                            //创建RecycleView,设置适配器
-                            mCardRecyclerAdapter = new CardRecyclerAdapter(mContext, body, mTv_price_card, mCb_card_checkall);
-
-
-                            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-                            mRecyclerView.setHasFixedSize(true);
-                            mRecyclerView.setAdapter(mCardRecyclerAdapter);
-                            mCardRecyclerAdapter.setOnItemClickListener(new CardRecyclerAdapter.OnRecyclerViewItemClickListener() {
-                                @Override
-                                public void onItemClick(View view, String data) {
-                                    Toast.makeText(mContext, "点击跳转到商品详情页面", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
+                            mData.clear();
+                            mData.addAll(body.getCart());
+                            mCardRecyclerAdapter.notifyDataSetChanged();
 
                         }
                     }
