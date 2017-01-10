@@ -11,7 +11,9 @@ import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
+import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.RetrofitUtil;
+import com.song.honestshoppingmall.util.SpUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -95,29 +97,24 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                         public void onResponse(Call<LoginResultBean> call, Response<LoginResultBean> response) {
                             if (response.isSuccessful()) {
                                 if (response.body().error==null){
+                                    String userid = response.body().getUserInfo().getUserid();
+                                    SpUtil.saveString(getContext(), Constants.USERID,userid);
                                     ((HomeActivity) mContext).changeFragment(new UserFragment(),"UserFragment");
                                 }else{
-                                    Toast.makeText(mContext, response.body().error_code, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mContext, response.body().error.toString(), Toast.LENGTH_SHORT).show();
                                 }
-                               /* LoginResultBean body = response.body();
-                                LoginResultBean.UserInfoBean userInfo = body.getUserInfo();
-//                                String userid = userInfo.getUserid();*/
-
-
-
-
                             } else {
-                                Toast.makeText(mContext,"你的账号密码特么的不正确!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext,"你账号密码特么的不正确!",Toast.LENGTH_SHORT).show();
                             }
                         }
-
                         @Override
                         public void onFailure(Call<LoginResultBean> call, Throwable t) {
-
+                            Toast.makeText(mContext, "服务器请求失败:" + t.toString(), Toast.LENGTH_SHORT).show();
                         }
                     });
 
                 } else {
+                    //注册按钮逻辑.
 
 
                 }
