@@ -3,15 +3,20 @@ package com.song.honestshoppingmall.fragment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.bean.OrderDetailBean;
+import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.RetrofitUtil;
+import com.song.honestshoppingmall.util.SpUtil;
+import com.song.honestshoppingmall.util.Urls;
 
 import java.text.SimpleDateFormat;
 
@@ -96,6 +101,10 @@ public class OrderDetailFragment extends BaseFragment {
             TextView tv_number = (TextView) view.findViewById(R.id.tv_number);
             TextView tv_price = (TextView) view.findViewById(R.id.tv_price);
             LinearLayout ll_product_property = (LinearLayout) view.findViewById(R.id.ll_product_property);
+
+            ImageView iv_product = (ImageView) view.findViewById(R.id.iv_product);
+
+            Glide.with(mContext).load(Urls.BASE_URL + bean.getProduct().getPic()).into(iv_product);
             tv_name.setText(bean.getProduct().getName());
             tv_price.setText("¥" + bean.getProduct().getPrice());
             tv_number.setText(bean.getProdNum() + "件");
@@ -156,11 +165,19 @@ public class OrderDetailFragment extends BaseFragment {
 
 
         mOrderId = getArguments().getString("orderId", "");
+        String getType = getArguments().getString("getType", "1");
+        if (getType.equals("3")) {
+            mTvCancelOrder.setVisibility(View.GONE);
+        } else {
+            mTvCancelOrder.setVisibility(View.VISIBLE);
+        }
         getNetData();
     }
 
     private void orderCancel() {
-        RetrofitUtil.getAPIRetrofitInstance().cancelOrder(mOrderId, "20428").enqueue(new Callback<LoginResultBean>() {
+        String userid = SpUtil.getString(mContext, Constants.USERID, "");
+
+        RetrofitUtil.getAPIRetrofitInstance().cancelOrder(mOrderId, userid).enqueue(new Callback<LoginResultBean>() {
             @Override
             public void onResponse(Call<LoginResultBean> call, Response<LoginResultBean> response) {
                 if (response.isSuccessful()) {
@@ -182,8 +199,8 @@ public class OrderDetailFragment extends BaseFragment {
     private void getNetData() {
         String orderId = mOrderId;
         System.out.println(orderId);
-        String value = "20428";
-        RetrofitUtil.getAPIRetrofitInstance().getOrderDetailBean(orderId, value).enqueue(new Callback<OrderDetailBean>() {
+        String userid = SpUtil.getString(mContext, Constants.USERID, "");
+        RetrofitUtil.getAPIRetrofitInstance().getOrderDetailBean(orderId, userid).enqueue(new Callback<OrderDetailBean>() {
             @Override
             public void onResponse(Call<OrderDetailBean> call, Response<OrderDetailBean> response) {
                 if (response.isSuccessful()) {

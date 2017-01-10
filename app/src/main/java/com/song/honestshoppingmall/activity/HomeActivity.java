@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity implements  RadioGroup.OnChe
      */
     public void changeFragment(Fragment fragment, String tag) {
         mFragmentManager.beginTransaction()
-                .replace(R.id.fl_home, fragment)
+                .replace(R.id.fl_home, fragment, tag)
                 .addToBackStack(tag)
                 .commit();
     }
@@ -114,7 +114,7 @@ public class HomeActivity extends AppCompatActivity implements  RadioGroup.OnChe
     public void changeFragment(Fragment fragment, String tag, Bundle bundle) {
         fragment.setArguments(bundle);
         mFragmentManager.beginTransaction()
-                .replace(R.id.fl_home, fragment)
+                .replace(R.id.fl_home, fragment, tag)
                 .addToBackStack(tag)
                 .commit();
     }

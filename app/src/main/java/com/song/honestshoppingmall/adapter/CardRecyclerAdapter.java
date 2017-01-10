@@ -1,6 +1,9 @@
 package com.song.honestshoppingmall.adapter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,10 +19,21 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.bean.SerchCardBean;
+import com.song.honestshoppingmall.bean.UpDateCartBean;
+import com.song.honestshoppingmall.fragment.ShopCartFragment;
+import com.song.honestshoppingmall.util.APIRetrofit;
+import com.song.honestshoppingmall.util.RetrofitUtil;
 import com.song.honestshoppingmall.util.Urls;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by lizhenquan on 2017/1/8.
@@ -30,10 +44,20 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     private TextView mTv_price_card;
     private Context mContext;
     private List<SerchCardBean.CartBean> mData;
-
-    public CardRecyclerAdapter(Context context, SerchCardBean body, TextView tv_price_card, CheckBox cb_card_checkall) {
+    public Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            FragmentManager supportFragmentManager = ((HomeActivity) mContext).getSupportFragmentManager();
+            ShopCartFragment shopCartFragment = (ShopCartFragment) supportFragmentManager.findFragmentByTag("ShopCartFragment");
+            System.out.println(shopCartFragment);
+            shopCartFragment.refreshData();
+            //((HomeActivity) mContext).changeFragment(new ShopCartFragment,"ShopCartFragment");
+        }
+    };
+    public CardRecyclerAdapter(Context context, List<SerchCardBean.CartBean> body, TextView tv_price_card, CheckBox cb_card_checkall) {
         this.mContext = context;
-        this.mData = body.getCart();
+        this.mData = body;
         this.mTv_price_card = tv_price_card;
         this.mCb_card_checkall = cb_card_checkall;
     }
@@ -54,43 +78,49 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         final SerchCardBean.CartBean cartBean = mData.get(position);
 
         SerchCardBean.CartBean.PropertyBean property = cartBean.getProperty();
-
+        final int productCount = cartBean.getProductCount();
+        final int productId = cartBean.getProductId();
         final SerchCardBean.CartBean.ProductBean product = cartBean.getProduct();
 
-//        holder.mIv_card.setImageURI(Uri.parse(Urls.BASE_URL + product.getPic()));
         Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + product.getPic()).into(holder.mIv_card);
         holder.mTv_card_color.setText("颜色：" + property.getV());
         holder.mTv_card_size.setText("      尺码：" + product.getNumber());
-        holder.mTv_card_price.setText("$" + product.getPrice());
+        holder.mTv_card_price.setText("$" + product.getPrice()*productCount);
         mTv_price_card.setText("$" + product.getPrice());
+        holder.mEt_number.setText(productCount+"");
+
+
         holder.mBtn_card_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.mBtn_card_remove.setEnabled(true);
+               /* holder.mBtn_card_remove.setEnabled(true);
                 String text = holder.mEt_number.getText().toString();
                 int i = Integer.parseInt(text);
                 if (i>=product.getBuyLimit()-1){
                     holder.mBtn_card_add.setEnabled(false);
                     Toast.makeText(mContext, "超出购买限制！每人只能买"+product.getBuyLimit()+"份哟亲~", Toast.LENGTH_SHORT).show();
                 }
-                if (i>=cartBean.getProductCount()-1){
-                    holder.mBtn_card_add.setEnabled(false);
-                    Toast.makeText(mContext, "现在没有那么多货哟亲~", Toast.LENGTH_SHORT).show();
-                }
-                holder.mEt_number.setText(i+1+"");
+
+                holder.mEt_number.setText(i+1+"");*/
+
+
+                updateNetDataAdd(productCount,productId);
 
             }
         });
         holder.mBtn_card_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.mBtn_card_add.setEnabled(true);
+            /*    holder.mBtn_card_add.setEnabled(true);
                 String text = holder.mEt_number.getText().toString();
                 int i = Integer.parseInt(text);
                 if (i <=1){
                     holder.mBtn_card_remove.setEnabled(false);
                 }
                 holder.mEt_number.setText(i-1+"");
+*/
+
+                updateNetDataRemove(productCount,productId);
 
             }
         });
@@ -157,7 +187,65 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         }
     }
 
+    private void updateNetDataAdd(int productCount, int productId) {
 
+        APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
+        Map<String,String> map = new HashMap<>();
+        map.put("userId","20428");
+        map.put("productId",productId+"");
+        map.put("productCount",productCount+1+"");
+        map.put("propertyId","1");
+        apiRetrofitInstance.getUpdateCart(map).enqueue(new Callback<UpDateCartBean>() {
+            @Override
+            public void onResponse(Call<UpDateCartBean> call, Response<UpDateCartBean> response) {
+                if (response.isSuccessful()) {
+
+                    UpDateCartBean body = response.body();
+                    if (body.error==null){
+                        handler.sendEmptyMessage(0);
+                        Toast.makeText(mContext, "更新数据成功+1", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpDateCartBean> call, Throwable t) {
+                Toast.makeText(mContext, t.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateNetDataRemove(int productCount, int productId) {
+
+        APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
+        Map<String,String> map = new HashMap<>();
+        map.put("userId","20428");
+        map.put("productId",productId+"");
+        map.put("productCount",productCount-1+"");
+        map.put("propertyId","1");
+        apiRetrofitInstance.getUpdateCart(map).enqueue(new Callback<UpDateCartBean>() {
+            @Override
+            public void onResponse(Call<UpDateCartBean> call, Response<UpDateCartBean> response) {
+                if (response.isSuccessful()) {
+
+                    UpDateCartBean body = response.body();
+                    if (body.error==null){
+                        handler.sendEmptyMessage(0);
+                        Toast.makeText(mContext, "更新数据成功-1", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpDateCartBean> call, Throwable t) {
+                Toast.makeText(mContext, t.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     public int getItemCount() {
         return mData.size();
@@ -172,7 +260,6 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-
 
 
        CheckBox mCb_card;

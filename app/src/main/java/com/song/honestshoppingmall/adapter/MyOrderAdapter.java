@@ -21,12 +21,14 @@ import java.util.List;
  */
 
 public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHolder> {
+    private String mGetType;
     private Context mContext;
     private List<MyOrderBean.OrderListBean> mOrderList;
 
-    public MyOrderAdapter(Context context, List<MyOrderBean.OrderListBean> orderList) {
+    public MyOrderAdapter(Context context, List<MyOrderBean.OrderListBean> orderList, String getType) {
         this.mContext = context;
         this.mOrderList = orderList;
+        this.mGetType = getType;
     }
 
     @Override
@@ -46,6 +48,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("orderId", bean.getOrderId());
+                bundle.putString("getType", mGetType);
                 ((HomeActivity)mContext).changeFragment(new OrderDetailFragment(), "OrderDetailFragment", bundle);
 
             }
@@ -83,9 +86,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
             this.itemView = itemView;
         }
 
-        public View getItemView() {
-            return itemView;
-        }
     }
 
 }

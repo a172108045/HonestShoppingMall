@@ -254,6 +254,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/ll_prom_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -267,15 +268,6 @@
                     android:text="优惠信息"
                     android:textColor="#000"
                     android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/tv_charge_msg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:text="满200减100"
-                    android:textColor="#000"
-                    android:textSize="18sp"/>
 
             </LinearLayout>
 

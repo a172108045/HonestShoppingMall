@@ -2,13 +2,35 @@ package com.song.honestshoppingmall.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
+import com.song.honestshoppingmall.bean.CheckOutBean;
+import com.song.honestshoppingmall.bean.OrderSubmitBean;
 import com.song.honestshoppingmall.util.Constants;
+import com.song.honestshoppingmall.util.DensityUtil;
+import com.song.honestshoppingmall.util.RetrofitUtil;
 import com.song.honestshoppingmall.util.SpUtil;
+import com.song.honestshoppingmall.util.Urls;
+import com.song.honestshoppingmall.view.WriteBillDialog;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Judy on 2017/1/10.
@@ -22,15 +44,10 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
     private TextView mTvSendTime;
     private TextView mTvBillHead;
     private LinearLayout mLlProductList;
-    private TextView mTvShuliangzongji;
-    private TextView mTvYunfei;
-    private TextView mTvCuxiaoyouhui;
-    private TextView mTvYingzhifujine;
     private TextView mTvCount;
     private TextView mTvSendPrice;
     private TextView mTvFreePrice;
     private TextView mTvDeservePrice;
-    private TextView mTvChargeMsg;
     private LinearLayout mLl_send_address;
     private LinearLayout mLl_check_method;
     private LinearLayout mLl_send_time;
@@ -38,8 +55,50 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
 
     private final String[] checkMethods = {"现金-到付", "到付-POS机", "支付宝"};
     private final String[] sendTimes = {"周一至周五送货", "双休日及公众假期送货", "时间不限，工作日双休日及公众假期均可送货"};
+    private final String[] billTitles = {"个人", "单位"};
+    private final String[] billContents = {"图书", "音响", "图像", "软件"};
+    private String billTitle = "请选择";
+    private String billContent = "请选择";
+    private CheckOutBean mCheckOutBean;
+    private LinearLayout mLl_prom_msg;
+    private Button mBt_check_now;
 
     private String sku;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    showData();
+                    break;
+
+                case 1:
+                case 2:
+                    Toast.makeText(mContext, "请求数据错误", Toast.LENGTH_SHORT).show();
+                    ((HomeActivity)mContext).popBackStack();
+                    break;
+
+                case 3:
+                    String orderId = mOrderSubmitBean.getOrderInfo().getOrderId();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("orderId", orderId);
+                    bundle.putString("totalPrice", mTvDeservePrice.getText().toString());
+                    bundle.putString("checkMethod", mTvCheckMethod.getText().toString());
+                    ((HomeActivity)mContext).removeAllFragment();
+                    ((HomeActivity)mContext).changeFragment(new CheckSuccessFragment(), "CheckSuccessFragment", bundle);
+                    break;
+
+                case 4:
+                case 5:
+                    Toast.makeText(mContext, "请求数据错误", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
+    private OrderSubmitBean mOrderSubmitBean;
+
 
     @Override
     protected View initView() {
@@ -56,34 +115,95 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
         mTvSendTime = (TextView) view.findViewById(R.id.tv_send_time);
         mTvBillHead = (TextView) view.findViewById(R.id.tv_bill_head);
         mLlProductList = (LinearLayout) view.findViewById(R.id.ll_product_list);
-        mTvShuliangzongji = (TextView) view.findViewById(R.id.tv_shuliangzongji);
-        mTvYunfei = (TextView) view.findViewById(R.id.tv_yunfei);
-        mTvCuxiaoyouhui = (TextView) view.findViewById(R.id.tv_cuxiaoyouhui);
-        mTvYingzhifujine = (TextView) view.findViewById(R.id.tv_yingzhifujine);
+
         mTvCount = (TextView) view.findViewById(R.id.tv_count);
         mTvSendPrice = (TextView) view.findViewById(R.id.tv_send_price);
         mTvFreePrice = (TextView) view.findViewById(R.id.tv_free_price);
         mTvDeservePrice = (TextView) view.findViewById(R.id.tv_deserve_price);
-        mTvChargeMsg = (TextView) view.findViewById(R.id.tv_charge_msg);
+        mLl_prom_msg = (LinearLayout) view.findViewById(R.id.ll_prom_msg);
         mLl_send_address = (LinearLayout) view.findViewById(R.id.ll_send_address);
         mLl_check_method = (LinearLayout) view.findViewById(R.id.ll_check_method);
         mLl_send_time = (LinearLayout) view.findViewById(R.id.ll_send_time);
         mLl_write_bill = (LinearLayout) view.findViewById(R.id.ll_write_bill);
+
+        mBt_check_now = (Button) view.findViewById(R.id.bt_check_now);
+
+
     }
 
     @Override
     protected void initData() {
+        //sku = getArguments().getString("sku", "");
+
         mLl_send_address.setOnClickListener(this);
         mLl_check_method.setOnClickListener(this);
         mLl_send_time.setOnClickListener(this);
         mLl_write_bill.setOnClickListener(this);
+        mBt_check_now.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitCheck();
+            }
+        });
 
         initNetData();
     }
 
+    private void submitCheck() {
+        String userid = SpUtil.getString(mContext, Constants.USERID, "");
+        Map<String,String> params = new HashMap<>();
+        params.put("sku", sku);
+        params.put("addressId", "139");
+        params.put("paymentType", "1");
+        params.put("deliveryType", "1");
+        params.put("invoiceType", "1");
+        params.put("invoiceTitle", mTvBillHead.getText().toString());
+        params.put("invoiceContent", "1");
+
+        RetrofitUtil.getAPIRetrofitInstance().getOrderSubmitBean(params, userid).enqueue(new Callback<OrderSubmitBean>() {
+            @Override
+            public void onResponse(Call<OrderSubmitBean> call, Response<OrderSubmitBean> response) {
+                if (response.isSuccessful()) {
+                    mOrderSubmitBean = response.body();
+                    if (mOrderSubmitBean.getOrderInfo() != null) {
+                        mHandler.sendEmptyMessage(3);
+                    } else {
+                        mHandler.sendEmptyMessage(4);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderSubmitBean> call, Throwable t) {
+                mHandler.sendEmptyMessage(5);
+            }
+        });
+
+
+
+    }
+
     private void initNetData() {
         String userid = SpUtil.getString(mContext, Constants.USERID, "");
-        //RetrofitUtil.getAPIRetrofitInstance().getCheckOutBean()
+        sku = "2:9:1,2|2:3:2,3";
+        RetrofitUtil.getAPIRetrofitInstance().getCheckOutBean(sku, userid).enqueue(new Callback<CheckOutBean>() {
+            @Override
+            public void onResponse(Call<CheckOutBean> call, Response<CheckOutBean> response) {
+                if (response.isSuccessful()) {
+                    mCheckOutBean = response.body();
+                    if (mCheckOutBean != null) {
+                        mHandler.sendEmptyMessage(0);
+                    } else {
+                        mHandler.sendEmptyMessage(1);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CheckOutBean> call, Throwable t) {
+                mHandler.sendEmptyMessage(2);
+            }
+        });
 
 
     }
@@ -106,13 +226,72 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
                 new AlertDialog.Builder(mContext).setTitle("送货时间").setSingleChoiceItems(sendTimes, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mTvCheckMethod.setText(sendTimes[which]);
+                        mTvSendTime.setText(sendTimes[which]);
                     }
                 }).setNegativeButton("取消", null).show();
                 break;
             case R.id.ll_write_bill:
+                WriteBillDialog dialog = new WriteBillDialog(mContext, billTitle, billContent, mTvBillHead, billTitles, billContents);
+                dialog.show();
 
                 break;
         }
     }
+
+    private void showData() {
+        mTvBillHead.setText(billTitle + "/" + billContent);
+
+        mTvCustomName.setText(mCheckOutBean.getAddressInfo().getName());
+        mTvCustomPhone.setText(mCheckOutBean.getAddressInfo().getPhoneNumber());
+        mTvCustomAddress.setText(mCheckOutBean.getAddressInfo().getAddressArea() + mCheckOutBean.getAddressInfo().getAddressDetail());
+        mTvCount.setText(mCheckOutBean.getCheckoutAddup().getTotalCount() + "件");
+        mTvSendPrice.setText("¥" + mCheckOutBean.getCheckoutAddup().getFreight());
+        mTvFreePrice.setText(mCheckOutBean.getCheckoutAddup().getTotalPoint() + "分");
+        mTvDeservePrice.setText("¥" + mCheckOutBean.getCheckoutAddup().getTotalPrice());
+
+        int chargeCount = mCheckOutBean.getCheckoutProm().size();
+        for (int i = 0; i < chargeCount; i++) {
+            TextView tv = new TextView(mContext);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mLl_prom_msg.getWidth(), mLl_prom_msg.getHeight());
+            params.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            params.leftMargin = DensityUtil.dip2px(mContext, 30);
+            tv.setLayoutParams(params);
+            tv.setTextColor(Color.BLACK);
+            tv.setTextSize(18);
+            tv.setText(mCheckOutBean.getCheckoutProm().get(i));
+            mLl_prom_msg.addView(tv);
+        }
+
+        int productCount = mCheckOutBean.getProductList().size();
+        for (int i = 0; i < productCount; i++) {
+            View view = View.inflate(mContext, R.layout.product_list_item, null);
+            CheckOutBean.ProductListBean bean = mCheckOutBean.getProductList().get(i);
+            TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
+            TextView tv_number = (TextView) view.findViewById(R.id.tv_number);
+            TextView tv_price = (TextView) view.findViewById(R.id.tv_price);
+            ImageView iv_product = (ImageView) view.findViewById(R.id.iv_product);
+
+            Glide.with(mContext).load(Urls.BASE_URL + bean.getProduct().getPic()).into(iv_product);
+            LinearLayout ll_product_property = (LinearLayout) view.findViewById(R.id.ll_product_property);
+            tv_name.setText(bean.getProduct().getName());
+            tv_price.setText("¥" + bean.getProduct().getPrice());
+            tv_number.setText(bean.getProdNum() + "件");
+
+            int propertyCount = bean.getProduct().getProductProperty().size();
+            for (int j = 0; j < propertyCount; j++) {
+                View inflate = View.inflate(mContext, R.layout.product_property_item, null);
+                TextView tv_key = (TextView) inflate.findViewById(R.id.tv_product_property_key);
+                TextView tv_value = (TextView) inflate.findViewById(R.id.tv_product_property_value);
+                tv_key.setText(bean.getProduct().getProductProperty().get(j).getK());
+                tv_value.setText(bean.getProduct().getProductProperty().get(j).getV());
+                ll_product_property.addView(inflate);
+            }
+
+            mLlProductList.addView(view);
+        }
+
+
+    }
+
 }
