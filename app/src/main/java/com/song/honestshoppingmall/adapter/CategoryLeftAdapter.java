@@ -61,6 +61,7 @@ public class CategoryLeftAdapter extends BaseAdapter {
 
         ShopCategoryBean.CategoryBean categoryBean = mDatas.get(position);
         viewHolder.tv.setText(categoryBean.getName());
+//        viewHolder.tv.setSelected(false);
 
         return convertView;
     }

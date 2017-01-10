@@ -67,6 +67,7 @@ public class OrderDetailFragment extends BaseFragment {
                 case 2:
                     Toast.makeText(mContext, "删除订单成功", Toast.LENGTH_SHORT).show();
                     ((HomeActivity)mContext).popBackStack();
+                    ((HomeActivity)mContext).changeFragment(new MyOrderFragment(), "MyOrderFragment");
                     break;
                 case 3:
                     Toast.makeText(mContext, "删除订单失败", Toast.LENGTH_SHORT).show();

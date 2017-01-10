@@ -37,6 +37,14 @@ public class CategoryGridView extends GridView {
         super(context, attrs);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int expandSpec = MeasureSpec.makeMeasureSpec(
+                Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+
+        super.onMeasure(widthMeasureSpec, expandSpec);
+    }
+
     //刷新右侧商品三级分类数据
     public void updateCategoryThirdBySecondId(Context context, int secondId) {
         mCategoryDataManager = CategoryDataManager.getInstance();

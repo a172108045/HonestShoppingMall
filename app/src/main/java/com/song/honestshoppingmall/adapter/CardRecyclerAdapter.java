@@ -5,13 +5,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +42,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     private  CheckBox mCb_card_checkall;
     private TextView mTv_price_card;
     private Context mContext;
+    private boolean[] checkedData;
     private List<SerchCardBean.CartBean> mData;
     public Handler handler = new Handler(){
         @Override
@@ -60,6 +60,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         this.mData = body;
         this.mTv_price_card = tv_price_card;
         this.mCb_card_checkall = cb_card_checkall;
+        this.checkedData = new boolean[mData.size()];
     }
 
 
@@ -74,7 +75,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final SerchCardBean.CartBean cartBean = mData.get(position);
 
         SerchCardBean.CartBean.PropertyBean property = cartBean.getProperty();
@@ -86,23 +87,14 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         holder.mTv_card_color.setText("颜色：" + property.getV());
         holder.mTv_card_size.setText("      尺码：" + product.getNumber());
         holder.mTv_card_price.setText("$" + product.getPrice()*productCount);
-        mTv_price_card.setText("$" + product.getPrice());
+        //mTv_price_card.setText("$" + product.getPrice());
         holder.mEt_number.setText(productCount+"");
+        System.out.println("数量2：" + productCount);
 
 
         holder.mBtn_card_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* holder.mBtn_card_remove.setEnabled(true);
-                String text = holder.mEt_number.getText().toString();
-                int i = Integer.parseInt(text);
-                if (i>=product.getBuyLimit()-1){
-                    holder.mBtn_card_add.setEnabled(false);
-                    Toast.makeText(mContext, "超出购买限制！每人只能买"+product.getBuyLimit()+"份哟亲~", Toast.LENGTH_SHORT).show();
-                }
-
-                holder.mEt_number.setText(i+1+"");*/
-
 
                 updateNetDataAdd(productCount,productId);
 
@@ -111,65 +103,20 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         holder.mBtn_card_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            /*    holder.mBtn_card_add.setEnabled(true);
-                String text = holder.mEt_number.getText().toString();
-                int i = Integer.parseInt(text);
-                if (i <=1){
-                    holder.mBtn_card_remove.setEnabled(false);
-                }
-                holder.mEt_number.setText(i-1+"");
-*/
 
                 updateNetDataRemove(productCount,productId);
 
             }
         });
-        final String onePrice = holder.mTv_card_price.getText().toString().substring(1);
 
-        holder.mEt_number.addTextChangedListener(new TextWatcher() {
+        holder.mCb_card.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                int price = Integer.parseInt(onePrice);
-                String s = holder.mEt_number.getText().toString();
-
-                if (s!=null){
-                    int number = Integer.parseInt(s);
-                    //一个条目的总价格
-                    int oneItemPrice = number * price;
-                    holder.mTv_card_price.setText("$"+oneItemPrice);
-                   /* for (int j = 0; j < 20; j++) {
-                       if (holder.mCb_card.isChecked()){
-                           checkedNumber++;
-                       }
-                    }*/
-                    int allItemPrice = 0;
-                   //求所有条目的价格,便利所有自条目
-                    for (int j = 0; j < mData.size(); j++) {
-
-                        if (holder.mCb_card.isChecked()){
-                            String s1 = holder.mTv_card_price.getText().toString().substring(1);
-                            int i3 = Integer.parseInt(s1);
-                            allItemPrice+=i3;
-                        }
-
-                    }
-                    mTv_price_card.setText("合计：$"+allItemPrice);
-
-                }
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checkedData[position] = isChecked;
+                calculate();
             }
         });
+
         String text = holder.mEt_number.getText().toString();
         int number = Integer.parseInt(text);
         if (number<=0){
@@ -179,11 +126,15 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         if (mCb_card_checkall.isChecked()){
             for (int i = 0; i < getItemCount(); i++) {
                 holder.mCb_card.setChecked(true);
+                checkedData[i] = true;
             }
+            calculate();
         }else{
             for (int i = 0; i < getItemCount(); i++) {
                 holder.mCb_card.setChecked(false);
+                checkedData[i] = false;
             }
+            calculate();
         }
     }
 
@@ -295,5 +246,15 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     }
     public void setOnItemClickListener(OnRecyclerViewItemClickListener listener){
         this.mOnItemClickListener = listener;
+    }
+    public void calculate() {
+        int totalPrice = 0;
+        for (int i = 0; i < mData.size(); i++) {
+            if (checkedData[i]) {
+                totalPrice += mData.get(i).getProductCount() * mData.get(i).getProduct().getPrice();
+            }
+            mTv_price_card.setText("" + totalPrice);
+
+        }
     }
 }

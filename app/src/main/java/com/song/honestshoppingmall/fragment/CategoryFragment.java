@@ -1,6 +1,7 @@
 package com.song.honestshoppingmall.fragment;
 
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -27,15 +28,19 @@ public class CategoryFragment extends BaseFragment {
     private ListView mLv_category_right;
     private CategorySecondAdapter mCategorySecondAdapter;
 
-    private int mCurSelectFirstId = 0;
+    private int mCurSelectFirstPos = 0;
     private List<ShopCategoryBean.CategoryBean> mFirstPartList = new ArrayList<>();
     private List<ShopCategoryBean.CategoryBean> mSecondPartList = new ArrayList<>();
 
+    private Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            return false;
+        }
+    });
+
     @Override
     protected View initView() {
-//        TextView tv = new TextView(mContext);
-//        tv.setText("这是分类");
-//        return tv;
         View view = View.inflate(mContext, R.layout.fragment_category, null);
 
         mLv_category_left = (ListView) view.findViewById(R.id.lv_category_left);
@@ -50,7 +55,13 @@ public class CategoryFragment extends BaseFragment {
         mCategoryDataManager.requestCategoryData();
 
         showCategory();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setFirstPartSelectedByPos(0, true);
 
+            }
+        }, 500);
         mCategoryDataManager.setOnCategoryUpdateListener(new CategoryDataManager.OnCategoryUpdateListener() {
 
             @Override
@@ -61,6 +72,13 @@ public class CategoryFragment extends BaseFragment {
                 if(response.isSuccessful()){
                     //获取网络数据成功，可以通过manager获得相应数据进行展示
                     showCategory();
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            setFirstPartSelectedByPos(0, true);
+
+                        }
+                    }, 500);
                 }else{
                     //获取网络回复成功，但结果出错，进行相关提示
                 }
@@ -71,11 +89,25 @@ public class CategoryFragment extends BaseFragment {
         mLv_category_left.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mCurSelectFirstId = mFirstPartList.get(position).getId();
-                //刷新二级分类数据
-                updateCategorySecondByFirstId(mCurSelectFirstId);
+                if(mCurSelectFirstPos != position){
+                    //设置取消之前选中的item为非选中状态
+                    setFirstPartSelectedByPos(mCurSelectFirstPos, false);
+                    //设置当前一级分类Item选中
+                    setFirstPartSelectedByPos(position, true);
+
+                    mCurSelectFirstPos = position;
+                    //刷新二级分类数据
+                    updateCategorySecondByFirstId(mFirstPartList.get(mCurSelectFirstPos).getId());
+                }
             }
         });
+    }
+
+    //设置当前一级分类position的Item选中
+    private void setFirstPartSelectedByPos(int position, boolean isSelected) {
+        if(mLv_category_left.getChildAt(position) != null){
+            mLv_category_left.getChildAt(position).findViewById(R.id.tv_item_category_left).setSelected(isSelected);
+        }
     }
 
     private void showCategory() {
@@ -84,7 +116,7 @@ public class CategoryFragment extends BaseFragment {
             updateCategoryLeft();
             //刷新默认二级分类数据
             if(mFirstPartList.size() > 0) {
-                updateCategorySecondByFirstId(mFirstPartList.get(0).getId());
+                updateCategorySecondByFirstId(mFirstPartList.get(mCurSelectFirstPos).getId());
             }
         }
     }
@@ -117,9 +149,4 @@ public class CategoryFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("CategoryFragment", "onResume");
-    }
 }
