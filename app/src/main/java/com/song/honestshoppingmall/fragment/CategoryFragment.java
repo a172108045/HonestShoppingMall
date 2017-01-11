@@ -59,7 +59,6 @@ public class CategoryFragment extends BaseFragment {
             @Override
             public void run() {
                 setFirstPartSelectedByPos(0, true);
-
             }
         }, 500);
         mCategoryDataManager.setOnCategoryUpdateListener(new CategoryDataManager.OnCategoryUpdateListener() {
@@ -68,6 +67,7 @@ public class CategoryFragment extends BaseFragment {
             public void OnCategoryUpdate(Response<ShopCategoryBean> response) {
                 if(response == null){
                     //网络请求失败，没有连接上服务器，进行相关失败提示
+                    return;
                 }
                 if(response.isSuccessful()){
                     //获取网络数据成功，可以通过manager获得相应数据进行展示
@@ -149,4 +149,8 @@ public class CategoryFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

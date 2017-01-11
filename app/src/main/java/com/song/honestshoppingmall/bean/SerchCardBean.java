@@ -1,5 +1,6 @@
 package com.song.honestshoppingmall.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class SerchCardBean extends BaseBean {
         this.cart = cart;
     }
 
-    public static class CartBean {
+    public static class CartBean implements Serializable{
         private int id;
         /**
          * buyLimit : 10

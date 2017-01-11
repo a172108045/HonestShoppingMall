@@ -133,7 +133,8 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected void initData() {
-        //sku = getArguments().getString("sku", "");
+        sku = getArguments().getString("sku", "");
+        System.out.println("initDatasku="+sku);
 
         mLl_send_address.setOnClickListener(this);
         mLl_check_method.setOnClickListener(this);
@@ -184,8 +185,8 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void initNetData() {
+        System.out.println("sku="+sku);
         String userid = SpUtil.getString(mContext, Constants.USERID, "");
-        sku = "2:9:1,2|2:3:2,3";
         RetrofitUtil.getAPIRetrofitInstance().getCheckOutBean(sku, userid).enqueue(new Callback<CheckOutBean>() {
             @Override
             public void onResponse(Call<CheckOutBean> call, Response<CheckOutBean> response) {
@@ -239,7 +240,11 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void showData() {
+
         mTvBillHead.setText(billTitle + "/" + billContent);
+        System.out.println(mTvCustomName);
+        System.out.println(mCheckOutBean);
+        System.out.println(mCheckOutBean.getAddressInfo());
 
         mTvCustomName.setText(mCheckOutBean.getAddressInfo().getName());
         mTvCustomPhone.setText(mCheckOutBean.getAddressInfo().getPhoneNumber());
