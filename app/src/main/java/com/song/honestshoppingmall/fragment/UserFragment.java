@@ -31,6 +31,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected View initView() {
         View view = View.inflate(mContext, R.layout.fragment_mine_user, null);
+
         bt_logout = (Button) view.findViewById(R.id.bt_logout_user);
         mOrder = (LinearLayout) view.findViewById(R.id.linearlayout_myorder);
         address_user = (ImageView) view.findViewById(R.id.iv_address_user);
@@ -41,6 +42,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initclick() {
+        address_user.setOnClickListener(this);
         bt_logout.setOnClickListener(this);
         mOrder.setOnClickListener(this);
     }

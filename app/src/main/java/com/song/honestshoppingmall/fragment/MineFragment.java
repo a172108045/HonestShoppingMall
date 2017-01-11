@@ -54,13 +54,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             }
         }
 
-        /*if(SpUtil.getBoolean(mContext, Constants.CHECKBOX, false)) {
-            if (SpUtil.getString(mContext, Constants.USERID, null) != null) {
-                ((HomeActivity) mContext).removeAllFragment();
-                ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
-            }
-        }*/
-
         View view = View.inflate(mContext, R.layout.fragment_mine, null);
 
         bt_title_login = (Button) view.findViewById(R.id.bt_title_login);
