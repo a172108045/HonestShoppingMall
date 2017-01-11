@@ -1,6 +1,5 @@
 package com.song.honestshoppingmall.fragment;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -8,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.song.honestshoppingmall.R;
-import com.song.honestshoppingmall.activity.HotsaleActivity;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.RotateVpAdapter;
 import com.song.honestshoppingmall.bean.RotateBean;
 
@@ -173,8 +172,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imager_hotsale:
-                Intent intent = new Intent(mContext, HotsaleActivity.class);
-                startActivity(intent);
+                ((HomeActivity)mContext).changeFragment(new HotsaleFragment(), "HotsaleFragment");
                 break;
             case R.id.imager_promotion:
                 break;
@@ -192,4 +190,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
+
+
 }

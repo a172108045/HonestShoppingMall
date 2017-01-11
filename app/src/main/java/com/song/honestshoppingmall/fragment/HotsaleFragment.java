@@ -1,9 +1,13 @@
-package com.song.honestshoppingmall.activity;
+package com.song.honestshoppingmall.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -14,28 +18,33 @@ import com.song.honestshoppingmall.bean.RotateBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+
 /**
- * Created by yspc on 2017/1/9.
+ * Created by yspc on 2017/1/11.
  */
 
-public class HotsaleActivity extends AppCompatActivity {
+public class HotsaleFragment extends Fragment {
     private static final int TIME = 3000;
 
-    private ViewPager viewPager;
+    private View view;
     private LinearLayout pointLl;
+    private ViewPager viewPager;
     private List<RotateBean> datas;
     private RotateHotsaleVpAdapter vpAdapter;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_hotsale);
-        viewPager = (ViewPager) findViewById(R.id.rotate_hotsale_vp);
-        pointLl = (LinearLayout) findViewById(R.id.rotate_point_container);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.item_hotsale, container, false);
+        viewPager = (ViewPager) view.findViewById(R.id.rotate_hotsale_vp);
+        pointLl = (LinearLayout) view.findViewById(R.id.rotate_point_container);
 
         buildDatas();
 
-        vpAdapter = new RotateHotsaleVpAdapter(datas, this);
+        vpAdapter = new RotateHotsaleVpAdapter(datas, getContext());
         viewPager.setAdapter(vpAdapter);
 
         viewPager.setCurrentItem(datas.size() * 100);
@@ -49,6 +58,7 @@ public class HotsaleActivity extends AppCompatActivity {
 
         initView();
 
+        return view;
     }
 
     private void initView() {
@@ -87,7 +97,7 @@ public class HotsaleActivity extends AppCompatActivity {
     private void addPoints() {
 
         for (int i = 0; i < datas.size(); i++) {
-            ImageView pointIv = new ImageView(this);
+            ImageView pointIv = new ImageView(getContext());
             pointIv.setPadding(5, 5, 5, 5);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(20, 20);
             pointIv.setLayoutParams(params);
@@ -121,13 +131,13 @@ public class HotsaleActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         isRotate = true;
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         isRotate = false;
     }
@@ -138,7 +148,11 @@ public class HotsaleActivity extends AppCompatActivity {
         datas.add(new RotateBean(R.mipmap.image2));
         datas.add(new RotateBean(R.mipmap.image3));
         datas.add(new RotateBean(R.mipmap.image4));
-        datas.add(new RotateBean(R.mipmap.image5));
-        datas.add(new RotateBean(R.mipmap.image6));
     }
+
+    Retrofit retrofit=new Retrofit.Builder()
+            .baseUrl("http://")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
 }
