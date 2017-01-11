@@ -15,7 +15,6 @@
         android:layout_weight="1">
 
     </FrameLayout>
-
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="match_parent"
@@ -36,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-           android:drawableTop="@drawable/selector_category_icon"/>
+            android:drawableTop="@drawable/selector_category_icon"/>
         <RadioButton
             android:button="@null"
             android:id="@+id/rb_shopcart"
