@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="5dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_kuang_pink"
+        android:padding="5dp"
+        android:text="反馈内容："
+        android:textColor="#fff"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:hint="用户评价输入框:"
+        android:gravity="start"
+        android:padding="5dp"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_kuang"
+        android:lines="6"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_kuang_pink"
+        android:padding="5dp"
+        android:text="联系方式："
+        android:textColor="#fff"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:hint="您的手机号或电子邮箱:"
+        android:gravity="start"
+        android:padding="5dp"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_kuang"
+        android:lines="3"/>
+
+    <Button
+        android:id="@+id/bt_submit"
+        android:text="提交反馈"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_kuang_pink"/>
+
+
+</LinearLayout>

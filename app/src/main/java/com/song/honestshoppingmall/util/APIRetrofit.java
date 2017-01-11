@@ -1,7 +1,10 @@
 package com.song.honestshoppingmall.util;
 
 import com.song.honestshoppingmall.bean.AddCartBean;
+import com.song.honestshoppingmall.bean.AddressBean;
 import com.song.honestshoppingmall.bean.CheckOutBean;
+import com.song.honestshoppingmall.bean.HelpBean;
+import com.song.honestshoppingmall.bean.HelpDetailBean;
 import com.song.honestshoppingmall.bean.GoodsBean;
 import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
@@ -166,5 +169,14 @@ public interface APIRetrofit {
 
     @POST("logout")
     Call<LogoutBean> logOut(@Header("userid") String userid);
+
+    @GET("help")
+    Call<HelpBean> getHelpBean();
+
+    @GET("helpDetail")
+    Call<HelpDetailBean> getHelpDetailBean(@Query("id") String id);
+
+    @GET("addresslist")
+    Call<AddressBean> getAddressBean(@Header("userid") String userid);
 
 }
