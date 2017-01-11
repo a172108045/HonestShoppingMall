@@ -239,6 +239,7 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void showData() {
+
         mTvBillHead.setText(billTitle + "/" + billContent);
 
         mTvCustomName.setText(mCheckOutBean.getAddressInfo().getName());
