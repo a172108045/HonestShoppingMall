@@ -108,11 +108,8 @@ public class DialogAlertUtils implements View.OnClickListener {
         mBtn_card_remove.setOnClickListener(this);
         mBtn_card_add.setOnClickListener(this);
         mBtn_card_tianjia.setOnClickListener(this);
-         String num = mNumber.getText().toString();
-        int numInt = Integer.parseInt(num);
-        if (numInt <= 1) {
-            mBtn_card_remove.setEnabled(false);
-        }
+
+
 
         computeTotalPrice(mNumber, mTv_price);
     }
@@ -174,6 +171,9 @@ public class DialogAlertUtils implements View.OnClickListener {
         String num = mNumber.getText().toString();
         int i = Integer.parseInt(num);
         mNumber.setText(i - 1 + "");
+        if (i <= 1) {
+            mBtn_card_remove.setEnabled(false);
+        }
     }
 
     /**
@@ -183,11 +183,11 @@ public class DialogAlertUtils implements View.OnClickListener {
         mBtn_card_remove.setEnabled(true);
         String num = mNumber.getText().toString();
         int i = Integer.parseInt(num);
-        if (i <= 1) {
-            mBtn_card_remove.setEnabled(false);
-        }
         mNumber.setText(i + 1 + "");
-
+        if (i>mData.getBuyLimit()){
+            mBtn_card_add.setEnabled(false);
+            Toast.makeText(mContext, "购买数量超出限制！", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void sendGetRequest() {
@@ -268,7 +268,6 @@ public class DialogAlertUtils implements View.OnClickListener {
      * @param tv_price 商品价格
      */
     private void computeTotalPrice(final EditText number, final TextView tv_price) {
-        final String mOriginPrice = tv_price.getText().toString().substring(1);
         number.addTextChangedListener(new TextWatcher() {
 
 
@@ -286,7 +285,7 @@ public class DialogAlertUtils implements View.OnClickListener {
             public void afterTextChanged(Editable editable) {
                 //一个的时候的价格
 
-                int price = Integer.parseInt(mOriginPrice);
+                int price = mData.getPrice();
 
                 //选购的数量productNum
                 String s = number.getText().toString();
