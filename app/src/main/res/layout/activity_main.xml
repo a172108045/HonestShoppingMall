@@ -1,40 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/drawer_main"
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/saoasao"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/search"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:src="@drawable/search9"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@mipmap/msg"/>
-
-    </LinearLayout>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/popularrecommoend"
@@ -42,7 +13,7 @@
         android:layout_height="200dp">
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/rotate_vp"
+            android:id="@+id/rotate_main_vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -62,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#9c9c9c">
+        android:background="@color/pink">
 
         <ImageView
             android:id="@+id/imager_hotsale"
@@ -91,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#9c9c9c">
+        android:background="@color/pink">
 
         <ImageView
             android:id="@+id/imager_newon"
@@ -138,6 +109,5 @@
             android:src="@mipmap/home_title_pic2"/>
 
     </LinearLayout>
-
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,9 @@ import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.bean.UpDateCartBean;
 import com.song.honestshoppingmall.fragment.ShopCartFragment;
 import com.song.honestshoppingmall.util.APIRetrofit;
+import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.RetrofitUtil;
+import com.song.honestshoppingmall.util.SpUtil;
 import com.song.honestshoppingmall.util.Urls;
 
 import java.util.HashMap;
@@ -45,7 +48,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     private TextView                     mTvTotalPrice;
     private Context                      mContext;
     private List<SerchCardBean.CartBean> mData;
-    private boolean checkedData[]  ;
+    public boolean checkedData[]  ;
     public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -142,7 +145,10 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             }
         });
 
-
+        String text = holder.mEt_number.getText().toString();
+        if (TextUtils.equals(text,"1")){
+            holder.mBtn_card_remove.setEnabled(true);
+        }
 
         if (mCb_card_checkall.isChecked()){
             for (int i = 0; i < getItemCount(); i++) {
@@ -163,7 +169,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
         Map<String,String> map = new HashMap<>();
-        map.put("userId","20428");
+        map.put("userId",SpUtil.getString(mContext, Constants.USERID,""));
         map.put("productId",productId+"");
         map.put("productCount",productCount+1+"");
         map.put("propertyId","1");
@@ -192,7 +198,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
         Map<String,String> map = new HashMap<>();
-        map.put("userId","20428");
+        map.put("userId", SpUtil.getString(mContext, Constants.USERID,""));
         map.put("productId",productId+"");
         map.put("productCount",productCount-1+"");
         map.put("propertyId","1");

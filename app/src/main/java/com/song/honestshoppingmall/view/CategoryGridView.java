@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.CategoryThirdAdapter;
 import com.song.honestshoppingmall.bean.ShopCategoryBean;
+import com.song.honestshoppingmall.fragment.GoodsDetailsFragment;
 import com.song.honestshoppingmall.manager.CategoryDataManager;
 
 import java.util.ArrayList;
@@ -69,6 +71,8 @@ public class CategoryGridView extends GridView {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //此处成功点击
                 Log.d("CategoryGridView", "您点击了" + mThirdPartList.get(position).getName());
+
+                ((HomeActivity) getContext()).changeFragment(new GoodsDetailsFragment(), "GoodsDetailsFragment");
             }
         });
     }
