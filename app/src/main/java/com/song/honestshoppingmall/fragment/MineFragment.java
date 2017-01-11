@@ -160,6 +160,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                                     String userid = response.body().getUserInfo().getUserid();
                                     SpUtil.saveString(getContext(), Constants.USERID, userid);
+                                    ((HomeActivity) mContext).removeAllFragment();
                                     ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
                                 } else {
                                     Toast.makeText(mContext, "你特么账号密码不正确", Toast.LENGTH_SHORT).show();
