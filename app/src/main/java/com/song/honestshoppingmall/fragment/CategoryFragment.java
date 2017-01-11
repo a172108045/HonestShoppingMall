@@ -149,4 +149,17 @@ public class CategoryFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        showCategory();
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                setFirstPartSelectedByPos(0, true);
+//
+//            }
+//        }, 500);
+    }
 }
