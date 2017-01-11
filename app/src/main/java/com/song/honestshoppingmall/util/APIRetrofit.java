@@ -4,6 +4,7 @@ import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.CheckOutBean;
 import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
+import com.song.honestshoppingmall.bean.LogoutBean;
 import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.bean.OrderDetailBean;
 import com.song.honestshoppingmall.bean.OrderSubmitBean;
@@ -151,4 +152,8 @@ public interface APIRetrofit {
     @FormUrlEncoded
     @POST("register")
     Call<RegisterBean> sendRegister(@FieldMap Map<String, String> registerMap);
+
+    @POST("logout")
+    Call<LogoutBean> logOut(@Header("userid") String userid);
+
 }

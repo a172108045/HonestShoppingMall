@@ -14,4 +14,5 @@ public interface Constants {
     String SEARCH_KEY = "serchkey";
     String USERID = "userid";
     String CHECKBOX = "checkbox";
+    String LOGIN_STATE = "loginstate";
 }
