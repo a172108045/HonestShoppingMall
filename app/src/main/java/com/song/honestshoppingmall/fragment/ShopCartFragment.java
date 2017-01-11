@@ -12,13 +12,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.CardRecyclerAdapter;
 import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.Constants;
-import com.song.honestshoppingmall.util.DialogAlertUtils;
 import com.song.honestshoppingmall.util.RetrofitUtil;
 import com.song.honestshoppingmall.util.SpUtil;
 
@@ -113,8 +113,9 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 ((HomeActivity) mContext).changeFragment(new CheckOutFragment(),"CheckOutFragment",bundle);
                 break;
             case R.id.btn_alert_dialog:
-                DialogAlertUtils.showScanNumberDialog(mContext, null);
-                getShopCart();
+               /* DialogAlertUtils dialogAlertUtils  = new DialogAlertUtils(mContext,mProductBean);
+                dialogAlertUtils.show();
+                getShopCart();*/
                 break;
             case R.id.btn_select:
                 ((HomeActivity) mContext).changeFragment(new SerchFragment(), "SerchFragment");
