@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
@@ -20,7 +22,6 @@ import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.DensityUtil;
 import com.song.honestshoppingmall.util.RetrofitUtil;
-import com.song.honestshoppingmall.view.MySlideMenu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,38 +42,50 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
     private List<SearchDetailBean.ProductListBean> mData = new ArrayList<>();
     private SearchDetailAdapter mSearchDetailAdapter;
     private Spinner             mSpinner;
-    private MySlideMenu mSlideMenu;
+    private TextView            mBtn_sales_evaluate;
+    private TextView            mBtn_sales_price;
+    private TextView            mBtn_sales_time;
+    private TextView            mBtn_sales_volume;
+    private View                mView;
+    private int type_price = 0;
+    private ImageView mIv_price;
 
     @Override
     protected View initView() {
-        View view = View.inflate(mContext, R.layout.fragment_serch_detail, null);
-        Bundle arguments = getArguments();
-        Button btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
-        btn_cancel.setOnClickListener(this);
-        mSpinner = (Spinner) view.findViewById(R.id.spinner2);
+        if (mView == null) {
+            mView = View.inflate(mContext, R.layout.fragment_serch_detail, null);
+            Bundle arguments = getArguments();
+            Button btn_cancel = (Button) mView.findViewById(R.id.btn_cancel);
+            btn_cancel.setOnClickListener(this);
+            mSpinner = (Spinner) mView.findViewById(R.id.spinner2);
+
+            RelativeLayout relative_price = (RelativeLayout) mView.findViewById(R.id.relative_price);
+            mIv_price = (ImageView) mView.findViewById(R.id.iv_price);
+
+            relative_price.setOnClickListener(this);
+
+            mBtn_sales_evaluate = (TextView) mView.findViewById(R.id.btn_sales_evaluate);
+            mBtn_sales_price = (TextView) mView.findViewById(R.id.btn_sales_price);
+            mBtn_sales_time = (TextView) mView.findViewById(R.id.btn_sales_time);
+            mBtn_sales_volume = (TextView) mView.findViewById(R.id.btn_sales_volume);
+
+            Button btn_sales_filtrate = (Button) mView.findViewById(R.id.btn_sales_filtrate);
+            //        mSlideMenu = (MySlideMenu) view.findViewById(R.id.id_menu);
 
 
-        RadioButton btn_sales_evaluate = (RadioButton) view.findViewById(R.id.btn_sales_evaluate);
-        RadioButton btn_sales_price = (RadioButton) view.findViewById(R.id.btn_sales_price);
-        RadioButton btn_sales_time = (RadioButton) view.findViewById(R.id.btn_sales_time);
-        RadioButton btn_sales_volume = (RadioButton) view.findViewById(R.id.btn_sales_volume);
+            mBtn_sales_evaluate.setOnClickListener(this);
+            mBtn_sales_time.setOnClickListener(this);
+            mBtn_sales_volume.setOnClickListener(this);
+            btn_sales_filtrate.setOnClickListener(this);
 
-        Button btn_sales_filtrate = (Button) view.findViewById(R.id.btn_sales_filtrate);
-        mSlideMenu = (MySlideMenu) view.findViewById(R.id.id_menu);
+            //获取上一个Fragment传递过来的String参数
+            mSearch_value = arguments.getString(Constants.SEARCH_KEY);
+
+            mRecycle_searchdetail = (RecyclerView) mView.findViewById(R.id.recycle_searchdetail);
+        }
 
 
-        btn_sales_evaluate.setOnClickListener(this);
-        btn_sales_price.setOnClickListener(this);
-        btn_sales_time.setOnClickListener(this);
-        btn_sales_volume.setOnClickListener(this);
-        btn_sales_filtrate.setOnClickListener(this);
-
-        //获取上一个Fragment传递过来的String参数
-        mSearch_value = arguments.getString(Constants.SEARCH_KEY);
-
-        mRecycle_searchdetail = (RecyclerView) view.findViewById(R.id.recycle_searchdetail);
-
-        return view;
+        return mView;
     }
 
     @Override
@@ -92,7 +105,7 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
             }
         });
 
-        initNetData();
+        initNetData("saleDown");
     }
 
     private void initSpinner() {
@@ -122,13 +135,13 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
         });
     }
 
-    private void initNetData() {
+    private void initNetData(String orderBy) {
 
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
         Map<String, String> map = new HashMap<>();
         map.put("page", "0");
         map.put("pageNum", "10");
-        map.put("orderby", "saleDown");
+        map.put("orderby", orderBy);
         map.put("keyword", mSearch_value);
         apiRetrofitInstance.getSearchDetail(map).enqueue(new Callback<SearchDetailBean>() {
 
@@ -168,32 +181,39 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
                 break;
             case R.id.btn_sales_filtrate:  //筛选
                 //弹出侧滑菜单
-               // startActivity(new Intent(mContext, TestActivity.class));
-                mSlideMenu.toggle();
+                //               // startActivity(new Intent(mContext, TestActivity.class));
+                //                mSlideMenu.toggle();
 
                 break;
-            case R.id.btn_sales_price:      //价格
 
-                /*Object[] objects = mData.toArray();
-
-                Arrays.sort(objects);
-                ListIterator<SearchDetailBean.ProductListBean> i = mData.listIterator();
-                for (int j=0; j<objects.length; j++) {
-                    i.next();
-                    i.set((SearchDetailBean.ProductListBean)objects[j]);
-                }
-*/
-
-                Toast.makeText(mContext, mData.toString(), Toast.LENGTH_SHORT).show();
-
-
-
-                break;
             case R.id.btn_sales_time:       //时间
                 break;
             case R.id.btn_sales_volume:   //销量
 
 
+                break;
+            case R.id.relative_price:
+
+                switch (type_price) {
+                    case 0:
+                        mBtn_sales_price.setTextColor(this.getResources().getColor(R.color.black));
+                       mIv_price.setImageResource(R.mipmap.up_down_pink_new);
+                        type_price = 1;
+                        break;
+                    case 1:
+                        mBtn_sales_price.setTextColor(this.getResources().getColor(R.color.pink));
+                        mIv_price.setImageResource(R.mipmap.up_pink_new);
+                        type_price = 2;
+
+                        break;
+                    case 2:
+                        mBtn_sales_price.setTextColor(this.getResources().getColor(R.color.pink));
+                        mIv_price.setImageResource(R.mipmap.down_pink_new);
+                        type_price = 0;
+
+                        break;
+
+                }
                 break;
             default:
                 break;

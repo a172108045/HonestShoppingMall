@@ -203,5 +203,32 @@ public class GoodsBean extends BaseBean {
                 this.v = v;
             }
         }
+
+        @Override
+        public String toString() {
+            return "ProductBean{" +
+                    "available=" + available +
+                    ", buyLimit=" + buyLimit +
+                    ", commentCount=" + commentCount +
+                    ", id=" + id +
+                    ", inventoryArea='" + inventoryArea + '\'' +
+                    ", leftTime=" + leftTime +
+                    ", limitPrice=" + limitPrice +
+                    ", marketPrice=" + marketPrice +
+                    ", name='" + name + '\'' +
+                    ", price=" + price +
+                    ", score=" + score +
+                    ", bigPic=" + bigPic +
+                    ", pics=" + pics +
+                    ", productProperty=" + productProperty +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "GoodsBean{" +
+                "product=" + product +
+                '}';
     }
 }

@@ -1,12 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-<TextView
-    android:id="@+id/title_setting"
-    android:text="设置"
-    style="@style/Title"
-    android:layout_width="match_parent"
-    android:layout_height="48dp"/>
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_setting"
+        style="@style/Title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="设置"/>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_help"
+            android:enabled="false"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:textColor="#fff"
+            android:background="@drawable/selector_rectangle_left"
+            android:text="帮助中心"/>
+        <Button
+            android:id="@+id/bt_record"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:layout_height="40dp"
+            android:background="@drawable/selector_rectangle_middle"
+            android:text="浏览记录"/>
+        <Button
+            android:id="@+id/bt_response"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:layout_height="40dp"
+            android:background="@drawable/selector_rectangle_middle"
+            android:text="用户反馈"/>
+        <Button
+            android:id="@+id/bt_about"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:textColor="#000"
+            android:background="@drawable/selector_rectangle_right"
+            android:text="关于"/>
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+
+
 </LinearLayout>

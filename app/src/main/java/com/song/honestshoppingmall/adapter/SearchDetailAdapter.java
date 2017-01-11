@@ -50,7 +50,7 @@ public class SearchDetailAdapter extends RecyclerView.Adapter<SearchDetailAdapte
 
         Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL+pic).into(holder.mIv_searchdetail);
         holder.mTv_product_name.setText(name);
-        holder.mTv_product_price.setText(marketPrice+"");
+        holder.mTv_product_price.setText("$"+marketPrice);
     }
 
     @Override

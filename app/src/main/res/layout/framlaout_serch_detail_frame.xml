@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -40,91 +38,54 @@
         android:layout_height="30dp"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="0dp"
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textColor="#000"
+            android:orientation="horizontal">
+
+            <RadioButton
                 android:id="@+id/btn_sales_volume"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="20dp"
+                android:layout_weight="1"
                 android:background="@drawable/selector_btn_bg"
                 android:button="@null"
-                android:layout_centerInParent="true"
+                android:gravity="center"
                 android:text="销量"/>
-            <ImageView
-                android:layout_toRightOf="@id/btn_sales_volume"
-                android:layout_width="wrap_content"
-                android:src="@mipmap/down_new"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/relative_price"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textColor="#000"
-                android:layout_centerInParent="true"
+            <RadioButton
                 android:id="@+id/btn_sales_price"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_btn_bg"
                 android:button="@null"
+                android:gravity="center"
                 android:text="价格"/>
-            <ImageView
-                android:id="@+id/iv_price"
-                android:layout_toRightOf="@id/btn_sales_price"
-                android:layout_width="wrap_content"
-                android:src="@mipmap/up_down_pink_new"
-                android:layout_marginBottom="12dp"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:textColor="#000"
+            <RadioButton
                 android:id="@+id/btn_sales_time"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
+                android:layout_weight="1"
                 android:background="@drawable/selector_btn_bg"
                 android:button="@null"
-                android:layout_centerInParent="true"
+                android:gravity="center"
                 android:text="时间"/>
-            <ImageView
-                android:layout_toRightOf="@id/btn_sales_time"
-                android:layout_width="wrap_content"
-                android:src="@mipmap/down_new"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textColor="#000"
+            <RadioButton
                 android:id="@+id/btn_sales_evaluate"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
+                android:layout_weight="1"
                 android:background="@drawable/selector_btn_bg"
                 android:button="@null"
-                android:layout_centerInParent="true"
+                android:gravity="center"
                 android:text="评价"/>
 
-            <ImageView
-                android:layout_toRightOf="@id/btn_sales_evaluate"
-                android:layout_width="wrap_content"
-                android:src="@mipmap/down_new"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
-
+        </RadioGroup>
 
         <Button
             android:id="@+id/btn_sales_filtrate"
@@ -135,7 +96,7 @@
             />
     </LinearLayout>
 
-  <android.support.v7.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_searchdetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
