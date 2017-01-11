@@ -3,17 +3,18 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-    <!--图片加标题-->
+    <!--翻页图片加标题-->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         >
 
-        <ImageView
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_fragment_goods_details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/top_show_pic7"
+            android:layout_gravity="center"
             />
 
         <RelativeLayout
@@ -57,13 +58,13 @@
         android:layout_weight="1"
         android:orientation="vertical"
         >
-        <!--价格和商品评分-->
-        <LinearLayout
+        <!--商品价格-->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_fragment_goods_curPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥89.0"
@@ -72,147 +73,136 @@
                 />
 
             <TextView
+                android:id="@+id/tv_fragment_goods_rawPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tv_fragment_goods_curPrice"
+                android:layout_toRightOf="@id/tv_fragment_goods_curPrice"
                 android:text="￥178.0"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/frament_goods_smallfont"
                 />
+        </RelativeLayout>
+
+        <!--商品评分-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_fragment_productScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:text="商品评分"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/frament_goods_smallfont"
                 />
+
             <!--评分星星-->
             <RatingBar
+                android:id="@+id/rb_fragment_goods_star"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tv_fragment_productScore"
+                android:layout_toRightOf="@id/tv_fragment_productScore"
+                android:numStars="5"
+                android:rating="4.5"
+                />
+
+        </RelativeLayout>
+
         <!--商品名称-->
         <TextView
+            android:id="@+id/tv_fragment_goods_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="布丁加森系纯色廓形毛衣裙"
+            android:text="商品名称"
             android:textSize="@dimen/fragment_goods_bigfont"
             android:textStyle="bold"
             />
 
-        <!--销量 好评率 喜欢-->
+        <!--7天退货先行赔付退货补贴-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!--销量-->
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="销量"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/clock"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="7天退货"
                 android:textSize="@dimen/frament_goods_smallfont"
                 />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="10000件"
-                android:textColor="@color/pink"
-                android:textSize="@dimen/frament_goods_smallfont"
-                />
-            <!--好评率-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="好评率"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/clock"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="先行赔付"
                 android:textSize="@dimen/frament_goods_smallfont"
                 />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="99.99%"
-                android:textColor="@color/pink"
-                android:textSize="@dimen/frament_goods_smallfont"
-                />
-            <!--喜欢-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="喜欢"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/clock"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="退货补贴"
                 android:textSize="@dimen/frament_goods_smallfont"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
+        </LinearLayout>
+
+        <!--收藏加入购物车购买-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_fragment_goods_collection"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="1000人"
-                android:textColor="@color/pink"
-                android:textSize="@dimen/frament_goods_smallfont"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/good_shocang"
+                android:drawablePadding="5dp"
+                android:text="收藏"
                 />
-            />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btn_fragment_goods_addCart"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:text="加入购物车"
+                />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="7天退货"
-                    android:textSize="@dimen/frament_goods_smallfont"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="先行赔付"
-                    android:textSize="@dimen/frament_goods_smallfont"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="退货补贴"
-                    android:textSize="@dimen/frament_goods_smallfont"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btn_fragment_goods_buy"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableLeft="@mipmap/good_shocang"
-                    android:drawablePadding="5dp"
-                    android:text="收藏"
-                    />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="加入购物车"
-                    />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="购买"
-                    />
-
-            </LinearLayout>
+                android:layout_weight="1"
+                android:text="购买"
+                />
 
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>
+
 
