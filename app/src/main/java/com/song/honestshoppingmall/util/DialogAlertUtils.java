@@ -108,7 +108,7 @@ public class DialogAlertUtils {
             public void onClick(View view) {
                 //发送get请求
                 Map<String,String> map = new HashMap<String, String>();
-                map.put("userId","20428");
+                map.put("userId",SpUtil.getString(context, Constants.USERID,""));
                 map.put("productId","27");
                 map.put("productCount","1");
                 map.put("propertyId","1");

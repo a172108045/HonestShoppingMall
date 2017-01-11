@@ -241,6 +241,9 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
     private void showData() {
 
         mTvBillHead.setText(billTitle + "/" + billContent);
+        System.out.println(mTvCustomName);
+        System.out.println(mCheckOutBean);
+        System.out.println(mCheckOutBean.getAddressInfo());
 
         mTvCustomName.setText(mCheckOutBean.getAddressInfo().getName());
         mTvCustomPhone.setText(mCheckOutBean.getAddressInfo().getPhoneNumber());

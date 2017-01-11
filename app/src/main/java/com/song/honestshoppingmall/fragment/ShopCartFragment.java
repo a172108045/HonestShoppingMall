@@ -1,5 +1,6 @@
 package com.song.honestshoppingmall.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,8 +17,10 @@ import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.CardRecyclerAdapter;
 import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
+import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.DialogAlertUtils;
 import com.song.honestshoppingmall.util.RetrofitUtil;
+import com.song.honestshoppingmall.util.SpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,26 +76,38 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        //initView();
+        //  refreshData();
+    }
+
+    public void refreshData() {
+
+        if (mCardRecyclerAdapter != null) {
+            getShopCart();
+            mCardRecyclerAdapter.notifyDataSetChanged();
+        }
+
 
     }
-    public   void refreshData(){
-        getShopCart();
 
-        mCardRecyclerAdapter.notifyDataSetChanged();
-
-    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_gotopay:
                 Toast.makeText(mContext, "点击进入结算页面", Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                for (int i = 0; i < mData.size(); i++) {
+                    bundle.putSerializable("data",mData.get(i));
+                }
+
+                ((HomeActivity) mContext).changeFragment(new CheckOutFragment(),"CheckOutFragment",bundle);
                 break;
             case R.id.btn_alert_dialog:
                 DialogAlertUtils.showScanNumberDialog(mContext);
                 getShopCart();
                 break;
             case R.id.btn_select:
-                ((HomeActivity) mContext).changeFragment(new SerchFragment(),"SerchFragment");
+                ((HomeActivity) mContext).changeFragment(new SerchFragment(), "SerchFragment");
                 break;
             default:
                 break;
@@ -102,7 +117,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
     private void getShopCart() {
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
-        apiRetrofitInstance.getSerchCartBean("20428")
+        apiRetrofitInstance.getSerchCartBean(SpUtil.getString(mContext, Constants.USERID, ""))
                 .enqueue(new Callback<SerchCardBean>() {
                     @Override
                     public void onResponse(Call<SerchCardBean> call, Response<SerchCardBean> response) {
