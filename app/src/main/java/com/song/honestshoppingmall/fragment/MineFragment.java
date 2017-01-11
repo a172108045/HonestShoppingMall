@@ -47,6 +47,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View initView() {
+        System.out.println("登录状态："+SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false));
+        System.out.println("自动登录状态："+SpUtil.getBoolean(mContext, Constants.CHECKBOX, false));
+        System.out.println("用户ID："+SpUtil.getString(mContext, Constants.USERID, ""));
+
         if(SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false)) {
             if (SpUtil.getString(mContext, Constants.USERID, "") != "") {
                 ((HomeActivity) mContext).removeAllFragment();
@@ -147,6 +151,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                                     SpUtil.saveBoolean(mContext, Constants.LOGIN_STATE, true);
                                     boolean checked = cb_aotologin.isChecked();
                                     if (checked == true) {
+                                        SpUtil.saveString(mContext, Constants.USERNAME, mUsername);
+                                        SpUtil.saveString(mContext, Constants.PASSWORD, mPassword);
                                         SpUtil.saveBoolean(mContext, Constants.CHECKBOX, true);
                                     } else {
                                         SpUtil.saveBoolean(mContext, Constants.CHECKBOX, false);

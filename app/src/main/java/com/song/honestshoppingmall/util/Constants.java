@@ -15,4 +15,6 @@ public interface Constants {
     String USERID = "userid";
     String CHECKBOX = "checkbox";
     String LOGIN_STATE = "loginstate";
+    String USERNAME = "username";
+    String PASSWORD = "password";
 }
