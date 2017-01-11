@@ -64,6 +64,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
                             }
                         }
                     }
+
                     @Override
                     public void onFailure(Call<LogoutBean> call, Throwable t) {
                         logOutSetting();
@@ -75,7 +76,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
                 break;
 
             case R.id.iv_address_user:
-
+                ((HomeActivity) mContext).changeFragment(new AddressFragment(), "AddressFragment");
                 break;
         }
     }
