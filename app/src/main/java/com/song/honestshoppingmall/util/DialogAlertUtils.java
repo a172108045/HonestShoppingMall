@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.bean.AddCartBean;
+import com.song.honestshoppingmall.bean.GoodsBean;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,9 +38,10 @@ public class DialogAlertUtils {
      *
      * @param context
      *            上下文
+     * @param productBean
 
      */
-    public static void showScanNumberDialog(final Context context) {
+    public static void showScanNumberDialog(final Context context, GoodsBean.ProductBean productBean) {
         //Dialog dialog = new Dialog(context)
         // SysApplication.getInstance().exit();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

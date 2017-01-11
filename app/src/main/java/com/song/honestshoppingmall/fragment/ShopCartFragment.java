@@ -116,7 +116,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 ((HomeActivity) mContext).changeFragment(new CheckOutFragment(),"CheckOutFragment",bundle);
                 break;
             case R.id.btn_alert_dialog:
-                DialogAlertUtils.showScanNumberDialog(mContext);
+                DialogAlertUtils.showScanNumberDialog(mContext, mProductBean);
                 getShopCart();
                 break;
             case R.id.btn_select:

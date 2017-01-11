@@ -107,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/tv_fragment_productScore"
                 android:layout_toRightOf="@id/tv_fragment_productScore"
+                android:isIndicator="true"
                 android:numStars="5"
                 android:rating="4.5"
                 />

@@ -2,6 +2,7 @@ package com.song.honestshoppingmall.util;
 
 import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.CheckOutBean;
+import com.song.honestshoppingmall.bean.GoodsBean;
 import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.bean.LogoutBean;
@@ -134,6 +135,12 @@ public interface APIRetrofit {
      */
     @GET("category")
     Call<ShopCategoryBean> getCategoryMsg();
+
+    /**
+     * 获取商品详情
+     */
+    @GET("product")
+    Call<GoodsBean> getProductData(@Query("pId") int pId);
 
     /***
      * 搜索推荐
