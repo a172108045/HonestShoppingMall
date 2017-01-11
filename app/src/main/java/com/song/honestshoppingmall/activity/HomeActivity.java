@@ -107,7 +107,22 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
      */
     public void changeFragment(Fragment fragment, String tag) {
         mFragmentManager.beginTransaction()
-                .replace(R.id.fl_home, fragment)
+                .replace(R.id.fl_home, fragment, tag)
+                .addToBackStack(tag)
+                .commit();
+    }
+
+    /**
+     * 切换页面， 可以传递数据
+     *
+     * @param fragment 要修改成哪一个Fragment的实例
+     * @param tag      标记
+     * @param bundle   要传递的数据
+     */
+    public void changeFragment(Fragment fragment, String tag, Bundle bundle) {
+        fragment.setArguments(bundle);
+        mFragmentManager.beginTransaction()
+                .replace(R.id.fl_home, fragment, tag)
                 .addToBackStack(tag)
                 .commit();
     }
@@ -151,6 +166,8 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         super.onBackPressed();
 
     }
+
+
 
 
 }

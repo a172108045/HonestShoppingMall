@@ -11,37 +11,6 @@
         android:layout_height="48dp"
         />
 
-    <RelativeLayout
-        android:padding="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <Button
-            android:id="@+id/bt_back_myorder"
-            android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="40sp"
-            android:text="返回"
-            android:textSize="20sp"
-            android:textColor="#fff"
-            android:background="@drawable/shape_rectangle_pink"/>
-
-        <TextView
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我的订单"
-            android:textColor="#000"
-            android:textSize="25sp"
-            />
-
-    </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DFDFDF"/>
-
     <LinearLayout
         android:layout_marginTop="10dp"
         android:paddingLeft="5dp"
@@ -73,7 +42,7 @@
             android:layout_height="40dp"
             android:textColor="#000"
             android:background="@drawable/selector_rectangle_right"
-            android:text="已取消订单"/>
+            android:text="已删除订单"/>
 
     </LinearLayout>
 
@@ -96,20 +65,7 @@
             android:visibility="visible">
 
         </android.support.v7.widget.RecyclerView>
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/lv_before_order"
-            android:visibility="invisible">
 
-        </android.support.v7.widget.RecyclerView>
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/lv_cancelled_order"
-            android:visibility="invisible">
-
-        </android.support.v7.widget.RecyclerView>
 
     </FrameLayout>
 

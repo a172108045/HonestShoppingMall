@@ -46,6 +46,7 @@
                 android:text="尺码："/>
 
             <TextView
+                android:textColor="#f00"
                 android:id="@+id/tv_card_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,6 +69,7 @@
                 android:text="——"/>
             <EditText
                 android:text="1"
+                android:focusable="false"
                 android:id="@+id/et_number"
                 android:layout_width="40dp"
                 android:layout_height="40dp"/>

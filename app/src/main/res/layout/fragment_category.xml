@@ -1,11 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <TextView
-        android:text="分类"
-        style="@style/Title"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+    >
+
+    <!--标题-->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"/>
+        android:layout_height="48dp"
+        android:background="@color/pink"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back"
+            android:layout_marginLeft="5dp"
+            />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="分类"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/loding"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            />
+
+    </RelativeLayout>
+    <!--分割线-->
+
+    <!--主内容-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_category_left"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+        </ListView>
+
+        <ListView
+            android:id="@+id/lv_category_right"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content">
+        </ListView>
+
+    </LinearLayout>
+
 </LinearLayout>

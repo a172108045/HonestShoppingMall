@@ -36,5 +36,4 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
 
     protected abstract void initData();
 
-
 }

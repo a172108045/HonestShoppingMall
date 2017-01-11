@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="pink">#FF8FB7</color>
     <color name="grey">#DFDFDF</color>
+    <color name="white">#FFF</color>
+    <color name="colorCard">#FF8FB7</color>
+    <color name="colorCardNomal">#fff</color>
 </resources>
