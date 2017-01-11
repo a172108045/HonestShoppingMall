@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.CardRecyclerAdapter;
@@ -66,8 +65,6 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
             btn_gotopay.setOnClickListener(this);
             btn_alert_dialog.setOnClickListener(this);
         }
-
-
         return mView;
     }
 
@@ -116,7 +113,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 ((HomeActivity) mContext).changeFragment(new CheckOutFragment(),"CheckOutFragment",bundle);
                 break;
             case R.id.btn_alert_dialog:
-                DialogAlertUtils.showScanNumberDialog(mContext, mProductBean);
+                DialogAlertUtils.showScanNumberDialog(mContext, null);
                 getShopCart();
                 break;
             case R.id.btn_select:
