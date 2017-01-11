@@ -48,7 +48,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     private TextView                     mTvTotalPrice;
     private Context                      mContext;
     private List<SerchCardBean.CartBean> mData;
-    private boolean checkedData[]  ;
+    public boolean checkedData[]  ;
     public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
