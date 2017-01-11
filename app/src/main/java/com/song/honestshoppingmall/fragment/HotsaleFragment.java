@@ -1,32 +1,45 @@
 package com.song.honestshoppingmall.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
+import com.song.honestshoppingmall.adapter.HotSaleListAdapter;
 import com.song.honestshoppingmall.adapter.RotateHotsaleVpAdapter;
 import com.song.honestshoppingmall.bean.RotateBean;
+import com.song.honestshoppingmall.bean.ScareBuyBean;
+import com.song.honestshoppingmall.util.APIRetrofit;
+import com.song.honestshoppingmall.util.RetrofitUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
  * Created by yspc on 2017/1/11.
  */
 
-public class HotsaleFragment extends Fragment {
+public class HotsaleFragment extends Fragment implements View.OnClickListener{
     private static final int TIME = 3000;
 
     private View view;
@@ -34,13 +47,41 @@ public class HotsaleFragment extends Fragment {
     private ViewPager viewPager;
     private List<RotateBean> datas;
     private RotateHotsaleVpAdapter vpAdapter;
+    private ListView mLv_hotsale;
+    private List<ScareBuyBean.ProductListBean> mData ;
+    private Context mContext;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+        }
+    };
+    private HotSaleListAdapter mAdapter;
+    private ImageView bt_hotsale_break;
+    private LinearLayout mLiner_back;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FragmentActivity activity = getActivity();
+        this.mContext = activity;
+        this.mData = new ArrayList<>();
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.item_hotsale, container, false);
         viewPager = (ViewPager) view.findViewById(R.id.rotate_hotsale_vp);
         pointLl = (LinearLayout) view.findViewById(R.id.rotate_point_container);
+        mLv_hotsale = (ListView) view.findViewById(R.id.lv_hotsale);
+        mLiner_back = (LinearLayout) view.findViewById(R.id.liner_back);
+        mLiner_back.setOnClickListener(this);
+        initNetData();
+
 
         buildDatas();
 
@@ -61,7 +102,55 @@ public class HotsaleFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+}
+
+    private void initNetData() {
+        APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
+        final Map<String,String> map = new HashMap<>();
+        map.put("page","1");
+        map.put("pageNum","10");
+        apiRetrofitInstance.getScareBuy(map).enqueue(new Callback<ScareBuyBean>() {
+
+
+
+            @Override
+            public void onResponse(Call<ScareBuyBean> call, Response<ScareBuyBean> response) {
+                if (response.isSuccessful()) {
+                    ScareBuyBean body = response.body();
+                    if (body.error==null){
+                        List<ScareBuyBean.ProductListBean> productList = body.getProductList();
+                        mData.clear();
+                        mData.addAll(productList);
+        if (mAdapter == null){
+            mAdapter = new HotSaleListAdapter(mContext, mData);
+            mLv_hotsale.setAdapter(mAdapter);
+        }else{
+            mAdapter.notifyDataSetChanged();
+        }
+
+
+                    }else{
+                        Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ScareBuyBean> call, Throwable t) {
+            Toast.makeText(mContext,t.toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void initView() {
+        bt_hotsale_break = (ImageView) view.findViewById(R.id.bt_hotsale_break);
+
+        HotSaleListAdapter adapter = new HotSaleListAdapter(mContext,mData);
+        mLv_hotsale.setAdapter(adapter);
 
     }
 
@@ -148,11 +237,16 @@ public class HotsaleFragment extends Fragment {
         datas.add(new RotateBean(R.mipmap.image2));
         datas.add(new RotateBean(R.mipmap.image3));
         datas.add(new RotateBean(R.mipmap.image4));
+
     }
 
-    Retrofit retrofit=new Retrofit.Builder()
-            .baseUrl("http://")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.liner_back:
+                ((HomeActivity) mContext).changeFragment(new HomeFragment(),"HomeFragment");
+                break;
+        }
+    }
 }

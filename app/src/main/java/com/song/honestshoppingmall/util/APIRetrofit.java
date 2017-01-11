@@ -8,6 +8,7 @@ import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.bean.OrderDetailBean;
 import com.song.honestshoppingmall.bean.OrderSubmitBean;
 import com.song.honestshoppingmall.bean.RegisterBean;
+import com.song.honestshoppingmall.bean.ScareBuyBean;
 import com.song.honestshoppingmall.bean.SearchDetailBean;
 import com.song.honestshoppingmall.bean.SearchRecommandBean;
 import com.song.honestshoppingmall.bean.SerchCardBean;
@@ -151,4 +152,7 @@ public interface APIRetrofit {
     @FormUrlEncoded
     @POST("register")
     Call<RegisterBean> sendRegister(@FieldMap Map<String, String> registerMap);
+
+    @GET("limitbuy")
+    Call<ScareBuyBean> getScareBuy(@QueryMap Map<String,String> params);
 }
