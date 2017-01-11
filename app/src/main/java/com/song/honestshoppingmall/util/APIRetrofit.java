@@ -3,6 +3,7 @@ package com.song.honestshoppingmall.util;
 import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.AddressBean;
 import com.song.honestshoppingmall.bean.CheckOutBean;
+import com.song.honestshoppingmall.bean.DeleteCartBean;
 import com.song.honestshoppingmall.bean.HelpBean;
 import com.song.honestshoppingmall.bean.HelpDetailBean;
 import com.song.honestshoppingmall.bean.GoodsBean;
@@ -110,6 +111,13 @@ public interface APIRetrofit {
     @GET("updateCart")
     Call<UpDateCartBean> getUpdateCart(@QueryMap Map<String, String> params);
 
+    /**
+     * 删除购物车
+     * @param params
+     * @return
+     */
+    @GET("deleteCart")
+    Call<DeleteCartBean> deleteCart(@QueryMap Map<String,String> params);
 
     /**
      * 订单列表操作

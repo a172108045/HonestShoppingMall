@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.CardRecyclerAdapter;
+import com.song.honestshoppingmall.bean.DeleteCartBean;
 import com.song.honestshoppingmall.bean.SerchCardBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.Constants;
@@ -23,15 +25,15 @@ import com.song.honestshoppingmall.util.RetrofitUtil;
 import com.song.honestshoppingmall.util.SpUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by Judy on 2017/1/8.
- */
+
 
 public class ShopCartFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -44,26 +46,28 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
     public CardRecyclerAdapter mCardRecyclerAdapter;
     private View mView;
+    private ImageButton mIb_bianji_cart;
+    private Button mBtn_select;
+    private int mProductId;
 
     @Override
     protected View initView() {
         if (mView == null){
             mView = View.inflate(mContext, R.layout.fragment_shopcart, null);
             mImageView = (ImageView) mView.findViewById(R.id.iv_getdatafailed);
-            Button btn_select = (Button) mView.findViewById(R.id.btn_select);
-
-            btn_select.setOnClickListener(this);
+            mBtn_select = (Button) mView.findViewById(R.id.btn_select);
+            mBtn_select.setOnClickListener(this);
             mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
-            Button btn_alert_dialog = (Button) mView.findViewById(R.id.btn_alert_dialog);
             mRelative_pay = (RelativeLayout) mView.findViewById(R.id.relative_pay);
             mCb_card_checkall = (CheckBox) mView.findViewById(R.id.cb_card_checkall);
             mTv_price_card = (TextView) mView.findViewById(R.id.tv_totalPrice);
+            mIb_bianji_cart = (ImageButton) mView.findViewById(R.id.ib_bianji_cart);
+            mIb_bianji_cart.setOnClickListener(this);
             if (mCb_card_checkall != null) {
                 mCb_card_checkall.setOnCheckedChangeListener(this);
             }
             Button btn_gotopay = (Button) mView.findViewById(R.id.btn_gotopay);
             btn_gotopay.setOnClickListener(this);
-            btn_alert_dialog.setOnClickListener(this);
         }
         return mView;
     }
@@ -93,6 +97,9 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.ib_bianji_cart: //编辑删除购物车
+                getDeleteCart();
+                break;
             case R.id.btn_gotopay:
                 Toast.makeText(mContext, "点击进入结算页面", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
@@ -110,12 +117,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                     }
                 }
                 bundle.putString("sku", sb.toString());
-                ((HomeActivity) mContext).changeFragment(new CheckOutFragment(),"CheckOutFragment",bundle);
-                break;
-            case R.id.btn_alert_dialog:
-               /* DialogAlertUtils dialogAlertUtils  = new DialogAlertUtils(mContext,mProductBean);
-                dialogAlertUtils.show();
-                getShopCart();*/
+                ((HomeActivity) mContext).changeFragment(new CheckOutFragment(), "CheckOutFragment", bundle);
                 break;
             case R.id.btn_select:
                 ((HomeActivity) mContext).changeFragment(new SerchFragment(), "SerchFragment");
@@ -124,6 +126,45 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 break;
 
         }
+    }
+
+    private void getDeleteCart() {
+        boolean[] checkedData = mCardRecyclerAdapter.checkedData;
+        for (int i = 0; i < mData.size(); i++) {
+            if (checkedData[i]){
+                APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
+                Map<String,String> map = new HashMap<>();
+                map.put("userId",SpUtil.getString(mContext,Constants.USERID,""));
+                int productId = mData.get(i).getProductId();
+                map.put("productId",productId+"");
+
+                apiRetrofitInstance.deleteCart(map).enqueue(new Callback<DeleteCartBean>() {
+                    @Override
+                    public void onResponse(Call<DeleteCartBean> call, Response<DeleteCartBean> response) {
+                        if (response.isSuccessful()){
+                            DeleteCartBean body = response.body();
+                            if (TextUtils.isEmpty(body.error)){
+                                Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
+                                //刷新数据
+                                getShopCart();
+                                mCardRecyclerAdapter.notifyDataSetChanged();
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DeleteCartBean> call, Throwable t) {
+                        Toast.makeText(mContext, t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+
+
+
+
+
     }
 
     private void getShopCart() {
@@ -172,6 +213,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         mCardRecyclerAdapter.notifyDataSetChanged();
     }
+
 
 }
 
