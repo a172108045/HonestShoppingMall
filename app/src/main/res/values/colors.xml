@@ -8,4 +8,5 @@
     <color name="white">#FFF</color>
     <color name="colorCard">#FF8FB7</color>
     <color name="colorCardNomal">#fff</color>
+    <color name="black">#000</color>
 </resources>

@@ -85,23 +85,12 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //initView();
-        //  refreshData();
-    }
 
     public void refreshData() {
-
         if (mCardRecyclerAdapter != null) {
             getShopCart();
             mCardRecyclerAdapter.notifyDataSetChanged();
         }
-
-
-
-
     }
 
     @Override
