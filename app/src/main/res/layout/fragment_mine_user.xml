@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:background="#dbdbdb"
-                  android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/sv_channel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true"
+            android:layout_alignParentBottom="true"
+            >
+
+    <LinearLayout
+        android:id="@+id/linearlayout_max"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#dbdbdb"
+        android:orientation="vertical"
+        android:paddingBottom="50dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -284,6 +294,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -292,13 +303,12 @@
                     android:id="@+id/bt_logout_user"
                     android:layout_width="200dp"
                     android:layout_height="38dp"
+                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:background="@mipmap/regist_bg"
                     android:text="退出登录"
                     android:textColor="#fff"
                     android:textSize="18dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="20dp"
                     />
             </RelativeLayout>
 
@@ -307,3 +317,4 @@
 
     </LinearLayout>
 
+</ScrollView>
