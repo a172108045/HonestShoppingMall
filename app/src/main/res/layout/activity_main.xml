@@ -13,7 +13,7 @@
         android:layout_height="200dp">
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/rotate_vp"
+            android:id="@+id/rotate_main_vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#9c9c9c">
+        android:background="@color/pink">
 
         <ImageView
             android:id="@+id/imager_hotsale"
@@ -59,10 +59,10 @@
     </LinearLayout>
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-        android:background="#9c9c9c">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/pink">
 
         <ImageView
             android:id="@+id/imager_newon"
