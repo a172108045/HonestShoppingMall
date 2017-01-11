@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
+import com.song.honestshoppingmall.bean.AddressBean;
 import com.song.honestshoppingmall.bean.CheckOutBean;
 import com.song.honestshoppingmall.bean.OrderSubmitBean;
 import com.song.honestshoppingmall.util.Constants;
@@ -23,9 +24,11 @@ import com.song.honestshoppingmall.util.DensityUtil;
 import com.song.honestshoppingmall.util.RetrofitUtil;
 import com.song.honestshoppingmall.util.SpUtil;
 import com.song.honestshoppingmall.util.Urls;
+import com.song.honestshoppingmall.view.SelectAddressDialog;
 import com.song.honestshoppingmall.view.WriteBillDialog;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -125,16 +128,33 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
         mLl_check_method = (LinearLayout) view.findViewById(R.id.ll_check_method);
         mLl_send_time = (LinearLayout) view.findViewById(R.id.ll_send_time);
         mLl_write_bill = (LinearLayout) view.findViewById(R.id.ll_write_bill);
-
         mBt_check_now = (Button) view.findViewById(R.id.bt_check_now);
-
 
     }
 
     @Override
     protected void initData() {
         sku = getArguments().getString("sku", "");
-        System.out.println("initDatasku="+sku);
+        String userid = SpUtil.getString(mContext, Constants.USERID, "");
+        RetrofitUtil.getAPIRetrofitInstance().getAddressBean(userid).enqueue(new Callback<AddressBean>() {
+            @Override
+            public void onResponse(Call<AddressBean> call, Response<AddressBean> response) {
+                if (response.isSuccessful()) {
+                    final List<AddressBean.AddressListBean> addressList = response.body().getAddressList();
+                    if (addressList != null) {
+                        mTvCustomName.setText(addressList.get(0).getName());
+                        mTvCustomPhone.setText(addressList.get(0).getPhoneNumber());
+                        mTvCustomAddress.setText(addressList.get(0).getAddressArea() + addressList.get(0).getAddressDetail());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddressBean> call, Throwable t) {
+
+            }
+        });
+
 
         mLl_send_address.setOnClickListener(this);
         mLl_check_method.setOnClickListener(this);
@@ -180,8 +200,6 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
             }
         });
 
-
-
     }
 
     private void initNetData() {
@@ -206,14 +224,14 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
             }
         });
 
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_send_address:
-
+                SelectAddressDialog dialog1 = new SelectAddressDialog(mContext, R.style.MyDialog, mTvCustomName, mTvCustomPhone, mTvCustomAddress);
+                dialog1.show();
                 break;
             case R.id.ll_check_method:
                 new AlertDialog.Builder(mContext).setTitle("支付方式").setSingleChoiceItems(checkMethods, 0, new DialogInterface.OnClickListener() {
@@ -295,7 +313,6 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
 
             mLlProductList.addView(view);
         }
-
 
     }
 
