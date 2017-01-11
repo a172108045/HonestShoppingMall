@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/sv_channel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true"
+            android:layout_alignParentBottom="true"
+            >
 
-                  android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/linearlayout_max"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#dbdbdb"
+        android:orientation="vertical"
+        android:paddingBottom="50dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -83,6 +89,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/linearlayout_myorder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -93,7 +100,6 @@
                 >
 
                 <RelativeLayout
-                    android:id="@+id/relativelayout_myorder"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:background="@mipmap/regist_bg"
@@ -288,6 +294,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -296,13 +303,12 @@
                     android:id="@+id/bt_logout_user"
                     android:layout_width="200dp"
                     android:layout_height="38dp"
+                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:background="@mipmap/regist_bg"
                     android:text="退出登录"
                     android:textColor="#fff"
                     android:textSize="18dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="20dp"
                     />
             </RelativeLayout>
 
@@ -310,5 +316,5 @@
 
 
     </LinearLayout>
-</ScrollView>
 
+</ScrollView>

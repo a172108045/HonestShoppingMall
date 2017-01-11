@@ -47,12 +47,19 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View initView() {
-
-            if (SpUtil.getString(mContext, Constants.USERID, null) != null) {
+        if(SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false)) {
+            if (SpUtil.getString(mContext, Constants.USERID, "") != "") {
                 ((HomeActivity) mContext).removeAllFragment();
                 ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
             }
+        }
 
+        if(SpUtil.getBoolean(mContext, Constants.CHECKBOX, false)) {
+            if (SpUtil.getString(mContext, Constants.USERID, "") != "") {
+                ((HomeActivity) mContext).removeAllFragment();
+                ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
+            }
+        }
 
         View view = View.inflate(mContext, R.layout.fragment_mine, null);
 
@@ -84,7 +91,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData() {
-
 
     }
 
@@ -132,12 +138,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                         return;
                     }
 
-                    APIRetrofit mApiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
+                    final APIRetrofit mApiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
                     mApiRetrofitInstance.login(mUsername, mPassword).enqueue(new Callback<LoginResultBean>() {
                         @Override
                         public void onResponse(Call<LoginResultBean> call, Response<LoginResultBean> response) {
                             if (response.isSuccessful()) {
                                 if (response.body().error == null) {
+                                    SpUtil.saveBoolean(mContext, Constants.LOGIN_STATE, true);
                                     boolean checked = cb_aotologin.isChecked();
                                     if (checked == true) {
                                         SpUtil.saveBoolean(mContext, Constants.CHECKBOX, true);
@@ -204,4 +211,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
+
+
 }

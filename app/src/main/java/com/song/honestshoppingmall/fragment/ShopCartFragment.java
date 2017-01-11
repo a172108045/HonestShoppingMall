@@ -110,10 +110,20 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
             case R.id.btn_gotopay:
                 Toast.makeText(mContext, "点击进入结算页面", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
+                StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < mData.size(); i++) {
-                    bundle.putSerializable("data",mData.get(i));
+                    if (mCardRecyclerAdapter.checkedData[i]) {
+                        int id = mData.get(i).getProductId();
+                        int count = mData.get(i).getProductCount();
+                        int ppid = mData.get(i).getProperty().getId();
+                        if (i != mData.size() - 1) {
+                            sb.append(id + ":" + count + ":" + ppid + "|");
+                        } else {
+                            sb.append(id + ":" + count + ":" + ppid);
+                        }
+                    }
                 }
-
+                bundle.putString("sku", sb.toString());
                 ((HomeActivity) mContext).changeFragment(new CheckOutFragment(),"CheckOutFragment",bundle);
                 break;
             case R.id.btn_alert_dialog:

@@ -36,7 +36,9 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_fragment_goods_back:
-                ((HomeActivity) mContext).popBackStack();
+//                ((HomeActivity) mContext).popBackStack();
+                ((HomeActivity) mContext).removeAllFragment();
+                ((HomeActivity) mContext).changeFragment(new CategoryFragment(), "CategoryFragment");
                 break;
         }
     }

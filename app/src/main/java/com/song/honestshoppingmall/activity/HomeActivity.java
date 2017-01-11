@@ -16,6 +16,8 @@ import com.song.honestshoppingmall.fragment.HomeFragment;
 import com.song.honestshoppingmall.fragment.MineFragment;
 import com.song.honestshoppingmall.fragment.SettingFragment;
 import com.song.honestshoppingmall.fragment.ShopCartFragment;
+import com.song.honestshoppingmall.util.Constants;
+import com.song.honestshoppingmall.util.SpUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -167,7 +169,9 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     }
 
-
-
-
+    @Override
+    protected void onDestroy() {
+        SpUtil.saveBoolean(this, Constants.LOGIN_STATE, false);
+        super.onDestroy();
+    }
 }
