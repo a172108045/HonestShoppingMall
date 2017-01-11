@@ -84,6 +84,8 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
         getProductDataByPid(1);
     }
 
+
+
     private void getProductDataByPid(int pId) {
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
         apiRetrofitInstance.getProductData(pId)
@@ -134,8 +136,9 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                 break;
             case R.id.btn_fragment_goods_buy:
                 //购买
-                if(mProductBean != null){
-                    DialogAlertUtils.showScanNumberDialog(mContext, mProductBean);
+               if(mProductBean != null){
+//                    DialogAlertUtils.showScanNumberDialog(mContext, mProductBean);
+                   DialogAlertUtils dialogAlertUtils  = new DialogAlertUtils(mContext,mProductBean);
                 }
 
                 break;

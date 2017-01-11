@@ -58,6 +58,7 @@
         android:textStyle="bold"/>
 
     <RadioGroup
+        android:id="@+id/rg_dilog"
         android:layout_margin="10dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
