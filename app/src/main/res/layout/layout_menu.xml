@@ -5,6 +5,75 @@
               android:layout_height="match_parent">
 <TextView
     android:layout_width="match_parent"
-    android:text="我是菜单栏"
+    android:text="筛选"
+    android:padding="10dp"
+    android:textStyle="bold"
+    android:textSize="30sp"
+    android:gravity="center"
     android:layout_height="wrap_content"/>
+    <ImageView
+        android:background="#8000"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:text="价格"
+        android:padding="10dp"
+        android:textSize="22sp"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="区间价(元)"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"/>
+        <EditText
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shape_edit_bg"
+            android:layout_width="70dp"
+            android:layout_height="30dp"/>
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="20dp"
+            android:background="#000"
+            android:layout_height="1dp"/>
+        <EditText
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_edit_bg"
+            android:layout_width="70dp"
+            android:layout_height="30dp"/>
+    </LinearLayout>
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:background="#8000"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:text="颜色"
+        android:padding="10dp"
+        android:textSize="22sp"
+        android:layout_height="wrap_content"/>
+   <RadioGroup
+       android:layout_width="match_parent"
+       android:orientation="horizontal"
+       android:layout_height="wrap_content">
+     <RadioButton
+         android:layout_width="0dp"
+         android:layout_weight="1"
+         android:background="#f00"
+         android:button="@null"
+
+         android:layout_height="30dp"/>
+   </RadioGroup>
+
 </LinearLayout>

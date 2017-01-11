@@ -3,6 +3,7 @@ package com.song.honestshoppingmall.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -43,34 +44,45 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     private List<SerchCardBean.CartBean> mData = new ArrayList<>();
 
     public CardRecyclerAdapter mCardRecyclerAdapter;
+    private View mView;
 
     @Override
     protected View initView() {
+        if (mView == null){
+            mView = View.inflate(mContext, R.layout.fragment_shopcart, null);
+            mImageView = (ImageView) mView.findViewById(R.id.iv_getdatafailed);
+            Button btn_select = (Button) mView.findViewById(R.id.btn_select);
 
-        View view = View.inflate(mContext, R.layout.fragment_shopcart, null);
-        mImageView = (ImageView) view.findViewById(R.id.iv_getdatafailed);
-        Button btn_select = (Button) view.findViewById(R.id.btn_select);
-
-        btn_select.setOnClickListener(this);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        Button btn_alert_dialog = (Button) view.findViewById(R.id.btn_alert_dialog);
-        mRelative_pay = (RelativeLayout) view.findViewById(R.id.relative_pay);
-        mCb_card_checkall = (CheckBox) view.findViewById(R.id.cb_card_checkall);
-        mTv_price_card = (TextView) view.findViewById(R.id.tv_totalPrice);
-        if (mCb_card_checkall != null) {
-            mCb_card_checkall.setOnCheckedChangeListener(this);
+            btn_select.setOnClickListener(this);
+            mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
+            Button btn_alert_dialog = (Button) mView.findViewById(R.id.btn_alert_dialog);
+            mRelative_pay = (RelativeLayout) mView.findViewById(R.id.relative_pay);
+            mCb_card_checkall = (CheckBox) mView.findViewById(R.id.cb_card_checkall);
+            mTv_price_card = (TextView) mView.findViewById(R.id.tv_totalPrice);
+            if (mCb_card_checkall != null) {
+                mCb_card_checkall.setOnCheckedChangeListener(this);
+            }
+            Button btn_gotopay = (Button) mView.findViewById(R.id.btn_gotopay);
+            btn_gotopay.setOnClickListener(this);
+            btn_alert_dialog.setOnClickListener(this);
         }
-        Button btn_gotopay = (Button) view.findViewById(R.id.btn_gotopay);
-        btn_gotopay.setOnClickListener(this);
-        btn_alert_dialog.setOnClickListener(this);
-        return view;
+
+
+        return mView;
     }
 
     @Override
     protected void initData() {
-        getShopCart();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerView.setHasFixedSize(true);
+        if (!TextUtils.isEmpty(SpUtil.getString(mContext,Constants.USERID,null))){
+            getShopCart();
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            mRecyclerView.setHasFixedSize(true);
+        }else{
+            mImageView.setVisibility(View.VISIBLE);
+            mRelative_pay.setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override
@@ -86,6 +98,8 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
             getShopCart();
             mCardRecyclerAdapter.notifyDataSetChanged();
         }
+
+
 
 
     }

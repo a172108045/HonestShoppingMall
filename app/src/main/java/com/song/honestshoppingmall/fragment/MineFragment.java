@@ -47,12 +47,23 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View initView() {
+        System.out.println("登录状态："+SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false));
+        System.out.println("自动登录状态："+SpUtil.getBoolean(mContext, Constants.CHECKBOX, false));
+        System.out.println("用户ID："+SpUtil.getString(mContext, Constants.USERID, ""));
 
-            if (SpUtil.getString(mContext, Constants.USERID, null) != null) {
+        if(SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false)) {
+            if (SpUtil.getString(mContext, Constants.USERID, "") != "") {
                 ((HomeActivity) mContext).removeAllFragment();
                 ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
             }
+        }
 
+        if(SpUtil.getBoolean(mContext, Constants.CHECKBOX, false)) {
+            if (SpUtil.getString(mContext, Constants.USERID, "") != "") {
+                ((HomeActivity) mContext).removeAllFragment();
+                ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
+            }
+        }
 
         View view = View.inflate(mContext, R.layout.fragment_mine, null);
 
@@ -84,7 +95,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData() {
-
 
     }
 
@@ -132,14 +142,17 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                         return;
                     }
 
-                    APIRetrofit mApiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
+                    final APIRetrofit mApiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
                     mApiRetrofitInstance.login(mUsername, mPassword).enqueue(new Callback<LoginResultBean>() {
                         @Override
                         public void onResponse(Call<LoginResultBean> call, Response<LoginResultBean> response) {
                             if (response.isSuccessful()) {
                                 if (response.body().error == null) {
+                                    SpUtil.saveBoolean(mContext, Constants.LOGIN_STATE, true);
                                     boolean checked = cb_aotologin.isChecked();
                                     if (checked == true) {
+                                        SpUtil.saveString(mContext, Constants.USERNAME, mUsername);
+                                        SpUtil.saveString(mContext, Constants.PASSWORD, mPassword);
                                         SpUtil.saveBoolean(mContext, Constants.CHECKBOX, true);
                                     } else {
                                         SpUtil.saveBoolean(mContext, Constants.CHECKBOX, false);
@@ -147,6 +160,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                                     String userid = response.body().getUserInfo().getUserid();
                                     SpUtil.saveString(getContext(), Constants.USERID, userid);
+                                    ((HomeActivity) mContext).removeAllFragment();
                                     ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
                                 } else {
                                     Toast.makeText(mContext, "你特么账号密码不正确", Toast.LENGTH_SHORT).show();
@@ -204,4 +218,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
+
+
 }
