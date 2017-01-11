@@ -57,26 +57,27 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
                     public void onResponse(Call<LogoutBean> call, Response<LogoutBean> response) {
                         if (response.isSuccessful()) {
                             if (response.body().error == null) {
-                                SpUtil.saveBoolean(mContext, Constants.LOGIN_STATE, false);
-                                SpUtil.saveString(mContext, Constants.USERID, null);
-                                ((HomeActivity) mContext).changeFragment(new MineFragment(), "MineFragment");
-                                Toast.makeText(mContext, "Good Bye,Honey!", Toast.LENGTH_SHORT).show();
+                                logOutSetting();
                             }
                         }
                     }
-
                     @Override
                     public void onFailure(Call<LogoutBean> call, Throwable t) {
-                        SpUtil.saveBoolean(mContext, Constants.LOGIN_STATE, false);
-                        SpUtil.saveString(mContext, Constants.USERID, null);
-                        ((HomeActivity) mContext).changeFragment(new MineFragment(), "MineFragment");
+                        logOutSetting();
                     }
                 });
                 break;
-
             case R.id.linearlayout_myorder:
                 ((HomeActivity) mContext).changeFragment(new MyOrderFragment(), "MyOrderFragment");
                 break;
         }
+    }
+
+    private void logOutSetting() {
+        SpUtil.saveBoolean(mContext, Constants.LOGIN_STATE, false);
+        SpUtil.saveString(mContext, Constants.USERID, "");
+        SpUtil.saveBoolean(mContext, Constants.CHECKBOX, false);
+        ((HomeActivity) mContext).changeFragment(new MineFragment(), "MineFragment");
+        Toast.makeText(mContext, "Good Bye,Honey!", Toast.LENGTH_SHORT).show();
     }
 }
