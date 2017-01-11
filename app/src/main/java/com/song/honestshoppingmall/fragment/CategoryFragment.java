@@ -38,15 +38,19 @@ public class CategoryFragment extends BaseFragment {
             return false;
         }
     });
+    private View mRootView;
 
     @Override
     protected View initView() {
-        View view = View.inflate(mContext, R.layout.fragment_category, null);
 
-        mLv_category_left = (ListView) view.findViewById(R.id.lv_category_left);
-        mLv_category_right = (ListView) view.findViewById(R.id.lv_category_right);
+        if(mRootView == null){
+            mRootView = View.inflate(mContext, R.layout.fragment_category, null);
 
-        return view;
+            mLv_category_left = (ListView) mRootView.findViewById(R.id.lv_category_left);
+            mLv_category_right = (ListView) mRootView.findViewById(R.id.lv_category_right);
+        }
+
+        return mRootView;
     }
 
     @Override
@@ -149,8 +153,4 @@ public class CategoryFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 }
