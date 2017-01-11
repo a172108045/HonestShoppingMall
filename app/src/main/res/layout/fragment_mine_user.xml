@@ -232,7 +232,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@mipmap/location_new"/>
+                        android:src="@mipmap/address_new"/>
 
                     <ImageView
                         android:id="@+id/iv_collect_user"

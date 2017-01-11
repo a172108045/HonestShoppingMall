@@ -47,23 +47,19 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View initView() {
-        System.out.println("登录状态："+SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false));
-        System.out.println("自动登录状态："+SpUtil.getBoolean(mContext, Constants.CHECKBOX, false));
-        System.out.println("用户ID："+SpUtil.getString(mContext, Constants.USERID, ""));
-
         if(SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false)) {
-            if (SpUtil.getString(mContext, Constants.USERID, "") != "") {
+            if (SpUtil.getString(mContext, Constants.USERID, null) != null) {
                 ((HomeActivity) mContext).removeAllFragment();
                 ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
             }
         }
 
-        if(SpUtil.getBoolean(mContext, Constants.CHECKBOX, false)) {
-            if (SpUtil.getString(mContext, Constants.USERID, "") != "") {
+        /*if(SpUtil.getBoolean(mContext, Constants.CHECKBOX, false)) {
+            if (SpUtil.getString(mContext, Constants.USERID, null) != null) {
                 ((HomeActivity) mContext).removeAllFragment();
                 ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
             }
-        }
+        }*/
 
         View view = View.inflate(mContext, R.layout.fragment_mine, null);
 

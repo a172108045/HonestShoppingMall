@@ -2,6 +2,7 @@ package com.song.honestshoppingmall.fragment;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -25,12 +26,14 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     private Button bt_logout;
     private LinearLayout mOrder;
+    private ImageView address_user;
 
     @Override
     protected View initView() {
         View view = View.inflate(mContext, R.layout.fragment_mine_user, null);
         bt_logout = (Button) view.findViewById(R.id.bt_logout_user);
         mOrder = (LinearLayout) view.findViewById(R.id.linearlayout_myorder);
+        address_user = (ImageView) view.findViewById(R.id.iv_address_user);
 
         initclick();
 
@@ -70,12 +73,16 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
             case R.id.linearlayout_myorder:
                 ((HomeActivity) mContext).changeFragment(new MyOrderFragment(), "MyOrderFragment");
                 break;
+
+            case R.id.iv_address_user:
+
+                break;
         }
     }
 
     private void logOutSetting() {
         SpUtil.saveBoolean(mContext, Constants.LOGIN_STATE, false);
-        SpUtil.saveString(mContext, Constants.USERID, "");
+        SpUtil.saveString(mContext, Constants.USERID, null);
         SpUtil.saveBoolean(mContext, Constants.CHECKBOX, false);
         ((HomeActivity) mContext).changeFragment(new MineFragment(), "MineFragment");
         Toast.makeText(mContext, "Good Bye,Honey!", Toast.LENGTH_SHORT).show();
