@@ -75,7 +75,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu);
+            actionBar.setHomeAsUpIndicator(R.mipmap.sideslip);
         }
         actionBar.setTitle("");
         mTv_title.setText("老实商城");
