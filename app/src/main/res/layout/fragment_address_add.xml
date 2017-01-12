@@ -12,7 +12,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/bt_title_login"
+            android:id="@+id/bt_address_manage"
             android:layout_width="180dp"
             android:layout_height="38dp"
             android:layout_centerHorizontal="true"
@@ -25,11 +25,9 @@
             />
 
         <Button
-            android:id="@+id/bt_title_register"
+            android:id="@+id/bt_address_save"
             android:layout_width="180dp"
             android:layout_height="38dp"
-            android:layout_alignTop="@id/bt_title_login"
-            android:layout_toRightOf="@id/bt_title_login"
             android:background="@drawable/selector_rectangle_right"
             android:enabled="true"
             android:text="保存地址"
@@ -38,18 +36,85 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
         android:background="@color/light_gray"
         >
 
         <RelativeLayout
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:background="@mipmap/kuang_1"
             >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="姓名: "
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:hint="收货人姓名"
+                        android:textSize="13dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="80dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="手机号: "
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:hint="收货人手机号"
+                        android:textSize="13dp"/>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal"
+                    ></LinearLayout>
+
+
+                <EditText
+                    android:id="@+id/et_address_details"
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="80dp"
+                    android:background="@mipmap/dialogbox_add"
+                    android:hint="请输入详细地址"
+                    android:textSize="13dp"/>
+            </LinearLayout>
+
 
         </RelativeLayout>
 
