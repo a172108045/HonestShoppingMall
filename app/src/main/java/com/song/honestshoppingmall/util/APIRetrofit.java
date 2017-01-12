@@ -148,6 +148,11 @@ public interface APIRetrofit {
     @GET("category")
     Call<ShopCategoryBean> getCategoryMsg();
 
+    /**
+     * 获取筛选商品列表
+     * @param params
+     * @return
+     */
     @GET("productlist")
     Call<FilterProductListBean> getFilterProductList(@QueryMap Map<String, String> params);
 
