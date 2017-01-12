@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.MyOrderAdapter;
 import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
@@ -82,6 +83,7 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("我的订单");
         View view = View.inflate(mContext, R.layout.fragment_myorder, null);
         mBt_recent_order = (Button) view.findViewById(R.id.bt_recent_order);
         mBt_before_order = (Button) view.findViewById(R.id.bt_before_order);

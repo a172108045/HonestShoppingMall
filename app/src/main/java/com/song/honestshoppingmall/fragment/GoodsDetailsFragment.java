@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,11 +46,10 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("商品详情");
         if(mRootView == null){
             mRootView = View.inflate(mContext, R.layout.fragment_goods, null);
 
-            ImageView iv_fragment_goods_back = (ImageView) mRootView.findViewById(R.id.iv_fragment_goods_back);
-            iv_fragment_goods_back.setOnClickListener(this);
 
             //获取商品详情界面需要动态设置属性的子控件
             //商品的翻页viewpager
@@ -127,9 +125,9 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_fragment_goods_back:
+            /*case R.id.iv_fragment_goods_back:
                 ((HomeActivity) mContext).popBackStack();
-                break;
+                break;*/
             case R.id.btn_fragment_goods_collection:
                 //收藏
                 break;

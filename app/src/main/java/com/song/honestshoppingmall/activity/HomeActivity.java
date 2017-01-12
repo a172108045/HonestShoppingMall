@@ -1,13 +1,20 @@
 package com.song.honestshoppingmall.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
@@ -39,17 +46,22 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     RadioButton mRbSetting;
     @Bind(R.id.radio_group)
     RadioGroup mRadioGroup;
-    @Bind(R.id.activity_second)
-    LinearLayout mActivitySecond;
     private FragmentManager mFragmentManager;
+    private DrawerLayout mDrawer_main;
+    private NavigationView mNav_view;
+    private Toolbar mToolbar_main;
+    private TextView mTv_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        mDrawer_main = (DrawerLayout) findViewById(R.id.drawer_main);
+        mNav_view = (NavigationView) findViewById(R.id.nav_view);
+        mToolbar_main = (Toolbar) findViewById(R.id.toolbar_main);
+        mTv_title = (TextView) findViewById(R.id.tv_title);
         initView();
-
 
         //获取FragmentManager
         mFragmentManager = getSupportFragmentManager();
@@ -59,7 +71,14 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     private void initView() {
-
+        setSupportActionBar(mToolbar_main);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu);
+        }
+        actionBar.setTitle("");
+        mTv_title.setText("老实商城");
         mRadioGroup.setOnCheckedChangeListener(this);
 
     }
@@ -169,5 +188,27 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         super.onBackPressed();
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawer_main.openDrawer(GravityCompat.START);
+                break;
+
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    public void changeTitle(String title) {
+        mTv_title.setText(title);
+    }
+
 
 }

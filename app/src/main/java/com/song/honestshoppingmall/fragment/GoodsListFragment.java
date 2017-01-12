@@ -24,6 +24,7 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("商品列表");
         if(mRootView == null){
             mRootView = View.inflate(mContext, R.layout.fragment_goodslist, null);
 

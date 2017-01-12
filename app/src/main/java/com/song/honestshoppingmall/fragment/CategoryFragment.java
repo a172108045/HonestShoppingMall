@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.CategoryLeftAdapter;
 import com.song.honestshoppingmall.adapter.CategorySecondAdapter;
 import com.song.honestshoppingmall.bean.ShopCategoryBean;
@@ -42,6 +43,7 @@ public class CategoryFragment extends BaseFragment {
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("商品分类");
 
         if(mRootView == null){
             mRootView = View.inflate(mContext, R.layout.fragment_category, null);
