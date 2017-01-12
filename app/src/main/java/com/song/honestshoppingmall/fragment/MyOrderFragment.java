@@ -107,8 +107,8 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
     private void initNetData() {
         Map<String, String> map = new HashMap<>();
         map.put("type", mGetType);
-        map.put("page", "0");
-        map.put("pageNum", (pager+1)*5 + "");
+        map.put("page", pager + "");
+        map.put("pageNum", "5");
         APIRetrofit retrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
         String userid = SpUtil.getString(mContext, Constants.USERID, "");
         retrofitInstance.getMyOrderBean(map, userid).enqueue(new Callback<MyOrderBean>() {
@@ -116,7 +116,11 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
             public void onResponse(Call<MyOrderBean> call, Response<MyOrderBean> response) {
                 if (response.isSuccessful()) {
                     mMyOrderBean = response.body();
-                    mOrderList = mMyOrderBean.getOrderList();
+                    if (mOrderList == null) {
+                        mOrderList = mMyOrderBean.getOrderList();
+                    } else {
+                        mOrderList.addAll(mMyOrderBean.getOrderList());
+                    }
                     if (mOrderList != null && mOrderList.size() != 0) {
                         mHandler.sendEmptyMessage(0);
                     } else {
