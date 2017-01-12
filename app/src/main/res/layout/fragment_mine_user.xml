@@ -20,25 +20,6 @@
             android:layout_height="200dp"
             android:background="@mipmap/user_center_bg">
 
-            <ImageView
-                android:id="@+id/iv_comeback_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/login_selector_back"
-                />
-
-            <ImageView
-                android:id="@+id/iv_more_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="12dp"
-                android:src="@drawable/login_selector_account_more"/>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
