@@ -81,7 +81,9 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     protected void initData() {
-        getProductDataByPid(1);
+        int pId = (int) this.getArguments().get("pId");
+        getProductDataByPid(pId);
+
     }
 
 
