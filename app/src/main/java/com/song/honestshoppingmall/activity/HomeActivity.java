@@ -156,7 +156,6 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         int backStackEntryCount = mFragmentManager.getBackStackEntryCount();
         if (backStackEntryCount < 2) { //也就是backStackEntryCount=1，即当前已经在主页了
             if (System.currentTimeMillis() - latestTime < 2000) {
-                System.out.println("走了");
                 SpUtil.saveBoolean(this, Constants.LOGIN_STATE, false);
                 finish();
                 System.exit(0);
