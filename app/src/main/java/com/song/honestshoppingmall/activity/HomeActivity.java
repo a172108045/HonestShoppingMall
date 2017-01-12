@@ -1,6 +1,7 @@
 package com.song.honestshoppingmall.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,9 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.fragment.AddressFragment;
 import com.song.honestshoppingmall.fragment.CategoryFragment;
 import com.song.honestshoppingmall.fragment.HomeFragment;
 import com.song.honestshoppingmall.fragment.MineFragment;
+import com.song.honestshoppingmall.fragment.MyOrderFragment;
 import com.song.honestshoppingmall.fragment.SerchFragment;
 import com.song.honestshoppingmall.fragment.SettingFragment;
 import com.song.honestshoppingmall.fragment.ShopCartFragment;
@@ -68,7 +71,6 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         mFragmentManager = getSupportFragmentManager();
         initData();
 
-
     }
 
     private void initView() {
@@ -87,6 +89,47 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     private void initData() {
         mFragmentManager.beginTransaction().replace(R.id.fl_home, new HomeFragment()).commit();
         mRadioGroup.check(R.id.rb_home);
+
+        mNav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_order:
+                        changeFragment(new MyOrderFragment(), "MyOrderFragment");
+                        mDrawer_main.closeDrawers();
+                        break;
+                    case R.id.nav_cart:
+                        changeFragment(new ShopCartFragment(), "ShopCartFragment");
+                        mDrawer_main.closeDrawers();
+                        break;
+                    case R.id.nav_ticket:
+                        //代金券
+                        mDrawer_main.closeDrawers();
+                        break;
+                    case R.id.nav_address:
+                        changeFragment(new AddressFragment(), "AddressFragment");
+                        mDrawer_main.closeDrawers();
+                        break;
+                    case R.id.nav_record:
+                        changeFragment(new SettingFragment(), "SettingFragment");
+                        mDrawer_main.closeDrawers();
+                        break;
+                    case R.id.nav_like:
+                        mDrawer_main.closeDrawers();
+                        //收藏
+                        break;
+                    case R.id.nav_share:
+                        mDrawer_main.closeDrawers();
+                        //分享
+                        break;
+
+
+                }
+
+
+                return true;
+            }
+        });
     }
 
     /**
@@ -220,6 +263,8 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     public void changeTitle(String title) {
         mTv_title.setText(title);
     }
+
+
 
 
 }

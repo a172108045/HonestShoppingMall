@@ -2,33 +2,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_call"
+            android:id="@+id/nav_order"
             android:icon="@mipmap/create_contact"
-            android:title="消息" />
+            android:title="我的订单" />
         <item
-            android:id="@+id/nav_call"
+            android:id="@+id/nav_cart"
             android:icon="@mipmap/create_contact"
-            android:title="我的好友" />
+            android:title="购物车" />
         <item
-            android:id="@+id/nav_call"
+            android:id="@+id/nav_ticket"
             android:icon="@mipmap/create_contact"
             android:title="代金券" />
         <item
-            android:id="@+id/nav_call"
+            android:id="@+id/nav_address"
             android:icon="@mipmap/create_contact"
-            android:title="我的钱包" />
+            android:title="地址管理" />
         <item
-            android:id="@+id/nav_call"
+            android:id="@+id/nav_record"
             android:icon="@mipmap/create_contact"
-            android:title="我的红包" />
+            android:title="帮助" />
         <item
-            android:id="@+id/nav_call"
+            android:id="@+id/nav_like"
             android:icon="@mipmap/create_contact"
             android:title="收藏店铺" />
         <item
-            android:id="@+id/nav_call"
+            android:id="@+id/nav_share"
             android:icon="@mipmap/create_contact"
-            android:title="设置" />
+            android:title="分享" />
 
     </group>
 </menu>
