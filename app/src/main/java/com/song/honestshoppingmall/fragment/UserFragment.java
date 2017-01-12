@@ -30,6 +30,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("个人中心");
         View view = View.inflate(mContext, R.layout.fragment_mine_user, null);
 
         bt_logout = (Button) view.findViewById(R.id.bt_logout_user);

@@ -20,6 +20,7 @@ public class CheckSuccessFragment extends BaseFragment {
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("购买成功");
         View view = View.inflate(mContext, R.layout.fragment_checksuccess, null);
         assignViews(view);
         return view;

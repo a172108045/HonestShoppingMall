@@ -73,7 +73,9 @@ public class HelpPager extends BasePager {
                                 tv_title.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        parent.getChildAt(prePosition).findViewById(R.id.ll_help_detail).setVisibility(View.GONE);
+                                        if (prePosition != position) {
+                                            parent.getChildAt(prePosition).findViewById(R.id.ll_help_detail).setVisibility(View.GONE);
+                                        }
 
                                         if (ll_help_detail.getVisibility() == View.GONE) {
                                             ll_help_detail.setVisibility(View.VISIBLE);

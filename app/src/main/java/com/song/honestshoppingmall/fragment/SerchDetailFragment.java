@@ -52,6 +52,7 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("搜索详情");
         if (mView == null) {
             mView = View.inflate(mContext, R.layout.fragment_serch_detail, null);
             Bundle arguments = getArguments();

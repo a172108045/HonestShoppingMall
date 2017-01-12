@@ -47,6 +47,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("个人中心");
         if(SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false)) {
             if (SpUtil.getString(mContext, Constants.USERID, null) != null) {
                 ((HomeActivity) mContext).removeAllFragment();

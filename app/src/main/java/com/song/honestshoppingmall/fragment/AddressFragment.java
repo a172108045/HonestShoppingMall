@@ -18,6 +18,7 @@ public class AddressFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("地址管理");
         View view = View.inflate(mContext, R.layout.fragment_mine_user_address, null);
 
         add_address = (Button) view.findViewById(bt_add_address);

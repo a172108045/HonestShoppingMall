@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
     <TextView
-        android:textColor="#000"
         android:id="@+id/tv_product_property_key"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="key"/>
+        android:text="key"
+        android:textColor="#000"/>
 
     <TextView
-        android:textColor="#000"
         android:id="@+id/tv_product_property_value"
-        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="value"/>
+        android:layout_centerHorizontal="true"
+        android:text="value"
+        android:textColor="#000"/>
 
 
 </RelativeLayout>

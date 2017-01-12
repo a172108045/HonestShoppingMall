@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,12 +45,12 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
     public CardRecyclerAdapter mCardRecyclerAdapter;
     private View mView;
-    private ImageButton mIb_bianji_cart;
     private Button mBtn_select;
     private int mProductId;
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("购物车");
         if (mView == null){
             mView = View.inflate(mContext, R.layout.fragment_shopcart, null);
             mImageView = (ImageView) mView.findViewById(R.id.iv_getdatafailed);
@@ -61,8 +60,6 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
             mRelative_pay = (RelativeLayout) mView.findViewById(R.id.relative_pay);
             mCb_card_checkall = (CheckBox) mView.findViewById(R.id.cb_card_checkall);
             mTv_price_card = (TextView) mView.findViewById(R.id.tv_totalPrice);
-            mIb_bianji_cart = (ImageButton) mView.findViewById(R.id.ib_bianji_cart);
-            mIb_bianji_cart.setOnClickListener(this);
             if (mCb_card_checkall != null) {
                 mCb_card_checkall.setOnCheckedChangeListener(this);
             }
@@ -97,9 +94,9 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ib_bianji_cart: //编辑删除购物车
+/*            case R.id.ib_bianji_cart: //编辑删除购物车
                 getDeleteCart();
-                break;
+                break;*/
             case R.id.btn_gotopay:
                 Toast.makeText(mContext, "点击进入结算页面", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
