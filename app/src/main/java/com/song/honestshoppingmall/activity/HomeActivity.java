@@ -21,6 +21,7 @@ import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.fragment.CategoryFragment;
 import com.song.honestshoppingmall.fragment.HomeFragment;
 import com.song.honestshoppingmall.fragment.MineFragment;
+import com.song.honestshoppingmall.fragment.SerchFragment;
 import com.song.honestshoppingmall.fragment.SettingFragment;
 import com.song.honestshoppingmall.fragment.ShopCartFragment;
 import com.song.honestshoppingmall.util.Constants;
@@ -49,8 +50,8 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     private FragmentManager mFragmentManager;
     private DrawerLayout mDrawer_main;
     private NavigationView mNav_view;
-    private Toolbar mToolbar_main;
-    private TextView mTv_title;
+    public Toolbar mToolbar_main;
+    public TextView mTv_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.mipmap.sideslip);
+            actionBar.setHomeAsUpIndicator(R.mipmap.out);
         }
         actionBar.setTitle("");
         mTv_title.setText("老实商城");
@@ -193,6 +194,16 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                onBackPressed();
+                break;
+/*            case R.id.cart:
+                removeAllFragment();
+                changeFragment(new ShopCartFragment(), "ShopCartFragment");
+                break;*/
+            case R.id.explore:
+                changeFragment(new SerchFragment(), "SerchFragment");
+                break;
+            case R.id.mine:
                 mDrawer_main.openDrawer(GravityCompat.START);
                 break;
 
