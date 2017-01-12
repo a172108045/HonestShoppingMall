@@ -3,16 +3,23 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
 <TextView
         android:text="购物车"
         style="@style/Title"
         android:layout_width="match_parent"
         android:layout_height="48dp"/>
-    <Button
-        android:text="点击弹出添加购物车对话框"
-        android:layout_width="match_parent"
-        android:id="@+id/btn_alert_dialog"
-        android:layout_height="wrap_content"/>
+        <ImageButton
+            android:id="@+id/ib_bianji_cart"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/cart_bianji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
     <Button
         android:text="点击进入搜索页面"
         android:layout_width="match_parent"
@@ -52,7 +59,7 @@
                 android:id="@+id/tv_totalPrice"
                 android:layout_width="wrap_content"
                 android:textColor="#f00"
-                android:text="合计：100.0"
+                android:text="合计：0.0"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/tv"

@@ -348,7 +348,7 @@ public class OrderDetailBean extends BaseBean {
     public static class ProductListBean {
         @Override
         public String toString() {
-            return "ProductListBean{" +
+            return "FilterProductListBean{" +
                     "prodNum=" + prodNum +
                     ", product=" + product +
                     '}';

@@ -81,7 +81,7 @@ public class SerchResultBean extends BaseBean{
 
         @Override
         public String toString() {
-            return "ProductListBean{" +
+            return "FilterProductListBean{" +
                     "id=" + id +
                     ", marketPrice=" + marketPrice +
                     ", name='" + name + '\'' +

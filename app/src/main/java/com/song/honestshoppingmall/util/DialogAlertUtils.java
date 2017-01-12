@@ -40,8 +40,8 @@ import static com.song.honestshoppingmall.R.id.tv_price;
 
 public class DialogAlertUtils implements View.OnClickListener {
     private static AlertDialog           dialog;
-    private   Context               mContext;
-    private   GoodsBean.ProductBean mData;
+    private        Context               mContext;
+    private        GoodsBean.ProductBean mData;
     private        Button                mBtn_card_remove;
     private        Button                mBtn_card_add;
     private        Button                mBtn_card_tianjia;
@@ -52,7 +52,7 @@ public class DialogAlertUtils implements View.OnClickListener {
     private        ImageView             mIv_carddialog_dismiss;
     private        ImageView             mIv_title;
     private        TextView              mTv_title;
-    private RadioGroup mRg_dilog;
+    private        RadioGroup            mRg_dilog;
 
 
     public DialogAlertUtils(Context context, GoodsBean.ProductBean productBean) {
@@ -110,7 +110,6 @@ public class DialogAlertUtils implements View.OnClickListener {
         mBtn_card_tianjia.setOnClickListener(this);
 
 
-
         computeTotalPrice(mNumber, mTv_price);
     }
 
@@ -141,8 +140,6 @@ public class DialogAlertUtils implements View.OnClickListener {
         setProductName(mData.getName());
         setProductPrice(mData.getPrice());
     }
-
-    ;
 
 
     @Override
@@ -184,7 +181,7 @@ public class DialogAlertUtils implements View.OnClickListener {
         String num = mNumber.getText().toString();
         int i = Integer.parseInt(num);
         mNumber.setText(i + 1 + "");
-        if (i>mData.getBuyLimit()){
+        if (i > mData.getBuyLimit()) {
             mBtn_card_add.setEnabled(false);
             Toast.makeText(mContext, "购买数量超出限制！", Toast.LENGTH_SHORT).show();
         }
@@ -196,7 +193,7 @@ public class DialogAlertUtils implements View.OnClickListener {
         map.put("userId", SpUtil.getString(mContext, Constants.USERID, ""));
         map.put("productId", mData.getId() + "");
         map.put("productCount", getProductCount() + "");
-        map.put("propertyId", getPropertyId()+"");
+        map.put("propertyId", getPropertyId() + "");
 
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
         apiRetrofitInstance.getAddCartBean(map).enqueue(new Callback<AddCartBean>() {
@@ -224,10 +221,10 @@ public class DialogAlertUtils implements View.OnClickListener {
 
     public int getPropertyId() {
         for (int i = 0; i < mRg_dilog.getChildCount(); i++) {
-            RadioButton view = (RadioButton)mRg_dilog.getChildAt(i);
+            RadioButton view = (RadioButton) mRg_dilog.getChildAt(i);
 
-            if (view.isChecked()){
-                return i+1;
+            if (view.isChecked()) {
+                return i + 1;
             }
         }
         return 1;

@@ -133,13 +133,13 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                 break;
             case R.id.btn_fragment_goods_addCart:
                 //加入购物车
+                if(mProductBean != null){
+                    DialogAlertUtils dialogAlertUtils  = new DialogAlertUtils(mContext,mProductBean);
+                }
                 break;
             case R.id.btn_fragment_goods_buy:
                 //购买
-               if(mProductBean != null){
-//                    DialogAlertUtils.showScanNumberDialog(mContext, mProductBean);
-                   DialogAlertUtils dialogAlertUtils  = new DialogAlertUtils(mContext,mProductBean);
-                }
+
 
                 break;
         }
