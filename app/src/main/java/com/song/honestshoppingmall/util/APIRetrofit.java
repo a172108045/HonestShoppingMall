@@ -3,6 +3,7 @@ package com.song.honestshoppingmall.util;
 import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.AddressBean;
 import com.song.honestshoppingmall.bean.CheckOutBean;
+import com.song.honestshoppingmall.bean.FilterProductListBean;
 import com.song.honestshoppingmall.bean.DeleteCartBean;
 import com.song.honestshoppingmall.bean.HelpBean;
 import com.song.honestshoppingmall.bean.HelpDetailBean;
@@ -146,6 +147,9 @@ public interface APIRetrofit {
      */
     @GET("category")
     Call<ShopCategoryBean> getCategoryMsg();
+
+    @GET("productlist")
+    Call<FilterProductListBean> getFilterProductList(@QueryMap Map<String, String> params);
 
     /**
      * 获取商品详情
