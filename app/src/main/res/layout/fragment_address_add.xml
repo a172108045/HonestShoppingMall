@@ -46,30 +46,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="@mipmap/kuang_1"
             >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/home_kuang_new"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="姓名: "
+                        android:textColor="@color/pink"
                         android:textStyle="bold"/>
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="收货人姓名"
                         android:textSize="13dp"/>
@@ -77,7 +79,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:orientation="horizontal">
@@ -86,10 +88,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="手机号: "
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:textColor="@color/pink"/>
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="收货人手机号"
                         android:textSize="13dp"/>
@@ -139,23 +142,25 @@
                 <!--</LinearLayout>-->
 
                 <TextView
-                    android:layout_width="200dp"
+                    android:id="@+id/tv_address_selector"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:hint="点击选择地址"
-                    android:textSize="13dp"
+                    android:padding="3dp"
+                    android:textSize="15dp"
                     />
 
 
                 <EditText
-                    android:id="@+id/et_address_selector"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:background="@mipmap/dialogbox_add"
                     android:hint="请输入详细地址"
                     android:padding="5dp"
+                    android:layout_marginBottom="5dp"
                     android:textSize="13dp"/>
             </LinearLayout>
 
@@ -172,7 +177,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="25dp"
-        android:background="@mipmap/regist_bg"
+        android:background="@mipmap/home_title_dialogbox"
         android:text="设置为默认地址"
         android:textColor="#fff"
         android:textSize="18dp"

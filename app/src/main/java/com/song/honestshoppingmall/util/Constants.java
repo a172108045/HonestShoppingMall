@@ -19,4 +19,5 @@ public interface Constants {
     String PASSWORD = "password";
     String DB_NAME = "localDB";
     String TABLE_RECORD = "record";
+
 }

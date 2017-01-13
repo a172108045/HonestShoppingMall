@@ -201,6 +201,10 @@ public class RadioButtonSort extends RadioButton {
         }
     }
 
+    public Enum_RadioButton_State getEnumRadioButtonState(){
+        return this.mEnumRadioButtonState;
+    }
+
     public void setTriangle_Type(Enum_RadioButton_Triangle_Type triangle_Type) {
         this.mEnumRadioButtonTriangleType = triangle_Type;
         switch (triangle_Type) {
@@ -213,6 +217,10 @@ public class RadioButtonSort extends RadioButton {
             default:
                 throw new RuntimeException("状态值不正确，请通过RadioButtonSort.Enum_RadioButton_Triangle_Type.来设置");
         }
+    }
+
+    public Enum_RadioButton_Triangle_Type getEnumRadioButtonTriangleType(){
+        return this.mEnumRadioButtonTriangleType;
     }
 
     //radiobutton右侧三角图片资源id
