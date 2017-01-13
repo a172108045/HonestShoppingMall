@@ -4,17 +4,17 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ListView
+    <ImageView
+        android:id="@+id/iv_fragment_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/home_title_pic3"/>
+
+    <ExpandableListView
         android:id="@+id/lv_recommend"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_fragment_recommend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/juxing"/>
-
-    </ListView>
+    </ExpandableListView>
 
 </LinearLayout>

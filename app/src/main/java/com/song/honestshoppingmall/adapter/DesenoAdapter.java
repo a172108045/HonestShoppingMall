@@ -1,6 +1,7 @@
 package com.song.honestshoppingmall.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.bean.DesenoBean;
+import com.song.honestshoppingmall.fragment.GoodsDetailsFragment;
 import com.song.honestshoppingmall.util.Urls;
 
 import java.util.List;
@@ -43,7 +46,7 @@ public class DesenoAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
@@ -64,6 +67,17 @@ public class DesenoAdapter extends BaseAdapter {
 
         holder.tv_deseno_name.setText(item.getName());
         holder.tv_deseno_name_x.setText("$"+item.getPrice());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GoodsDetailsFragment fragment = new GoodsDetailsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pId", mData.get(position).getId());
+                fragment.setArguments(bundle);
+                ((HomeActivity) mContext).changeFragment(fragment, "GoodsDetailsFragment");
+            }
+        });
 
         return convertView;
     }
