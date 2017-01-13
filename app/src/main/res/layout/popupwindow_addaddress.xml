@@ -17,7 +17,7 @@
         android:layout_weight="1"></ListView>
 
     <ListView
-        android:id="@+id/lv_addaddress_county"
+        android:id="@+id/lv_addaddress_district"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"></ListView>
