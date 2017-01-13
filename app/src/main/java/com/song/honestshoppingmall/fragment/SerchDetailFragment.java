@@ -1,6 +1,8 @@
 package com.song.honestshoppingmall.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -53,7 +55,12 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
     private ImageView mIv_time;
     private ImageView mIv_evaluate;
     private ImageView mIv_error;
-
+    Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
     @Override
     protected View initView() {
         ((HomeActivity) mContext).changeTitle("搜索详情");
@@ -103,14 +110,20 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
     @Override
     protected void initData() {
         initSpinner();
-        if (mSearchDetailAdapter != null) {
-            mSearchDetailAdapter.setOnItemClickListener(new SearchDetailAdapter.OnRecyclerViewItemClickListener() {
-                @Override
-                public void onItemClick(View view, String data) {
-                    //TODO 进入商品详情页面
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mSearchDetailAdapter != null) {
+                    mSearchDetailAdapter.setOnItemClickListener(new SearchDetailAdapter.OnRecyclerViewItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, String data) {
+                            Toast.makeText(mContext, "进入商品详情页面", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
-            });
-        }
+            }
+        },500);
+
 
 
         initNetData("saleDown");
