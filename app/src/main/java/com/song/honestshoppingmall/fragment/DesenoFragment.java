@@ -36,10 +36,12 @@ public class DesenoFragment extends BaseFragment {
 
     @Override
     protected View initView() {
-        ((HomeActivity)mContext).changeTitle("新品上架");
-        this.mData = new ArrayList<>();
-        mView = View.inflate(mContext, R.layout.fragment_deseno, null);
-        lv_deseno = (ListView) mView.findViewById(R.id.lv_deseno);
+        if (mView == null) {
+            ((HomeActivity)mContext).changeTitle("新品上架");
+            this.mData = new ArrayList<>();
+            mView = View.inflate(mContext, R.layout.fragment_deseno, null);
+            lv_deseno = (ListView) mView.findViewById(R.id.lv_deseno);
+        }
         return mView;
     }
 
