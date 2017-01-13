@@ -13,7 +13,7 @@ import com.song.honestshoppingmall.util.Constants;
 public class RecordDBHelper extends SQLiteOpenHelper {
 
     public RecordDBHelper(Context context) {
-        super(context, Constants.DB_NAME, null, 1);
+        this(context, Constants.DB_NAME, null, 1);
     }
 
     public RecordDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -22,7 +22,7 @@ public class RecordDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("", new String[] {});
+        db.execSQL("create table record (id verchar(20) unique,writeTime verchar(20));");
     }
 
     @Override
