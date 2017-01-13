@@ -17,9 +17,14 @@ import com.song.honestshoppingmall.adapter.GoodsPagerAdapter;
 import com.song.honestshoppingmall.bean.GoodsBean;
 import com.song.honestshoppingmall.bean.ProductCommentBean;
 import com.song.honestshoppingmall.dao.RecordDao;
+import com.song.honestshoppingmall.event.FirstEvent;
 import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.DialogAlertUtils;
 import com.song.honestshoppingmall.util.RetrofitUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -49,9 +54,11 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
     private View mRootView;
     private TextView mTv_comment_number;
     private LinearLayout mLl_comments;
+    private int mProductId;
 
     @Override
     protected View initView() {
+        EventBus.getDefault().register(this);
         ((HomeActivity) mContext).changeTitle("商品详情");
         if (mRootView == null) {
             mRootView = View.inflate(mContext, R.layout.fragment_goods, null);
@@ -205,6 +212,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
     }
 
     //设置商品市场价
+
     private void setMarketPrice(int marketPrice) {
         if (mTv_fragment_goods_rawPrice != null) {
             mTv_fragment_goods_rawPrice.setText("￥" + marketPrice);
@@ -245,5 +253,18 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
             mTv_fragment_goods_name.setText(name);
         }
     }
+    @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(FirstEvent event) {
+//        int pId = (int) getArguments().get("pId");
+        mProductId = event.getMsg();
+        Toast.makeText(mContext, "接收到了数据："+event.getMsg(), Toast.LENGTH_SHORT).show();
+        Log.d("tag",mProductId+"");
+        Toast.makeText(mContext, mProductId+"", Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

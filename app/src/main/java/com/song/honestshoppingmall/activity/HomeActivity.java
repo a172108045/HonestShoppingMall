@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
-import com.song.honestshoppingmall.event.FirstEvent;
 import com.song.honestshoppingmall.fragment.AddressFragment;
 import com.song.honestshoppingmall.fragment.CategoryFragment;
 import com.song.honestshoppingmall.fragment.HomeFragment;
@@ -30,8 +29,6 @@ import com.song.honestshoppingmall.fragment.SettingFragment;
 import com.song.honestshoppingmall.fragment.ShopCartFragment;
 import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.SpUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -147,28 +144,18 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         removeAllFragment();
         switch (i) {
             case R.id.rb_home:
-                EventBus.getDefault().post(
-                        new FirstEvent("FirstEvent btn clicked rb_home"));
                 changeFragment(new HomeFragment(), "HomeFragment");
                 break;
             case R.id.rb_category:
-                EventBus.getDefault().post(
-                        new FirstEvent("FirstEvent btn clicked rb_category"));
                 changeFragment(new CategoryFragment(), "CategoryFragment");
                 break;
             case R.id.rb_shopcart:
-                EventBus.getDefault().post(
-                        new FirstEvent("FirstEvent btn clicked rb_shopcart"));
                 changeFragment(new ShopCartFragment(), "ShopCartFragment");
                 break;
             case R.id.rb_mine:
-                EventBus.getDefault().post(
-                        new FirstEvent("FirstEvent btn clicked rb_mine"));
                 changeFragment(new MineFragment(), "MineFragment");
                 break;
             case R.id.rb_setting:
-                EventBus.getDefault().post(
-                        new FirstEvent("FirstEvent btn clicked rb_setting"));
                 changeFragment(new SettingFragment(), "SettingFragment");
                 break;
         }

@@ -6,9 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,45 +105,23 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             }
         });
 
-        holder.mEt_number.setText(productCount+"");
 
+        holder.mEt_number.setText(productCount+"");
+        holder.mBtn_card_remove.setEnabled(Integer.parseInt(holder.mEt_number.getText().toString()) > 0);
+        holder.mBtn_card_add.setEnabled(Integer.parseInt(holder.mEt_number.getText().toString()) < product.getBuyLimit());
 
         holder.mBtn_card_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateNetDataAdd(productCount,productId);
-                holder.mBtn_card_remove.setEnabled(true);
 
             }
         });
         holder.mBtn_card_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               holder.mBtn_card_add.setEnabled(true);
                 updateNetDataRemove(productCount,productId);
 
-
-            }
-        });
-
-        holder.mEt_number.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String text = holder.mEt_number.getText().toString();
-                int number = Integer.parseInt(text);
-                if (number<=0){
-                    holder.mBtn_card_remove.setEnabled(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
 
             }
         });
@@ -154,6 +130,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         if (TextUtils.equals(text,"1")){
             holder.mBtn_card_remove.setEnabled(true);
         }
+
 
         if (mCb_card_checkall.isChecked()){
             for (int i = 0; i < getItemCount(); i++) {
