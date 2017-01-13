@@ -182,19 +182,19 @@ public class RadioButtonSort extends RadioButton {
         //未选中向下状态单三角的纹理资源
         int UNSELECTED_DOWN_IMAGE = R.mipmap.down_new;
         //选中向下状态单三角的纹理资源
-        int SELECTED_DOWN_IMAGE = R.mipmap.down_new;
+        int SELECTED_DOWN_IMAGE = R.mipmap.down_selected_new;
 
         //未选中向上状态单三角的纹理资源
-        int UNSELECTED_UP_IMAGE = R.mipmap.down_new;
+        int UNSELECTED_UP_IMAGE = R.mipmap.up_new;
         //选中向上状态单三角的纹理资源
-        int SELECTED_UP_IMAGE = R.mipmap.down_new;
+        int SELECTED_UP_IMAGE = R.mipmap.up_selected_new;
 
         //未选中双三角的纹理资源
-        int UNSELECTED_UP_DOWN_IMAGE = R.mipmap.down_new;
+        int UNSELECTED_UP_DOWN_IMAGE = R.mipmap.up_down_pink_new;
         //选中向下状态双三角的纹理资源
-        int SELECTED_UP_T0_DOWN_IMAGE = R.mipmap.down_new;
+        int SELECTED_UP_T0_DOWN_IMAGE = R.mipmap.down_pink_new;
         //选中向上状态双三角的纹理资源
-        int SELECTED_DOWN_TO_UP_IMAGE = R.mipmap.down_new;
+        int SELECTED_DOWN_TO_UP_IMAGE = R.mipmap.up_pink_new;
     }
 
     /**
