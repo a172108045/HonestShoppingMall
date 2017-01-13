@@ -50,8 +50,8 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter {
 
             Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + productListBean.getPic()).into(recyclerViewHolder.iv_pic);
             recyclerViewHolder.tv_name.setText(productListBean.getName());
-            recyclerViewHolder.tv_price.setText(productListBean.getPrice() + "");
-            recyclerViewHolder.tv_comment.setText(productListBean.getCommentCount() + "");
+            recyclerViewHolder.tv_price.setText("￥" + productListBean.getPrice());
+            recyclerViewHolder.tv_comment.setText("评论：" + productListBean.getCommentCount());
 
             recyclerViewHolder.iv_pic.setOnClickListener(new View.OnClickListener() {
                 @Override

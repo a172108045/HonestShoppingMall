@@ -2,6 +2,7 @@ package com.song.honestshoppingmall.fragment;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -44,6 +45,7 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
     private RadioButtonSort mRb_fragment_goodslist_comment;
     private Button mBtn_fragment_goodslist_filter;
     private RadioGroup mRadioGroup;
+    private String mOrderByStr;
 
     @Override
     protected View initView() {
@@ -120,8 +122,8 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
                     public void onResponse(Call<FilterProductListBean> call, Response<FilterProductListBean> response) {
                         FilterProductListBean filterProductListBean = response.body();
                         if (response.isSuccessful()) {
-//                            Toast.makeText(mContext, "GoodsListFragment " + requestMap.toString() + " 请求成功:" + filterProductListBean.toString() , Toast.LENGTH_SHORT).show();
-//                            Log.d("GoodsListFragment " + requestMap.toString() + " 请求成功:", filterProductListBean.toString());
+                            Toast.makeText(mContext, "GoodsListFragment " + requestMap.toString() + " 请求成功:" + filterProductListBean.toString() , Toast.LENGTH_SHORT).show();
+                            Log.d("GoodsListFragment " + requestMap.toString() + " 请求成功:", filterProductListBean.toString());
                             refreshProductListByBean(filterProductListBean);
                         } else {
                             Toast.makeText(mContext, "GoodsListFragment " + requestMap.toString() + " 请求错误码:" + filterProductListBean.error_code, Toast.LENGTH_SHORT).show();
@@ -149,31 +151,57 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-//        ((RadioButtonSort) v).toggle();
 
         switch (v.getId()) {
             //销量
             case R.id.rb_fragment_goodslist_sale:
-//                mRb_fragment_goodslist_sale.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.up_pink_new, 0);
-//                mRb_fragment_goodslist_sale.toggle();
+                if(v instanceof  RadioButtonSort){
+                    if(((RadioButtonSort) v).isAscendingSort()){
+                        this.mOrderByStr = "saleUp";
+                    }else{
+                        this.mOrderByStr = "saleDown ";
+                    }
+                }
+
                 break;
             //价格
             case rb_fragment_goodslist_price:
-//                mRb_fragment_goodslist_price
+                if(v instanceof  RadioButtonSort){
+                    if(((RadioButtonSort) v).isAscendingSort()){
+                        this.mOrderByStr = "priceUp";
+                    }else{
+                        this.mOrderByStr = "priceDown ";
+                    }
+                }
                 break;
             //时间
             case R.id.rb_fragment_goodslist_time:
-
+                if(v instanceof  RadioButtonSort){
+                    if(((RadioButtonSort) v).isAscendingSort()){
+                        this.mOrderByStr = "shelvesUp";
+                    }else{
+                        this.mOrderByStr = "shelvesDown ";
+                    }
+                }
                 break;
             //评价
             case R.id.rb_fragment_goodslist_comment:
-
+                if(v instanceof  RadioButtonSort){
+                    if(((RadioButtonSort) v).isAscendingSort()){
+                        this.mOrderByStr = "commentUp";
+                    }else{
+                        this.mOrderByStr = "commentDown ";
+                    }
+                }
                 break;
             //筛选
             case R.id.btn_fragment_goodslist_filter:
 
                 break;
+
+
         }
+        requestNetData(1, 10, this.mCategoryId, this.mOrderByStr, "t1-s1-p8");
     }
 
 }
