@@ -45,13 +45,13 @@ import retrofit2.Response;
  * Created by lizhenquan on 2017/1/8.
  */
 
-public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapter.MyViewHolder> implements View.OnClickListener {
-    private CheckBox mCb_card_checkall;
-    private TextView mTvTotalPrice;
-    private Context mContext;
+public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapter.MyViewHolder> {
+    private  CheckBox                    mCb_card_checkall;
+    private TextView                     mTvTotalPrice;
+    private Context                      mContext;
     private List<SerchCardBean.CartBean> mData;
-    public boolean checkedData[];
-    public Handler handler = new Handler() {
+    public boolean checkedData[]  ;
+    public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -60,7 +60,6 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             shopCartFragment.refreshData();
         }
     };
-
     public CardRecyclerAdapter(Context context, List<SerchCardBean.CartBean> body, TextView tv_totalPrice, CheckBox cb_card_checkall) {
         this.mContext = context;
         this.mData = body;
@@ -71,9 +70,8 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.recycle_card_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.recycle_card_item, parent,false);
         MyViewHolder holder = new MyViewHolder(view);
-        view.setOnClickListener(this);
         return holder;
 
     }
@@ -90,33 +88,32 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + product.getPic()).into(holder.mIv_card);
         holder.mTv_card_color.setText("颜色：" + property.getV());
         holder.mTv_card_size.setText("      尺码：" + product.getNumber());
-        holder.mTv_card_price.setText("$" + product.getPrice() * productCount);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("pId", mData.get(position).getId());
-                ((HomeActivity)mContext).changeFragment(new GoodsDetailsFragment(), "GoodsDetailsFragment", bundle);
-            }
-        });
+        holder.mTv_card_price.setText("$" + product.getPrice()*productCount);
 
         holder.mCb_card.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                checkedData[position] = b;
+               checkedData[position] = b;
                 calculator();
             }
         });
 
+        holder.myitemview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("pId",mData.get(position).getProductId());
+                ((HomeActivity) mContext).changeFragment(new GoodsDetailsFragment(),"GoodsDetailsFragment",bundle);
+            }
+        });
 
-        holder.mEt_number.setText(productCount + "");
+        holder.mEt_number.setText(productCount+"");
 
 
         holder.mBtn_card_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateNetDataAdd(productCount, productId);
+                updateNetDataAdd(productCount,productId);
                 holder.mBtn_card_remove.setEnabled(true);
 
             }
@@ -124,8 +121,8 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         holder.mBtn_card_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.mBtn_card_add.setEnabled(true);
-                updateNetDataRemove(productCount, productId);
+               holder.mBtn_card_add.setEnabled(true);
+                updateNetDataRemove(productCount,productId);
 
 
             }
@@ -142,7 +139,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String text = holder.mEt_number.getText().toString();
                 int number = Integer.parseInt(text);
-                if (number <= 0) {
+                if (number<=0){
                     holder.mBtn_card_remove.setEnabled(false);
                 }
             }
@@ -154,17 +151,17 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         });
 
         String text = holder.mEt_number.getText().toString();
-        if (TextUtils.equals(text, "1")) {
+        if (TextUtils.equals(text,"1")){
             holder.mBtn_card_remove.setEnabled(true);
         }
 
-        if (mCb_card_checkall.isChecked()) {
+        if (mCb_card_checkall.isChecked()){
             for (int i = 0; i < getItemCount(); i++) {
                 holder.mCb_card.setChecked(true);
                 checkedData[i] = true;
                 calculator();
             }
-        } else {
+        }else{
             for (int i = 0; i < getItemCount(); i++) {
                 holder.mCb_card.setChecked(false);
                 checkedData[i] = false;
@@ -173,24 +170,23 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         }
     }
 
-
     private void updateNetDataAdd(int productCount, int productId) {
 
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
-        Map<String, String> map = new HashMap<>();
-        map.put("userId", SpUtil.getString(mContext, Constants.USERID, ""));
-        map.put("productId", productId + "");
-        map.put("productCount", productCount + 1 + "");
-        map.put("propertyId", "1");
+        Map<String,String> map = new HashMap<>();
+        map.put("userId",SpUtil.getString(mContext, Constants.USERID,""));
+        map.put("productId",productId+"");
+        map.put("productCount",productCount+1+"");
+        map.put("propertyId","1");
         apiRetrofitInstance.getUpdateCart(map).enqueue(new Callback<UpDateCartBean>() {
             @Override
             public void onResponse(Call<UpDateCartBean> call, Response<UpDateCartBean> response) {
                 if (response.isSuccessful()) {
 
                     UpDateCartBean body = response.body();
-                    if (body.error == null) {
+                    if (body.error==null){
                         handler.sendEmptyMessage(0);
-                    } else {
+                    }else{
                         Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -206,20 +202,20 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     private void updateNetDataRemove(int productCount, int productId) {
 
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
-        Map<String, String> map = new HashMap<>();
-        map.put("userId", SpUtil.getString(mContext, Constants.USERID, ""));
-        map.put("productId", productId + "");
-        map.put("productCount", productCount - 1 + "");
-        map.put("propertyId", "1");
+        Map<String,String> map = new HashMap<>();
+        map.put("userId", SpUtil.getString(mContext, Constants.USERID,""));
+        map.put("productId",productId+"");
+        map.put("productCount",productCount-1+"");
+        map.put("propertyId","1");
         apiRetrofitInstance.getUpdateCart(map).enqueue(new Callback<UpDateCartBean>() {
             @Override
             public void onResponse(Call<UpDateCartBean> call, Response<UpDateCartBean> response) {
                 if (response.isSuccessful()) {
 
                     UpDateCartBean body = response.body();
-                    if (body.error == null) {
+                    if (body.error==null){
                         handler.sendEmptyMessage(0);
-                    } else {
+                    }else{
                         Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -231,35 +227,30 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return mData.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        if (mOnItemClickListener != null) {
-            mOnItemClickListener.onItemClick(view, (String) view.getTag());
-        }
-    }
+
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        View itemView;
+
+        private  View myitemview;
         CheckBox mCb_card;
         ImageView mIv_card;
-        TextView mTv_card_color;
-        TextView mTv_card_size;
-        TextView mTv_card_price;
-        private final Button mBtn_card_add;
-        private final Button mBtn_card_remove;
+        TextView  mTv_card_color;
+        TextView  mTv_card_size;
+        TextView  mTv_card_price;
+        private final Button   mBtn_card_add;
+        private final Button   mBtn_card_remove;
         private final EditText mEt_number;
 
         public MyViewHolder(View view) {
             super(view);
-            this.itemView = view;
+            this.myitemview = view;
             mCb_card = (CheckBox) view.findViewById(R.id.cb_card);
             mIv_card = (ImageView) view.findViewById(R.id.iv_card);
             mTv_card_color = (TextView) view.findViewById(R.id.tv_card_color);
@@ -277,25 +268,23 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
 
         int totalPrice = 0;
         for (int i = 0; i < mData.size(); i++) {
-            if (checkedData[i]) {
+            if (checkedData[i]){
 
-                totalPrice += mData.get(i).getProductCount() * mData.get(i).getProduct().getPrice();
+                totalPrice += mData.get(i).getProductCount()*mData.get(i).getProduct().getPrice();
 
             }
-            mTvTotalPrice.setText("合计：" + totalPrice);
+            mTvTotalPrice.setText("合计："+totalPrice);
         }
 
     }
 
 
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
-
     //define interface
     public static interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, String data);
+        void onItemClick(View view , int data);
     }
-
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener){
         this.mOnItemClickListener = listener;
     }
 }

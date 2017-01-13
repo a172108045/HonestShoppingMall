@@ -190,12 +190,6 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                             if (mCardRecyclerAdapter == null) {
                                 mCardRecyclerAdapter = new CardRecyclerAdapter(mContext, mData, mTv_price_card, mCb_card_checkall);
                                 mRecyclerView.setAdapter(mCardRecyclerAdapter);
-/*                                mCardRecyclerAdapter.setOnItemClickListener(new CardRecyclerAdapter.OnRecyclerViewItemClickListener() {
-                                    @Override
-                                    public void onItemClick(View view, String data) {
-
-                                    }
-                                });*/
                             } else {
                                 mCardRecyclerAdapter.notifyDataSetChanged();
 
