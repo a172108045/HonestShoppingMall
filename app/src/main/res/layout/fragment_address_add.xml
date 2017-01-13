@@ -88,8 +88,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="手机号: "
-                        android:textStyle="bold"
-                        android:textColor="@color/pink"/>
+                        android:textColor="@color/pink"
+                        android:textStyle="bold"/>
 
                     <EditText
                         android:layout_width="match_parent"
@@ -141,26 +141,34 @@
 
                 <!--</LinearLayout>-->
 
-                <TextView
-                    android:id="@+id/tv_address_selector"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:hint="点击选择地址"
-                    android:padding="3dp"
-                    android:textSize="15dp"
-                    />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/frameLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_address_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="点击选择地址"/>
+
+                </RelativeLayout>
 
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="10dp"
                     android:background="@mipmap/dialogbox_add"
                     android:hint="请输入详细地址"
                     android:padding="5dp"
-                    android:layout_marginBottom="5dp"
                     android:textSize="13dp"/>
             </LinearLayout>
 
