@@ -20,4 +20,16 @@ public interface Constants {
     String DB_NAME = "localDB";
     String TABLE_RECORD = "record";
 
+    String SORT_SALE_DOWN = "saleDown";
+    String SORT_SALE_UP = "saleDown";
+
+    String SORT_PRICE_DOWN = "priceDown";
+    String SORT_PRICE_UP = "priceUp";
+
+    String SORT_TIME_DOWN = "shelvesDown";
+    String SORT_TIME_UP = "shelvesDown";
+
+    String SORT_COMMENT_DOWN = "commentDown";
+    String SORT_COMMENT_UP = "commentDown";
+
 }
