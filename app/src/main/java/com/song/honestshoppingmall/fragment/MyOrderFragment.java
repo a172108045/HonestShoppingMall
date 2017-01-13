@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
@@ -79,7 +78,6 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
                 case 1:
                     mIv_no_order.setVisibility(View.VISIBLE);
                     mLv_recent_order.setVisibility(View.INVISIBLE);
-                    Toast.makeText(mContext, "没有查询到订单", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -121,7 +119,7 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
             public void onResponse(Call<MyOrderBean> call, Response<MyOrderBean> response) {
                 if (response.isSuccessful()) {
                     mMyOrderBean = response.body();
-                    if (mMyOrderBean != null && mMyOrderBean.getOrderList() != null) {
+                    if (mMyOrderBean != null && mMyOrderBean.getOrderList().size() > 0) {
                         if (mPreGetType.equals(mGetType)) {
                             if (mOrderList == null) {
                                 mOrderList = new ArrayList<MyOrderBean.OrderListBean>();
