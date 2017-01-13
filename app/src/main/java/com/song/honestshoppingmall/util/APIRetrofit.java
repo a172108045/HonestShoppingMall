@@ -2,6 +2,7 @@ package com.song.honestshoppingmall.util;
 
 import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.AddressBean;
+import com.song.honestshoppingmall.bean.AddressProvince;
 import com.song.honestshoppingmall.bean.CheckOutBean;
 import com.song.honestshoppingmall.bean.DesenoBean;
 import com.song.honestshoppingmall.bean.FilterProductListBean;
@@ -211,5 +212,8 @@ public interface APIRetrofit {
 
     @GET("product/comment")
     Call<ProductCommentBean> getProductCommentBean(@Query("pId") String pId, @Query("page") String page, @Query("pageNum") String pageNum);
+
+    @GET("addressarea")
+    Call<AddressProvince> getProvinceList(@Query("id") int id);
 
 }

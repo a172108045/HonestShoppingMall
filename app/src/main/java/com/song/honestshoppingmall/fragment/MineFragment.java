@@ -1,6 +1,7 @@
 package com.song.honestshoppingmall.fragment;
 
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -47,8 +48,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View initView() {
-        ((HomeActivity)mContext).changeTitle("个人中心");
-        if(SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false)) {
+        ((HomeActivity) mContext).changeTitle("个人中心");
+        if (SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false)) {
             if (SpUtil.getString(mContext, Constants.USERID, null) != null) {
                 ((HomeActivity) mContext).removeAllFragment();
                 ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
@@ -170,7 +171,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     mConfirm = et_pass_confirm.getEditText().getText().toString();
                     if (TextUtils.isEmpty(mUsername) || TextUtils.isEmpty(mPassword) || TextUtils.isEmpty(mConfirm)) {
                         Toast.makeText(mContext, "用户资料不能为空!", Toast.LENGTH_SHORT).show();
-                    } else if (mUsername.length() <= 4 || mUsername.length() >= 15) {
+                    } else if (mUsername.length() < 4 || mUsername.length() >= 15) {
                         Toast.makeText(mContext, "4-15个字符的用户名", Toast.LENGTH_SHORT).show();
                     } else if (!mPassword.equals(mConfirm)) {
                         Toast.makeText(mContext, "密码不一致!", Toast.LENGTH_SHORT).show();
@@ -184,6 +185,29 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                                 if (response.isSuccessful()) {
                                     if (response.body().error == null) {
                                         Toast.makeText(mContext, "恭喜注册成功!", Toast.LENGTH_SHORT).show();
+                                        final APIRetrofit mRetrofit = RetrofitUtil.getAPIRetrofitInstance();
+                                        mRetrofit.login(mUsername, mPassword).enqueue(new Callback<LoginResultBean>() {
+                                            @Override
+                                            public void onResponse(Call<LoginResultBean> call, Response<LoginResultBean> response) {
+                                                if (response.isSuccessful()) {
+                                                    if (response.body().error == null) {
+                                                        String mUserid = response.body().getUserInfo().getUserid();
+                                                        SpUtil.saveString(mContext, Constants.USERID, mUserid);
+                                                        SystemClock.sleep(1000);
+                                                        if (SpUtil.getString(mContext, Constants.USERID, null) != null) {
+                                                            ((HomeActivity) mContext).removeAllFragment();
+                                                            ((HomeActivity) mContext).changeFragment(new UserFragment(), "UserFragment");
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<LoginResultBean> call, Throwable t) {
+
+                                            }
+                                        });
+
                                     } else {
                                         Toast.makeText(mContext, response.body().error.toString(), Toast.LENGTH_SHORT).show();
                                     }
