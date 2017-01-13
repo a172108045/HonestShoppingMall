@@ -92,19 +92,13 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
     @Override
     protected void initData() {
         initSpinner();
-        int spacingInPixels = DensityUtil.dip2px(mContext, 10);
-        mSearchDetailAdapter = new SearchDetailAdapter(mContext, mData);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2, GridLayoutManager.VERTICAL, false);
-        mRecycle_searchdetail.setLayoutManager(gridLayoutManager);
-        mRecycle_searchdetail.setHasFixedSize(true);
-        mRecycle_searchdetail.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
-        mRecycle_searchdetail.setAdapter(mSearchDetailAdapter);
-        mSearchDetailAdapter.setOnItemClickListener(new SearchDetailAdapter.OnRecyclerViewItemClickListener() {
+
+        /*mSearchDetailAdapter.setOnItemClickListener(new SearchDetailAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, String data) {
                 //TODO 进入商品详情页面
             }
-        });
+        });*/
 
         initNetData("saleDown");
     }
@@ -154,8 +148,19 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
                         List<SearchDetailBean.ProductListBean> productList = body.getProductList();
                         mData.clear();
                         mData.addAll(productList);
+                        if(mSearchDetailAdapter==null){
+                            mSearchDetailAdapter = new SearchDetailAdapter(mContext, mData);
+                            int spacingInPixels = DensityUtil.dip2px(mContext, 10);
+                            GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2, GridLayoutManager.VERTICAL, false);
+                            mRecycle_searchdetail.setLayoutManager(gridLayoutManager);
+                            mRecycle_searchdetail.setHasFixedSize(true);
+                            mRecycle_searchdetail.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+                            mRecycle_searchdetail.setAdapter(mSearchDetailAdapter);
+                        }else{
+                            mSearchDetailAdapter.notifyDataSetChanged();
+                        }
 
-                        mSearchDetailAdapter.notifyDataSetChanged();
+
 
                     } else {
                         Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
@@ -199,19 +204,21 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
                     case 0:
                         mBtn_sales_price.setTextColor(this.getResources().getColor(R.color.black));
                        mIv_price.setImageResource(R.mipmap.up_down_pink_new);
-                        type_price = 1;
+                        type_price = 1;   //价格升序
+                        initNetData("priceUp");
+
                         break;
                     case 1:
                         mBtn_sales_price.setTextColor(this.getResources().getColor(R.color.pink));
                         mIv_price.setImageResource(R.mipmap.up_pink_new);
                         type_price = 2;
-
+                        initNetData("priceDown");
                         break;
                     case 2:
                         mBtn_sales_price.setTextColor(this.getResources().getColor(R.color.pink));
                         mIv_price.setImageResource(R.mipmap.down_pink_new);
-                        type_price = 0;
-
+                        type_price = 1;
+                        initNetData("priceUp");
                         break;
 
                 }
