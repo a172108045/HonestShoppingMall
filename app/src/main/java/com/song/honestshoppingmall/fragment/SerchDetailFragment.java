@@ -110,19 +110,6 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
     @Override
     protected void initData() {
         initSpinner();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mSearchDetailAdapter != null) {
-                    mSearchDetailAdapter.setOnItemClickListener(new SearchDetailAdapter.OnRecyclerViewItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, String data) {
-                            Toast.makeText(mContext, "进入商品详情页面", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        },500);
 
 
 

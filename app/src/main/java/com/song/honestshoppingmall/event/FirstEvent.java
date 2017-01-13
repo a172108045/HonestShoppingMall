@@ -5,12 +5,12 @@ package com.song.honestshoppingmall.event;
  */
 
 public class FirstEvent {
-    private  String mMsg;
+    private  int mMsg;
 
-    public FirstEvent(String msg) {
+    public FirstEvent(int msg) {
         mMsg = msg;
     }
-    public String getMsg(){
+    public int getMsg(){
         return mMsg;
     }
 }
