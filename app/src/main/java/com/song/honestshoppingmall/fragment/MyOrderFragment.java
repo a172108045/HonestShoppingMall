@@ -20,6 +20,7 @@ import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.RetrofitUtil;
 import com.song.honestshoppingmall.util.SpUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
     private RecyclerView mLv_recent_order;
     private MyOrderBean mMyOrderBean;
     private String mGetType = "1";
+    private String mPreGetType = "1";
     private MyOrderAdapter mRecentAdapter;
     private int pager = 0;
 
@@ -54,13 +56,15 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
                     mLv_recent_order.setVisibility(View.VISIBLE);
                     mRecentAdapter = null;
                     mRecentAdapter = new MyOrderAdapter(mContext, mOrderList, mGetType);
+                    mLv_recent_order.setAdapter(mRecentAdapter);
+
                     mRecentAdapter.setOnLoadMoreListener(new MyOrderAdapter.OnLoadMoreListener() {
                         @Override
                         public void onLoadMore() {
                             if ((pager + 1) * 5 <= mOrderList.size()) {
                                 SystemClock.sleep(1000);
-                                pager ++;
-                                System.out.println("pager="+pager);
+                                pager++;
+                                System.out.println("pager=" + pager);
                                 initNetData();
                                 mRecentAdapter.notifyDataSetChanged();
 
@@ -68,7 +72,8 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
                         }
                     });
                     mRecentAdapter.startLoadMore(mLv_recent_order, mLv_recent_order.getLayoutManager());
-                    mLv_recent_order.setAdapter(mRecentAdapter);
+
+
                     break;
 
                 case 1:
@@ -83,7 +88,7 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected View initView() {
-        ((HomeActivity)mContext).changeTitle("我的订单");
+        ((HomeActivity) mContext).changeTitle("我的订单");
         View view = View.inflate(mContext, R.layout.fragment_myorder, null);
         mBt_recent_order = (Button) view.findViewById(R.id.bt_recent_order);
         mBt_before_order = (Button) view.findViewById(R.id.bt_before_order);
@@ -116,16 +121,23 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
             public void onResponse(Call<MyOrderBean> call, Response<MyOrderBean> response) {
                 if (response.isSuccessful()) {
                     mMyOrderBean = response.body();
-                    if (mOrderList == null) {
-                        mOrderList = mMyOrderBean.getOrderList();
-                    } else {
-                        mOrderList.addAll(mMyOrderBean.getOrderList());
-                    }
-                    if (mOrderList != null && mOrderList.size() != 0) {
+                    if (mMyOrderBean != null && mMyOrderBean.getOrderList() != null) {
+                        if (mPreGetType.equals(mGetType)) {
+                            if (mOrderList == null) {
+                                mOrderList = new ArrayList<MyOrderBean.OrderListBean>();
+                            } else {
+                                mOrderList.addAll(mMyOrderBean.getOrderList());
+                            }
+                        } else {
+                            mOrderList = mMyOrderBean.getOrderList();
+                        }
                         mHandler.sendEmptyMessage(0);
+                        mPreGetType = mGetType;
                     } else {
                         mHandler.sendEmptyMessage(1);
+                        mPreGetType = mGetType;
                     }
+
                 }
             }
 
@@ -141,7 +153,6 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_recent_order:
-                pager = 0;
                 mGetType = "1";
                 initNetData();
 
@@ -155,7 +166,6 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
 
                 break;
             case R.id.bt_before_order:
-                pager = 0;
                 mGetType = "2";
                 initNetData();
 
@@ -169,7 +179,6 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
 
                 break;
             case R.id.bt_cancelled_order:
-                pager = 0;
                 mGetType = "3";
                 initNetData();
 
