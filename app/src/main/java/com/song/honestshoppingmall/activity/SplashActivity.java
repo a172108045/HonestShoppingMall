@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.bean.LoginResultBean;
+import com.song.honestshoppingmall.db.RecordDBHelper;
 import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.RetrofitUtil;
@@ -62,6 +63,9 @@ public class SplashActivity extends AppCompatActivity {
             }
 
         }
+
+        //创建数据库和浏览记录表
+        new RecordDBHelper(this).getWritableDatabase();
 
         new Thread(new Runnable() {
             @Override
