@@ -238,7 +238,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         switch (item.getItemId()) {
             case android.R.id.home:
                 if(mFragmentManager.getBackStackEntryCount() > 1)
-                onBackPressed();
+                    onBackPressed();
                 break;
 /*            case R.id.cart:
                 removeAllFragment();
