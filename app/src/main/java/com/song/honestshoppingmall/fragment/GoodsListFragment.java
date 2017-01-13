@@ -1,7 +1,7 @@
 package com.song.honestshoppingmall.fragment;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -144,8 +144,8 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
 
 //        mRv_fragment_goodslist_product.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,true));
 //        mRv_fragment_goodslist_product.setLayoutManager(new GridLayoutManager(mContext,3,GridLayoutManager.HORIZONTAL,false));
-//        mRv_fragment_goodslist_product.setLayoutManager(new GridLayoutManager(mContext,2));
-        mRv_fragment_goodslist_product.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRv_fragment_goodslist_product.setLayoutManager(new GridLayoutManager(mContext,2));
+//        mRv_fragment_goodslist_product.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         ProductListRecyclerAdapter recyclerAdapter = new ProductListRecyclerAdapter(mContext, filterProductListBean.getProductList());
         mRv_fragment_goodslist_product.setAdapter(recyclerAdapter);
 

@@ -13,6 +13,7 @@ import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.bean.FilterProductListBean;
 import com.song.honestshoppingmall.fragment.GoodsDetailsFragment;
+import com.song.honestshoppingmall.util.DensityUtil;
 import com.song.honestshoppingmall.util.Urls;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter {
             RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) holder;
             final FilterProductListBean.ProductListBean productListBean = mDatas.get(position);
 
-            Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + productListBean.getPic()).into(recyclerViewHolder.iv_pic);
+            Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + productListBean.getPic()).override(DensityUtil.dip2px(mContext, 150), DensityUtil.dip2px(mContext, 250)).into(recyclerViewHolder.iv_pic);
             recyclerViewHolder.tv_name.setText(productListBean.getName());
             recyclerViewHolder.tv_price.setText("￥" + productListBean.getPrice());
             recyclerViewHolder.tv_comment.setText("评论：" + productListBean.getCommentCount());
