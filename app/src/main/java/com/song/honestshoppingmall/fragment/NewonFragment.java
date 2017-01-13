@@ -32,17 +32,20 @@ public class NewonFragment extends BaseFragment {
 
     @Override
     protected View initView() {
-        ((HomeActivity) mContext).changeTitle("热门单品");
-        this.mData = new ArrayList<>();
-        mView = View.inflate(mContext, R.layout.fragment_newon, null);
-        lv_newon = (ListView) mView.findViewById(R.id.lv_newon);
+        if (mView==null){
+            mView = View.inflate(mContext, R.layout.fragment_newon, null);
+            lv_newon = (ListView) mView.findViewById(R.id.lv_newon);
+            ((HomeActivity) mContext).changeTitle("热门单品");
+            this.mData = new ArrayList<>();
+        }
         return mView;
     }
+
 
     @Override
     protected void initData() {
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
-        final Map<String, String> map = new HashMap<>();
+         Map<String, String> map = new HashMap<>();
         map.put("page", "1");
         map.put("pageNum", "10");
         map.put("orderby", "saleDown");
