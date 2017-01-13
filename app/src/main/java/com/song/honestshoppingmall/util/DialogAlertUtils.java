@@ -99,14 +99,13 @@ public class DialogAlertUtils implements View.OnClickListener {
         window.setContentView(R.layout.dialog_shopcar);
         window.setGravity(Gravity.BOTTOM);
 
+        findView(window);
+
         if (mIsAddCart) {
             mBtn_card_tianjia.setText("添加");
         } else {
             mBtn_card_tianjia.setText("购买");
         }
-
-        findView(window);
-
     }
 
     /**
@@ -179,6 +178,7 @@ public class DialogAlertUtils implements View.OnClickListener {
                     Bundle bundle = new Bundle();
                     bundle.putString("sku", sku.toString());
                     ((HomeActivity)mContext).changeFragment(new CheckOutFragment(), "CheckOutFragment", bundle);
+                    DialogAlertUtils.dismissScanNumberDialog();
                 }
                 break;
         }
