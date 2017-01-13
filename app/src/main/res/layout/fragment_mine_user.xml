@@ -17,7 +17,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="230dp"
             android:background="@mipmap/user_center_bg">
 
             <LinearLayout
@@ -83,7 +83,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:background="@mipmap/regist_bg"
+                    android:background="@mipmap/home_title_dialogbox"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -116,9 +116,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="80dp"
                     android:orientation="horizontal"
-                    android:paddingTop="10dp">
+                    android:paddingTop="12dp">
 
                     <ImageView
                         android:layout_width="0dp"
@@ -171,7 +171,7 @@
                     android:id="@+id/relativelayout_mytools"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:background="@mipmap/regist_bg"
+                    android:background="@mipmap/home_title_dialogbox"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -204,9 +204,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="80dp"
                     android:orientation="horizontal"
-                    android:paddingTop="10dp">
+                    android:paddingTop="12dp">
 
                     <ImageView
                         android:id="@+id/iv_address_user"
@@ -240,9 +240,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="80dp"
                     android:orientation="horizontal"
-                    android:paddingTop="10dp">
+                    android:paddingTop="12dp">
 
 
                     <ImageView
@@ -286,7 +286,7 @@
                     android:layout_height="38dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:background="@mipmap/regist_bg"
+                    android:background="@mipmap/home_title_dialogbox"
                     android:text="退出登录"
                     android:textColor="#fff"
                     android:textSize="18dp"

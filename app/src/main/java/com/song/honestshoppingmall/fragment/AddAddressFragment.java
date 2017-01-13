@@ -2,8 +2,8 @@ package com.song.honestshoppingmall.fragment;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
@@ -15,14 +15,14 @@ import com.song.honestshoppingmall.activity.HomeActivity;
 public class AddAddressFragment extends BaseFragment implements View.OnClickListener {
 
     private PopupWindow mPopupWindow;
-    private EditText aadress_selector;
+    private TextView aadress_selector;
 
     @Override
     protected View initView() {
         ((HomeActivity) mContext).changeTitle("添加地址");
         View view = View.inflate(mContext, R.layout.fragment_address_add, null);
 
-        aadress_selector = (EditText) view.findViewById(R.id.et_address_selector);
+        aadress_selector = (TextView) view.findViewById(R.id.tv_address_selector);
 
         initOnClick();
         return view;
@@ -50,7 +50,7 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.et_address_selector:
+            case R.id.tv_address_selector:
                 mPopupWindow.showAsDropDown(aadress_selector);
                 break;
         }
