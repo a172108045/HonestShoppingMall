@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.GoodsPagerAdapter;
 import com.song.honestshoppingmall.bean.GoodsBean;
+import com.song.honestshoppingmall.bean.ProductCommentBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.DialogAlertUtils;
 import com.song.honestshoppingmall.util.RetrofitUtil;
@@ -43,11 +45,13 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
     private GoodsBean.ProductBean mProductBean;
     private PagerAdapter mPagerAdapter;
     private View mRootView;
+    private TextView mTv_comment_number;
+    private LinearLayout mLl_comments;
 
     @Override
     protected View initView() {
-        ((HomeActivity)mContext).changeTitle("商品详情");
-        if(mRootView == null){
+        ((HomeActivity) mContext).changeTitle("商品详情");
+        if (mRootView == null) {
             mRootView = View.inflate(mContext, R.layout.fragment_goods, null);
 
 
@@ -63,15 +67,22 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
             //商品名称
             mTv_fragment_goods_name = (TextView) mRootView.findViewById(R.id.tv_fragment_goods_name);
             //收藏按钮
-            Button btn_fragment_goods_collection =  (Button) mRootView.findViewById(R.id.btn_fragment_goods_collection);
+            Button btn_fragment_goods_collection = (Button) mRootView.findViewById(R.id.btn_fragment_goods_collection);
             //加入购物车按钮
             Button btn_fragment_goods_addCart = (Button) mRootView.findViewById(R.id.btn_fragment_goods_addCart);
             //购买按钮
-            Button btn_fragment_goods_buy =  (Button) mRootView.findViewById(R.id.btn_fragment_goods_buy);
+            Button btn_fragment_goods_buy = (Button) mRootView.findViewById(R.id.btn_fragment_goods_buy);
+            //评论数目
+            mTv_comment_number = (TextView) mRootView.findViewById(R.id.tv_comment_number);
+            //评论内容
+            mLl_comments = (LinearLayout) mRootView.findViewById(R.id.ll_comments);
+            //显示评论按钮
+            LinearLayout ll_conment_show = (LinearLayout) mRootView.findViewById(R.id.ll_conment_show);
 
             btn_fragment_goods_collection.setOnClickListener(this);
             btn_fragment_goods_addCart.setOnClickListener(this);
             btn_fragment_goods_buy.setOnClickListener(this);
+            ll_conment_show.setOnClickListener(this);
         }
 
         return mRootView;
@@ -81,9 +92,44 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
     protected void initData() {
         int pId = (int) this.getArguments().get("pId");
         getProductDataByPid(pId);
+        getProductComment(pId);
 
     }
 
+    private void getProductComment(int pId) {
+        RetrofitUtil.getAPIRetrofitInstance().getProductCommentBean(pId + "", 1 + "", 10 + "").enqueue(new Callback<ProductCommentBean>() {
+            @Override
+            public void onResponse(Call<ProductCommentBean> call, Response<ProductCommentBean> response) {
+                if (response.isSuccessful()) {
+                    List<ProductCommentBean.CommentBean> comment = response.body().getComment();
+                    int size = comment.size();
+                    mTv_comment_number.setText(size + "条评论");
+
+                    for (int i = 0; i < size; i++) {
+                        View view = View.inflate(mContext, R.layout.view_comment_item, null);
+                        TextView tv_comment_title = (TextView) view.findViewById(R.id.tv_comment_title);
+                        TextView tv_conment_context = (TextView) view.findViewById(R.id.tv_conment_context);
+                        TextView tv_comment_name = (TextView) view.findViewById(R.id.tv_comment_name);
+                        TextView tv_comment_time = (TextView) view.findViewById(R.id.tv_comment_time);
+                        tv_comment_title.setText(comment.get(i).getTitle());
+                        tv_conment_context.setText(comment.get(i).getContent());
+                        tv_comment_name.setText(comment.get(i).getUsername());
+                        tv_comment_time.setText(comment.get(i).getTime());
+                        mLl_comments.addView(view);
+                    }
+
+                } else {
+                    Toast.makeText(mContext, "商品详情请求错误码：" + response.body().error_code, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductCommentBean> call, Throwable t) {
+                Toast.makeText(mContext, "商品详情请求失败：", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
 
     private void getProductDataByPid(int pId) {
@@ -92,10 +138,10 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                 .enqueue(new Callback<GoodsBean>() {
                     @Override
                     public void onResponse(Call<GoodsBean> call, Response<GoodsBean> response) {
-                        if(response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             mProductBean = response.body().getProduct();
                             String successResponse = mProductBean.toString();
-//                            Toast.makeText(mContext, "商品详情成功返回数据：" + successResponse, Toast.LENGTH_SHORT).show();
+                            //                            Toast.makeText(mContext, "商品详情成功返回数据：" + successResponse, Toast.LENGTH_SHORT).show();
                             Log.d("GoodsDetailsFragment", successResponse);
 
                             //设置商品图片翻页
@@ -109,7 +155,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                             //设置商品名称
                             setProductName(mProductBean.getName());
 
-                        }else{
+                        } else {
                             Toast.makeText(mContext, "商品详情请求错误码：" + response.body().error_code, Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -124,7 +170,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             /*case R.id.iv_fragment_goods_back:
                 ((HomeActivity) mContext).popBackStack();
                 break;*/
@@ -133,22 +179,30 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                 break;
             case R.id.btn_fragment_goods_addCart:
                 //加入购物车
-                if(mProductBean != null){
-                    DialogAlertUtils dialogAlertUtils  = new DialogAlertUtils(mContext,mProductBean,true);
+                if (mProductBean != null) {
+                    DialogAlertUtils dialogAlertUtils = new DialogAlertUtils(mContext, mProductBean, true);
                 }
                 break;
             case R.id.btn_fragment_goods_buy:
                 //购买
                 if (mProductBean != null) {
-                    DialogAlertUtils dialogAlertUtils  = new DialogAlertUtils(mContext,mProductBean,false);
+                    DialogAlertUtils dialogAlertUtils = new DialogAlertUtils(mContext, mProductBean, false);
                 }
+                break;
+            case R.id.ll_conment_show:
+                if (mLl_comments.getVisibility() == View.GONE) {
+                    mLl_comments.setVisibility(View.VISIBLE);
+                } else {
+                    mLl_comments.setVisibility(View.GONE);
+                }
+
                 break;
         }
     }
 
     //设置商品市场价
-    private void setMarketPrice(int marketPrice){
-        if(mTv_fragment_goods_rawPrice != null){
+    private void setMarketPrice(int marketPrice) {
+        if (mTv_fragment_goods_rawPrice != null) {
             mTv_fragment_goods_rawPrice.setText("￥" + marketPrice);
             //设置原价view添加中间横线
             mTv_fragment_goods_rawPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -156,34 +210,34 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
     }
 
     //设置商品现价
-    private void setPrice(int price){
-        if(mTv_fragment_goods_curPrice != null){
+    private void setPrice(int price) {
+        if (mTv_fragment_goods_curPrice != null) {
             mTv_fragment_goods_curPrice.setText("￥" + price);
         }
     }
 
     //设置图片翻页
-    private void setViewPager(List<String> picsList){
-        if(picsList != null){
-            if(mPagerAdapter == null){
+    private void setViewPager(List<String> picsList) {
+        if (picsList != null) {
+            if (mPagerAdapter == null) {
                 mPagerAdapter = new GoodsPagerAdapter(mContext, picsList);
                 mVp_fragment_goods_details.setAdapter(mPagerAdapter);
-            }else{
+            } else {
                 mPagerAdapter.notifyDataSetChanged();
             }
         }
     }
 
     //设置商品评分
-    private void setScore(int score){
-        if(mRb_fragment_goods_star != null){
+    private void setScore(int score) {
+        if (mRb_fragment_goods_star != null) {
             mRb_fragment_goods_star.setRating(score);
         }
     }
 
     //设置商品名称
-    private void setProductName(String name){
-        if(mTv_fragment_goods_name != null){
+    private void setProductName(String name) {
+        if (mTv_fragment_goods_name != null) {
             mTv_fragment_goods_name.setText(name);
         }
     }
