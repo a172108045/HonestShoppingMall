@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -137,15 +138,21 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
     protected void initData() {
         sku = getArguments().getString("sku", "");
         String userid = SpUtil.getString(mContext, Constants.USERID, "");
+        if (TextUtils.isEmpty(userid)) {
+            return;
+        }
         RetrofitUtil.getAPIRetrofitInstance().getAddressBean(userid).enqueue(new Callback<AddressBean>() {
             @Override
             public void onResponse(Call<AddressBean> call, Response<AddressBean> response) {
                 if (response.isSuccessful()) {
-                    final List<AddressBean.AddressListBean> addressList = response.body().getAddressList();
-                    if (addressList != null) {
-                        mTvCustomName.setText(addressList.get(0).getName());
-                        mTvCustomPhone.setText(addressList.get(0).getPhoneNumber());
-                        mTvCustomAddress.setText(addressList.get(0).getAddressArea() + addressList.get(0).getAddressDetail());
+                    if (!response.body().response.equals("error")) {
+                        final List<AddressBean.AddressListBean> addressList = response.body().getAddressList();
+                        if (addressList != null) {
+                            mTvCustomName.setText(addressList.get(0).getName());
+                            mTvCustomPhone.setText(addressList.get(0).getPhoneNumber());
+                            mTvCustomAddress.setText(addressList.get(0).getAddressArea() + addressList.get(0).getAddressDetail());
+                        }
+
                     }
                 }
             }
