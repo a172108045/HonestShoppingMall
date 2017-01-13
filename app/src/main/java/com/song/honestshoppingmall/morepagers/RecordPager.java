@@ -54,10 +54,12 @@ public class RecordPager extends BasePager {
                             ImageView iv_product = (ImageView) view.findViewById(R.id.iv_product);
                             TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
                             TextView tv_price = (TextView) view.findViewById(R.id.tv_price);
-                            Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + product.getBigPic().get(0)).into(iv_product);
-                            tv_name.setText(product.getName());
-                            tv_price.setText(product.getPrice() + "元");
-                            mLl_record_pager.addView(view);
+                            if (product.getBigPic().size() > 0) {
+                                Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + product.getBigPic().get(0)).into(iv_product);
+                                tv_name.setText(product.getName());
+                                tv_price.setText(product.getPrice() + "元");
+                                mLl_record_pager.addView(view);
+                            }
                         }
                     } else {
                         Toast.makeText(mContext, "获取数据错误！", Toast.LENGTH_SHORT).show();
