@@ -89,7 +89,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         holder.mTv_card_color.setText("颜色：" + property.getV());
         holder.mTv_card_size.setText("      尺码：" + product.getNumber());
         holder.mTv_card_price.setText("$" + product.getPrice()*productCount);
-
+        holder.mTv_product_card_name.setText(product.getName());
         holder.mCb_card.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -244,9 +244,10 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
         TextView  mTv_card_color;
         TextView  mTv_card_size;
         TextView  mTv_card_price;
-        private final Button   mBtn_card_add;
-        private final Button   mBtn_card_remove;
-        private final EditText mEt_number;
+        private  Button   mBtn_card_add;
+        private  Button   mBtn_card_remove;
+        private  EditText mEt_number;
+        private  TextView mTv_product_card_name;
 
         public MyViewHolder(View view) {
             super(view);
@@ -259,7 +260,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             mBtn_card_add = (Button) view.findViewById(R.id.btn_card_add);
             mBtn_card_remove = (Button) view.findViewById(R.id.btn_card_remove);
             mEt_number = (EditText) view.findViewById(R.id.et_number);
-
+            mTv_product_card_name = (TextView) view.findViewById(R.id.tv_product_card_name);
         }
 
     }
