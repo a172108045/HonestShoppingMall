@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 public abstract class BaseFragment extends android.support.v4.app.Fragment {
     public Context mContext;
+    public View rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,9 +22,10 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = initView();
-        return view;
+        if (rootView == null) {
+            rootView = initView();
+        }
+        return rootView;
     }
 
     protected abstract View initView();

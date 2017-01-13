@@ -77,12 +77,5 @@ public class NewonFragment extends BaseFragment {
        });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        System.out.println("onResume执行了");
-        mAdapter = null;
-        mAdapter = new NewonAdapter(mContext, mData);
-        lv_newon.setAdapter(mAdapter);
-    }
+
 }
