@@ -13,10 +13,13 @@ import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.ProductListRecyclerAdapter;
 import com.song.honestshoppingmall.bean.FilterProductListBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
+import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.RetrofitUtil;
 import com.song.honestshoppingmall.view.RadioButtonSort;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -46,7 +49,9 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
     private RadioButtonSort mRb_fragment_goodslist_comment;
     private Button mBtn_fragment_goodslist_filter;
     private RadioGroup mRadioGroup;
-    private String mOrderByStr;
+    private String mOrderByStr = "saleDown";
+    private ProductListRecyclerAdapter mRecyclerAdapter;
+    private List<FilterProductListBean.ProductListBean> mProductList = new ArrayList<>();
 
     @Override
     protected View initView() {
@@ -85,7 +90,7 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
     protected void initData() {
             //从商品分类传递过来的分类id，访问网络接口时需要该cId
             mCategoryId = (int) this.getArguments().get("cId");
-            requestNetData(1, 10, mCategoryId, "saleDown", mFilter);
+            requestNetData(1, 10, this.mCategoryId, this.mOrderByStr, mFilter);
     }
 
     private void addBtnOnClickListener() {
@@ -114,7 +119,7 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
         requestMap.put("page", page + "");
         requestMap.put("pageNum", pageNum + "");
         requestMap.put("cId", cId + "");
-        requestMap.put("orderBy", orderBy);
+        requestMap.put("orderby", orderBy);
         requestMap.put("filter", filter);
 
         apiRetrofitInstance.getFilterProductList(requestMap)
@@ -146,22 +151,30 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
 //        mRv_fragment_goodslist_product.setLayoutManager(new GridLayoutManager(mContext,3,GridLayoutManager.HORIZONTAL,false));
         mRv_fragment_goodslist_product.setLayoutManager(new GridLayoutManager(mContext,2));
 //        mRv_fragment_goodslist_product.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        ProductListRecyclerAdapter recyclerAdapter = new ProductListRecyclerAdapter(mContext, filterProductListBean.getProductList());
-        mRv_fragment_goodslist_product.setAdapter(recyclerAdapter);
-
+        mProductList.clear();
+        if(filterProductListBean.getProductList() != null){
+            mProductList.addAll(filterProductListBean.getProductList());
+            if(mRecyclerAdapter == null){
+                mRecyclerAdapter = new ProductListRecyclerAdapter(mContext, mProductList);
+                mRv_fragment_goodslist_product.setAdapter(mRecyclerAdapter);
+            }else{
+                mRecyclerAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override
     public void onClick(View v) {
+        String orderByStr = Constants.SORT_SALE_DOWN;
 
         switch (v.getId()) {
             //销量
             case R.id.rb_fragment_goodslist_sale:
                 if(v instanceof  RadioButtonSort){
                     if(((RadioButtonSort) v).isAscendingSort()){
-                        this.mOrderByStr = "saleUp";
+                        orderByStr = Constants.SORT_SALE_UP;
                     }else{
-                        this.mOrderByStr = "saleDown ";
+                        orderByStr = Constants.SORT_SALE_DOWN;
                     }
                 }
 
@@ -170,9 +183,9 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
             case rb_fragment_goodslist_price:
                 if(v instanceof  RadioButtonSort){
                     if(((RadioButtonSort) v).isAscendingSort()){
-                        this.mOrderByStr = "priceUp";
+                        orderByStr = Constants.SORT_PRICE_UP;
                     }else{
-                        this.mOrderByStr = "priceDown ";
+                        orderByStr = Constants.SORT_PRICE_DOWN;
                     }
                 }
                 break;
@@ -180,9 +193,9 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
             case R.id.rb_fragment_goodslist_time:
                 if(v instanceof  RadioButtonSort){
                     if(((RadioButtonSort) v).isAscendingSort()){
-                        this.mOrderByStr = "shelvesUp";
+                        orderByStr = Constants.SORT_TIME_UP;
                     }else{
-                        this.mOrderByStr = "shelvesDown ";
+                        orderByStr = Constants.SORT_TIME_DOWN;
                     }
                 }
                 break;
@@ -190,9 +203,9 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
             case R.id.rb_fragment_goodslist_comment:
                 if(v instanceof  RadioButtonSort){
                     if(((RadioButtonSort) v).isAscendingSort()){
-                        this.mOrderByStr = "commentUp";
+                        orderByStr = Constants.SORT_COMMENT_UP;
                     }else{
-                        this.mOrderByStr = "commentDown ";
+                        orderByStr = Constants.SORT_COMMENT_DOWN;
                     }
                 }
                 break;
@@ -200,10 +213,13 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
             case R.id.btn_fragment_goodslist_filter:
 
                 break;
-
+            default:
+                orderByStr = Constants.SORT_SALE_DOWN;
 
         }
-        requestNetData(1, 10, this.mCategoryId, this.mOrderByStr, mFilter);
+        if(!orderByStr.equals(this.mOrderByStr)){
+            this.mOrderByStr = orderByStr;
+            requestNetData(1, 10, this.mCategoryId, this.mOrderByStr, mFilter);
+        }
     }
-
 }

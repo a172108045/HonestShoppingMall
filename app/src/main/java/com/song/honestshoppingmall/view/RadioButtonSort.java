@@ -13,7 +13,6 @@ import static com.song.honestshoppingmall.view.RadioButtonSort.DrawableRightImag
 import static com.song.honestshoppingmall.view.RadioButtonSort.DrawableRightImage.SELECTED_UP_T0_DOWN_IMAGE;
 import static com.song.honestshoppingmall.view.RadioButtonSort.DrawableRightImage.UNSELECTED_DOWN_IMAGE;
 import static com.song.honestshoppingmall.view.RadioButtonSort.DrawableRightImage.UNSELECTED_UP_DOWN_IMAGE;
-import static com.song.honestshoppingmall.view.RadioButtonSort.DrawableRightImage.UNSELECTED_UP_IMAGE;
 
 /**
  * @Creator Administrator
@@ -55,9 +54,9 @@ public class RadioButtonSort extends RadioButton {
         switch (imageResourceId){
             case UNSELECTED_DOWN_IMAGE:
             case SELECTED_DOWN_IMAGE:
-
-            case UNSELECTED_UP_IMAGE:
-            case SELECTED_UP_IMAGE:
+//
+//            case UNSELECTED_UP_IMAGE:
+//            case SELECTED_UP_IMAGE:
 
             case UNSELECTED_UP_DOWN_IMAGE:
             case SELECTED_UP_T0_DOWN_IMAGE:
@@ -106,10 +105,10 @@ public class RadioButtonSort extends RadioButton {
                 this.mIsAscendingOrder = false;
             }else if(this.mEnumRadioButtonState == Enum_RadioButton_State.SELECTED_DOWN_ORDER){
                 this.mEnumRadioButtonState = Enum_RadioButton_State.SELECTED_UP_ORDER;
-                this.mIsAscendingOrder = false;
+                this.mIsAscendingOrder = true;
             }else if(this.mEnumRadioButtonState == Enum_RadioButton_State.SELECTED_UP_ORDER){
                 this.mEnumRadioButtonState = Enum_RadioButton_State.SELECTED_DOWN_ORDER;
-                this.mIsAscendingOrder = true;
+                this.mIsAscendingOrder = false;
             }
         }else{
             this.mEnumRadioButtonState = Enum_RadioButton_State.UNSELECTED;
@@ -231,9 +230,14 @@ public class RadioButtonSort extends RadioButton {
         int SELECTED_DOWN_IMAGE = R.mipmap.down_selected_new;
 
         //未选中向上状态单三角的纹理资源
-        int UNSELECTED_UP_IMAGE = R.mipmap.up_new;
+        int UNSELECTED_UP_IMAGE = R.mipmap.down_new;
         //选中向上状态单三角的纹理资源
-        int SELECTED_UP_IMAGE = R.mipmap.up_selected_new;
+        int SELECTED_UP_IMAGE = R.mipmap.down_selected_new;
+
+//        //未选中向上状态单三角的纹理资源
+//        int UNSELECTED_UP_IMAGE = R.mipmap.up_new;
+//        //选中向上状态单三角的纹理资源
+//        int SELECTED_UP_IMAGE = R.mipmap.up_selected_new;
 
         //未选中双三角的纹理资源
         int UNSELECTED_UP_DOWN_IMAGE = R.mipmap.up_down_pink_new;
