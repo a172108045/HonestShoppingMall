@@ -38,6 +38,7 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
 
     private View mRootView;
     private int mCategoryId;
+    private String mFilter = "";
     private RecyclerView mRv_fragment_goodslist_product;
     private RadioButtonSort mRb_fragment_goodslist_sale;
     private RadioButtonSort mRb_fragment_goodslist_price;
@@ -84,7 +85,7 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
     protected void initData() {
             //从商品分类传递过来的分类id，访问网络接口时需要该cId
             mCategoryId = (int) this.getArguments().get("cId");
-            requestNetData(1, 10, mCategoryId, "saleDown", "t1-s1-p8");
+            requestNetData(1, 10, mCategoryId, "saleDown", mFilter);
     }
 
     private void addBtnOnClickListener() {
@@ -122,7 +123,7 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
                     public void onResponse(Call<FilterProductListBean> call, Response<FilterProductListBean> response) {
                         FilterProductListBean filterProductListBean = response.body();
                         if (response.isSuccessful()) {
-                            Toast.makeText(mContext, "GoodsListFragment " + requestMap.toString() + " 请求成功:" + filterProductListBean.toString() , Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(mContext, "GoodsListFragment " + requestMap.toString() + " 请求成功:" + filterProductListBean.toString() , Toast.LENGTH_SHORT).show();
                             Log.d("GoodsListFragment " + requestMap.toString() + " 请求成功:", filterProductListBean.toString());
                             refreshProductListByBean(filterProductListBean);
                         } else {
@@ -141,9 +142,10 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
     //通过网络请求返回的bean数据刷新商品列表recyclerview
     private void refreshProductListByBean(FilterProductListBean filterProductListBean) {
 
-//        mRv_fragment_goodslist_product.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,true));
-//        mRv_fragment_goodslist_product.setLayoutManager(new GridLayoutManager(this,3,GridLayoutManager.HORIZONTAL,false));
-        mRv_fragment_goodslist_product.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+//        mRv_fragment_goodslist_product.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,true));
+//        mRv_fragment_goodslist_product.setLayoutManager(new GridLayoutManager(mContext,3,GridLayoutManager.HORIZONTAL,false));
+//        mRv_fragment_goodslist_product.setLayoutManager(new GridLayoutManager(mContext,2));
+        mRv_fragment_goodslist_product.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         ProductListRecyclerAdapter recyclerAdapter = new ProductListRecyclerAdapter(mContext, filterProductListBean.getProductList());
         mRv_fragment_goodslist_product.setAdapter(recyclerAdapter);
 
@@ -201,7 +203,7 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
 
 
         }
-        requestNetData(1, 10, this.mCategoryId, this.mOrderByStr, "t1-s1-p8");
+        requestNetData(1, 10, this.mCategoryId, this.mOrderByStr, mFilter);
     }
 
 }

@@ -149,7 +149,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                             Log.d("GoodsDetailsFragment", successResponse);
 
                             //设置商品图片翻页
-                            setViewPager(mProductBean.getPics());
+                            setViewPager(mProductBean.getBigPic());
                             //设置价格
                             setPrice(mProductBean.getPrice());
                             //设置市场价格
