@@ -16,6 +16,7 @@ import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.GoodsPagerAdapter;
 import com.song.honestshoppingmall.bean.GoodsBean;
 import com.song.honestshoppingmall.bean.ProductCommentBean;
+import com.song.honestshoppingmall.dao.RecordDao;
 import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.DialogAlertUtils;
 import com.song.honestshoppingmall.util.RetrofitUtil;
@@ -55,7 +56,6 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
         if (mRootView == null) {
             mRootView = View.inflate(mContext, R.layout.fragment_goods, null);
 
-
             //获取商品详情界面需要动态设置属性的子控件
             //商品的翻页viewpager
             mVp_fragment_goods_details = (ViewPager) mRootView.findViewById(R.id.vp_fragment_goods_details);
@@ -92,6 +92,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
     @Override
     protected void initData() {
         int pId = (int) this.getArguments().get("pId");
+        new RecordDao(mContext).insert(pId + "");
         getProductDataByPid(pId);
         getProductComment(pId);
 
