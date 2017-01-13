@@ -48,7 +48,6 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter {
             RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) holder;
             final FilterProductListBean.ProductListBean productListBean = mDatas.get(position);
 
-
             Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + productListBean.getPic()).into(recyclerViewHolder.iv_pic);
             recyclerViewHolder.tv_name.setText(productListBean.getName());
             recyclerViewHolder.tv_price.setText(productListBean.getPrice() + "");

@@ -4,54 +4,63 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="测试，这是商品详情界面"
-        />
-
-    <Button
-        android:id="@+id/btn_fragment_goodslist_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="测试，这是进入商品详情的入口"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
 
-        <Button
+        <RadioGroup
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
-            android:text="销量"
-            />
+            android:orientation="horizontal"
+            >
+
+            <com.song.honestshoppingmall.view.RadioButtonSort
+                android:id="@+id/rb_fragment_goodslist_sale"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/down_new"
+                android:button="@null"
+                android:text="销量"
+                />
+
+            <com.song.honestshoppingmall.view.RadioButtonSort
+                android:id="@+id/rb_fragment_goodslist_price"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/up_down_pink_new"
+                android:button="@null"
+                android:text="价格"
+                />
+
+            <com.song.honestshoppingmall.view.RadioButtonSort
+                android:id="@+id/rb_fragment_goodslist_time"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/down_new"
+                android:button="@null"
+                android:text="时间"
+                />
+
+            <com.song.honestshoppingmall.view.RadioButtonSort
+                android:id="@+id/rb_fragment_goodslist_comment"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/down_new"
+                android:button="@null"
+                android:text="评价"
+                />
+
+        </RadioGroup>
 
         <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="价格"
-            />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="时间"
-            />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="评价"
-            />
-
-        <Button
+            android:id="@+id/btn_fragment_goodslist_filter"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
