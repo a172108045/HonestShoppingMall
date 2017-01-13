@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     private View mView;
     private Button mBtn_select;
     private int mProductId;
+    private ImageButton mIb_clean;
 
     @Override
     protected View initView() {
@@ -54,7 +56,9 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
         if (mView == null){
             mView = View.inflate(mContext, R.layout.fragment_shopcart, null);
             mImageView = (ImageView) mView.findViewById(R.id.iv_getdatafailed);
+            mIb_clean = (ImageButton) mView.findViewById(R.id.ib_clean);
             mBtn_select = (Button) mView.findViewById(R.id.btn_select);
+            mIb_clean.setOnClickListener(this);
             mBtn_select.setOnClickListener(this);
             mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
             mRelative_pay = (RelativeLayout) mView.findViewById(R.id.relative_pay);
@@ -94,9 +98,9 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-/*            case R.id.ib_bianji_cart: //编辑删除购物车
+            case R.id.ib_clean: //编辑删除购物车
                 getDeleteCart();
-                break;*/
+                break;
             case R.id.btn_gotopay:
                 Toast.makeText(mContext, "点击进入结算页面", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
