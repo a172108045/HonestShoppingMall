@@ -64,7 +64,7 @@ public class CategoryFragment extends BaseFragment {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                setFirstPartSelectedByPos(0, true);
+                setFirstPartSelectedByPos(mCurSelectFirstPos, true);
             }
         }, 500);
         mCategoryDataManager.setOnCategoryUpdateListener(new CategoryDataManager.OnCategoryUpdateListener() {
@@ -81,7 +81,7 @@ public class CategoryFragment extends BaseFragment {
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            setFirstPartSelectedByPos(0, true);
+                            setFirstPartSelectedByPos(mCurSelectFirstPos, true);
 
                         }
                     }, 500);

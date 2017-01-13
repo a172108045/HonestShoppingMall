@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_item_productlist_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/tv_item_productlist_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="商品名称"
+        />
+
+    <TextView
+        android:id="@+id/tv_item_productlist_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="商品价格"
+        />
+
+    <TextView
+        android:id="@+id/tv_item_productlist_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="商品评论数量"
+        />
+
+</LinearLayout>

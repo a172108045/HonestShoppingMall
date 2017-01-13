@@ -1,6 +1,8 @@
 package com.song.honestshoppingmall.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -49,21 +51,36 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
     private View                mView;
     private int type_price = 0;
     private ImageView mIv_price;
-
+    private ImageView mIv_salenum;
+    private ImageView mIv_time;
+    private ImageView mIv_evaluate;
+    private ImageView mIv_error;
+    Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
     @Override
     protected View initView() {
-        ((HomeActivity)mContext).changeTitle("搜索详情");
+        ((HomeActivity) mContext).changeTitle("搜索详情");
         if (mView == null) {
             mView = View.inflate(mContext, R.layout.fragment_serch_detail, null);
-            Bundle arguments = getArguments();
+
             Button btn_cancel = (Button) mView.findViewById(R.id.btn_cancel);
-            btn_cancel.setOnClickListener(this);
             mSpinner = (Spinner) mView.findViewById(R.id.spinner2);
-
+            mIv_error = (ImageView) mView.findViewById(R.id.iv_error);
+            mRecycle_searchdetail = (RecyclerView) mView.findViewById(R.id.recycle_searchdetail);
+            mRecycle_searchdetail.setVisibility(View.VISIBLE);
+            RelativeLayout relative_sale = (RelativeLayout) mView.findViewById(R.id.relative_sale);
             RelativeLayout relative_price = (RelativeLayout) mView.findViewById(R.id.relative_price);
+            RelativeLayout relative_time = (RelativeLayout) mView.findViewById(R.id.relative_time);
+            RelativeLayout relative_evaluate = (RelativeLayout) mView.findViewById(R.id.relative_evaluate);
             mIv_price = (ImageView) mView.findViewById(R.id.iv_price);
+            mIv_salenum = (ImageView) mView.findViewById(R.id.iv_salenum);
+            mIv_time = (ImageView) mView.findViewById(R.id.iv_time);
+            mIv_evaluate = (ImageView) mView.findViewById(R.id.iv_evaluate);
 
-            relative_price.setOnClickListener(this);
 
             mBtn_sales_evaluate = (TextView) mView.findViewById(R.id.btn_sales_evaluate);
             mBtn_sales_price = (TextView) mView.findViewById(R.id.btn_sales_price);
@@ -72,17 +89,18 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
 
             Button btn_sales_filtrate = (Button) mView.findViewById(R.id.btn_sales_filtrate);
             //        mSlideMenu = (MySlideMenu) view.findViewById(R.id.id_menu);
-
-
-            mBtn_sales_evaluate.setOnClickListener(this);
-            mBtn_sales_time.setOnClickListener(this);
-            mBtn_sales_volume.setOnClickListener(this);
+            relative_evaluate.setOnClickListener(this);
+            relative_time.setOnClickListener(this);
+            relative_price.setOnClickListener(this);
+            relative_sale.setOnClickListener(this);
+            btn_cancel.setOnClickListener(this);
             btn_sales_filtrate.setOnClickListener(this);
 
             //获取上一个Fragment传递过来的String参数
+            Bundle arguments = getArguments();
             mSearch_value = arguments.getString(Constants.SEARCH_KEY);
 
-            mRecycle_searchdetail = (RecyclerView) mView.findViewById(R.id.recycle_searchdetail);
+
         }
 
 
@@ -92,19 +110,21 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
     @Override
     protected void initData() {
         initSpinner();
-        int spacingInPixels = DensityUtil.dip2px(mContext, 10);
-        mSearchDetailAdapter = new SearchDetailAdapter(mContext, mData);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2, GridLayoutManager.VERTICAL, false);
-        mRecycle_searchdetail.setLayoutManager(gridLayoutManager);
-        mRecycle_searchdetail.setHasFixedSize(true);
-        mRecycle_searchdetail.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
-        mRecycle_searchdetail.setAdapter(mSearchDetailAdapter);
-        mSearchDetailAdapter.setOnItemClickListener(new SearchDetailAdapter.OnRecyclerViewItemClickListener() {
+        mHandler.postDelayed(new Runnable() {
             @Override
-            public void onItemClick(View view, String data) {
-                //TODO 进入商品详情页面
+            public void run() {
+                if (mSearchDetailAdapter != null) {
+                    mSearchDetailAdapter.setOnItemClickListener(new SearchDetailAdapter.OnRecyclerViewItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, String data) {
+                            Toast.makeText(mContext, "进入商品详情页面", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
-        });
+        },500);
+
+
 
         initNetData("saleDown");
     }
@@ -154,8 +174,18 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
                         List<SearchDetailBean.ProductListBean> productList = body.getProductList();
                         mData.clear();
                         mData.addAll(productList);
+                        if (mSearchDetailAdapter == null) {
+                            mSearchDetailAdapter = new SearchDetailAdapter(mContext, mData);
+                            int spacingInPixels = DensityUtil.dip2px(mContext, 10);
+                            GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 2, GridLayoutManager.VERTICAL, false);
+                            mRecycle_searchdetail.setLayoutManager(gridLayoutManager);
+                            mRecycle_searchdetail.setHasFixedSize(true);
+                            mRecycle_searchdetail.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+                            mRecycle_searchdetail.setAdapter(mSearchDetailAdapter);
+                        } else {
+                            mSearchDetailAdapter.notifyDataSetChanged();
+                        }
 
-                        mSearchDetailAdapter.notifyDataSetChanged();
 
                     } else {
                         Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
@@ -173,12 +203,27 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
+        mRecycle_searchdetail.setVisibility(View.VISIBLE);
+        mIv_error.setVisibility(View.GONE);
+        mBtn_sales_evaluate.setTextColor(getResources().getColor(R.color.black));
+        mBtn_sales_volume.setTextColor(getResources().getColor(R.color.black));
+        mBtn_sales_time.setTextColor(getResources().getColor(R.color.black));
+        mBtn_sales_price.setTextColor(getResources().getColor(R.color.black));
+        mIv_evaluate.setImageResource(R.mipmap.down_new);
+        mIv_salenum.setImageResource(R.mipmap.down_new);
+        mIv_time.setImageResource(R.mipmap.down_new);
+        mIv_price.setImageResource(R.mipmap.up_down_pink_new);
         switch (view.getId()) {
+
             case R.id.btn_cancel:
                 ((HomeActivity) mContext).onBackPressed();
                 break;
-            case R.id.btn_sales_evaluate:  //评价
-
+            case R.id.relative_evaluate:  //评价
+                mBtn_sales_evaluate.setTextColor(getResources().getColor(R.color.pink));
+                mIv_evaluate.setImageResource(R.mipmap.down_selected_new);
+               // initNetData("commentDown");
+                mRecycle_searchdetail.setVisibility(View.GONE);
+                mIv_error.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_sales_filtrate:  //筛选
                 //弹出侧滑菜单
@@ -187,31 +232,37 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
 
                 break;
 
-            case R.id.btn_sales_time:       //时间
+            case R.id.relative_time:       //时间
+                mBtn_sales_time.setTextColor(this.getResources().getColor(R.color.pink));
+                mIv_time.setImageResource(R.mipmap.down_selected_new);
+                initNetData("shelvesDown");
                 break;
-            case R.id.btn_sales_volume:   //销量
-
-
+            case R.id.relative_sale:   //销量
+                mBtn_sales_volume.setTextColor(this.getResources().getColor(R.color.pink));
+                mIv_salenum.setImageResource(R.mipmap.down_selected_new);
+                initNetData("saleDown");
                 break;
             case R.id.relative_price:
 
                 switch (type_price) {
                     case 0:
                         mBtn_sales_price.setTextColor(this.getResources().getColor(R.color.black));
-                       mIv_price.setImageResource(R.mipmap.up_down_pink_new);
-                        type_price = 1;
+                        mIv_price.setImageResource(R.mipmap.up_down_pink_new);
+                        type_price = 1;   //价格升序
+                        initNetData("priceUp");
+
                         break;
                     case 1:
                         mBtn_sales_price.setTextColor(this.getResources().getColor(R.color.pink));
                         mIv_price.setImageResource(R.mipmap.up_pink_new);
                         type_price = 2;
-
+                        initNetData("priceDown");
                         break;
                     case 2:
                         mBtn_sales_price.setTextColor(this.getResources().getColor(R.color.pink));
                         mIv_price.setImageResource(R.mipmap.down_pink_new);
-                        type_price = 0;
-
+                        type_price = 1;
+                        initNetData("priceUp");
                         break;
 
                 }

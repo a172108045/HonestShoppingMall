@@ -105,6 +105,14 @@ public class FilterProductListBean extends BaseBean {
             public void setName(String name) {
                 this.name = name;
             }
+
+            @Override
+            public String toString() {
+                return "ValueListBean{" +
+                        "id='" + id + '\'' +
+                        ", name='" + name + '\'' +
+                        '}';
+            }
         }
     }
 
@@ -163,5 +171,26 @@ public class FilterProductListBean extends BaseBean {
         public void setPrice(int price) {
             this.price = price;
         }
+
+        @Override
+        public String toString() {
+            return "ProductListBean{" +
+                    "commentCount=" + commentCount +
+                    ", id=" + id +
+                    ", marketPrice=" + marketPrice +
+                    ", name='" + name + '\'' +
+                    ", pic='" + pic + '\'' +
+                    ", price=" + price +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "FilterProductListBean{" +
+                "listCount=" + listCount +
+                ", listFilter=" + listFilter +
+                ", productList=" + productList +
+                '}';
     }
 }

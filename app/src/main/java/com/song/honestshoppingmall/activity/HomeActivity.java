@@ -144,15 +144,12 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         removeAllFragment();
         switch (i) {
             case R.id.rb_home:
-                System.out.println("页面切换监听到了");
                 changeFragment(new HomeFragment(), "HomeFragment");
                 break;
             case R.id.rb_category:
-                System.out.println("页面切换监听到了");
                 changeFragment(new CategoryFragment(), "CategoryFragment");
                 break;
             case R.id.rb_shopcart:
-                System.out.println("页面切换监听到了");
                 changeFragment(new ShopCartFragment(), "ShopCartFragment");
                 break;
             case R.id.rb_mine:
@@ -237,7 +234,8 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                if(mFragmentManager.getBackStackEntryCount() > 1)
+                    onBackPressed();
                 break;
 /*            case R.id.cart:
                 removeAllFragment();

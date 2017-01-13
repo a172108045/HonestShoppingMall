@@ -2,6 +2,7 @@ package com.song.honestshoppingmall.util;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -18,8 +19,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.GoodsBean;
+import com.song.honestshoppingmall.fragment.CheckOutFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +33,7 @@ import retrofit2.Response;
 
 import static com.song.honestshoppingmall.R.id.btn_card_add;
 import static com.song.honestshoppingmall.R.id.btn_card_remove;
+import static com.song.honestshoppingmall.R.id.btn_card_tianjia;
 import static com.song.honestshoppingmall.R.id.iv_carddialog_dismiss;
 import static com.song.honestshoppingmall.R.id.tv_price;
 
@@ -40,6 +44,7 @@ import static com.song.honestshoppingmall.R.id.tv_price;
 
 public class DialogAlertUtils implements View.OnClickListener {
     private static AlertDialog           dialog;
+    private final boolean mIsAddCart;
     private        Context               mContext;
     private        GoodsBean.ProductBean mData;
     private        Button                mBtn_card_remove;
@@ -55,9 +60,10 @@ public class DialogAlertUtils implements View.OnClickListener {
     private        RadioGroup            mRg_dilog;
 
 
-    public DialogAlertUtils(Context context, GoodsBean.ProductBean productBean) {
+    public DialogAlertUtils(Context context, GoodsBean.ProductBean productBean, boolean isAddCart) {
         this.mContext = context;
         this.mData = productBean;
+        this.mIsAddCart = isAddCart;
         init();
     }
 
@@ -93,6 +99,12 @@ public class DialogAlertUtils implements View.OnClickListener {
         window.setContentView(R.layout.dialog_shopcar);
         window.setGravity(Gravity.BOTTOM);
 
+        if (mIsAddCart) {
+            mBtn_card_tianjia.setText("添加");
+        } else {
+            mBtn_card_tianjia.setText("购买");
+        }
+
         findView(window);
 
     }
@@ -123,7 +135,7 @@ public class DialogAlertUtils implements View.OnClickListener {
     private void findView(Window window) {
         mBtn_card_remove = (Button) window.findViewById(btn_card_remove);
         mBtn_card_add = (Button) window.findViewById(btn_card_add);
-        mBtn_card_tianjia = (Button) window.findViewById(R.id.btn_card_tianjia);
+        mBtn_card_tianjia = (Button) window.findViewById(btn_card_tianjia);
         mNumber = (EditText) window.findViewById(R.id.et_number);
         mTv_price = (TextView) window.findViewById(tv_price);
         mRg_dilog = (RadioGroup) window.findViewById(R.id.rg_dilog);
@@ -156,8 +168,18 @@ public class DialogAlertUtils implements View.OnClickListener {
             case R.id.btn_card_remove://点击商品数量-1
                 remove();
                 break;
-            case R.id.btn_card_tianjia://点击添加到数据库
-                sendGetRequest();
+            case btn_card_tianjia://点击添加到数据库
+                if (mIsAddCart) {
+                    sendGetRequest();
+                } else {
+                    StringBuilder sku = new StringBuilder();
+                    int id = mData.getId();
+                    String number = mNumber.getText().toString();
+                    sku.append(id).append(":").append(number).append(":").append("1").append(",").append("3");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("sku", sku.toString());
+                    ((HomeActivity)mContext).changeFragment(new CheckOutFragment(), "CheckOutFragment", bundle);
+                }
                 break;
         }
 
