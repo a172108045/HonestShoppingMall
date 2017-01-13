@@ -49,15 +49,22 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
     private Button mBtn_select;
     private int mProductId;
     private ImageButton mIb_clean;
+    private Button mBtn_guangguang;
 
     @Override
     protected View initView() {
         ((HomeActivity)mContext).changeTitle("购物车");
         if (mView == null){
             mView = View.inflate(mContext, R.layout.fragment_shopcart, null);
-            mImageView = (ImageView) mView.findViewById(R.id.iv_getdatafailed);
+
+
             mIb_clean = (ImageButton) mView.findViewById(R.id.ib_clean);
             mBtn_select = (Button) mView.findViewById(R.id.btn_select);
+
+            mImageView = (ImageView) mView.findViewById(R.id.iv_getdatafailed);
+            mBtn_guangguang = (Button) mView.findViewById(R.id.btn_guangguang);
+
+            mBtn_guangguang.setOnClickListener(this);
             mIb_clean.setOnClickListener(this);
             mBtn_select.setOnClickListener(this);
             mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
@@ -80,6 +87,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
             mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             mRecyclerView.setHasFixedSize(true);
         }else{
+            mBtn_guangguang.setVisibility(View.VISIBLE);
             mImageView.setVisibility(View.VISIBLE);
             mRelative_pay.setVisibility(View.GONE);
         }
@@ -92,12 +100,16 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
         if (mCardRecyclerAdapter != null) {
             getShopCart();
             mCardRecyclerAdapter.notifyDataSetChanged();
+
         }
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_guangguang:
+                ((HomeActivity) mContext).changeFragment(new CategoryFragment(),"CategoryFragment");
+                break;
             case R.id.ib_clean: //编辑删除购物车
                 getDeleteCart();
                 break;
@@ -180,7 +192,6 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                     @Override
                     public void onResponse(Call<SerchCardBean> call, Response<SerchCardBean> response) {
                         if (response.isSuccessful()) {
-                            mImageView.setVisibility(View.GONE);
                             mRelative_pay.setVisibility(View.VISIBLE);
                             SerchCardBean body = response.body();
 
@@ -196,12 +207,19 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                             }
 
 
+                            if (mData.size()==0){
+                                mBtn_guangguang.setVisibility(View.VISIBLE);
+                                mImageView.setVisibility(View.VISIBLE);
+                            }
+
+
                         }
                     }
 
                     @Override
                     public void onFailure(Call<SerchCardBean> call, Throwable t) {
                         mImageView.setVisibility(View.VISIBLE);
+                        mBtn_guangguang.setVisibility(View.VISIBLE);
                         mRelative_pay.setVisibility(View.GONE);
                         Toast.makeText(mContext, t.toString(), Toast.LENGTH_SHORT).show();
                     }

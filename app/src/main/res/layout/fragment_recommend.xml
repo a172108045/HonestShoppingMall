@@ -4,15 +4,16 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/hot"/>
-
     <ListView
-        android:id="@+id/lv_newon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:id="@+id/lv_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_fragment_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/juxing"/>
 
     </ListView>
 
