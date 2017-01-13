@@ -17,4 +17,6 @@ public interface Constants {
     String LOGIN_STATE = "loginstate";
     String USERNAME = "username";
     String PASSWORD = "password";
+    String DB_NAME = "localDB";
+    String TABLE_RECORD = "record";
 }

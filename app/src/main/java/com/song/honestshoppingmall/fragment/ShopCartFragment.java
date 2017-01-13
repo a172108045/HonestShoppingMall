@@ -102,7 +102,6 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 getDeleteCart();
                 break;
             case R.id.btn_gotopay:
-                Toast.makeText(mContext, "点击进入结算页面", Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < mData.size(); i++) {
@@ -110,15 +109,21 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                         int id = mData.get(i).getProductId();
                         int count = mData.get(i).getProductCount();
                         int ppid = mData.get(i).getProperty().getId();
-                        if (i != mData.size() - 1) {
-                            sb.append(id + ":" + count + ":" + ppid + "|");
-                        } else {
-                            sb.append(id + ":" + count + ":" + ppid);
+                        if (count > 0) {
+                            if (i != mData.size() - 1) {
+                                sb.append(id + ":" + count + ":" + ppid + "|");
+                            } else {
+                                sb.append(id + ":" + count + ":" + ppid);
+                            }
                         }
                     }
                 }
-                bundle.putString("sku", sb.toString());
-                ((HomeActivity) mContext).changeFragment(new CheckOutFragment(), "CheckOutFragment", bundle);
+                if (!sb.toString().equals("")) {
+                    bundle.putString("sku", sb.toString());
+                    ((HomeActivity) mContext).changeFragment(new CheckOutFragment(), "CheckOutFragment", bundle);
+                } else {
+                    Toast.makeText(mContext, "请选择商品！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.btn_select:
                 ((HomeActivity) mContext).changeFragment(new SerchFragment(), "SerchFragment");
