@@ -27,6 +27,7 @@ import retrofit2.Response;
 public class RecordPager extends BasePager {
 
     private View mView;
+    private LinearLayout mLl_record_pager;
 
     public RecordPager(Context context) {
         super(context);
@@ -35,6 +36,7 @@ public class RecordPager extends BasePager {
     @Override
     public View getRootView() {
         mView = View.inflate(mContext, R.layout.pager_record, null);
+        mLl_record_pager = (LinearLayout) mView.findViewById(R.id.ll_record_pager);
         return mView;
     }
 
@@ -52,10 +54,10 @@ public class RecordPager extends BasePager {
                             ImageView iv_product = (ImageView) view.findViewById(R.id.iv_product);
                             TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
                             TextView tv_price = (TextView) view.findViewById(R.id.tv_price);
-                            Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + product.getPics().get(0)).into(iv_product);
+                            Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL + product.getBigPic().get(0)).into(iv_product);
                             tv_name.setText(product.getName());
                             tv_price.setText(product.getPrice() + "元");
-                            ((LinearLayout)mView).addView(view);
+                            mLl_record_pager.addView(view);
                         }
                     } else {
                         Toast.makeText(mContext, "获取数据错误！", Toast.LENGTH_SHORT).show();
