@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 烈焰红唇  Blazing Red Lips
  * Created by Judy on 2017/1/8.
  */
 
@@ -176,6 +177,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 ((HomeActivity)mContext).changeFragment(new HotsaleFragment(), "HotsaleFragment");
                 break;
             case R.id.imager_promotion:
+                ((HomeActivity)mContext).changeFragment(new PromotionFragment(), "PromotionFragment");
                 break;
             case R.id.imager_deseno:
                 ((HomeActivity)mContext).changeFragment(new DesenoFragment(), "DesenoFragment");
@@ -184,6 +186,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 ((HomeActivity) mContext).changeFragment(new NewonFragment(), "NewonFragment");
                 break;
             case R.id.imager_recommend:
+                ((HomeActivity) mContext).changeFragment(new RecommendFragment(), "RecommendFragment");
                 break;
             case R.id.imager_classify:
                 break;

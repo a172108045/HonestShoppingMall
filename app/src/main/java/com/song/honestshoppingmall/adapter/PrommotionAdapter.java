@@ -5,9 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.bean.PrommotionBean;
+import com.song.honestshoppingmall.util.Urls;
 
 import java.util.List;
 
@@ -45,13 +48,24 @@ public class PrommotionAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.item_prommotion, null);
-            ImageView iv_circle = (ImageView)convertView.findViewById(R.id.iv_circle);
+            holder.iv_prommotion = (ImageView) convertView.findViewById(R.id.iv_prommotion);
+            holder.tv_prommotion = (TextView) convertView.findViewById(R.id.tv_prommotion);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
+        PrommotionBean.TopicBean item = getItem(position);
+
+        Glide.with(mContext.getApplicationContext()).load(Urls.BASE_URL+item.getPic()).into(holder.iv_prommotion);
+
+        holder.tv_prommotion.setText(item.getName());
+
         return convertView;
     }
 
     class ViewHolder{
-        ImageView image_circle;
+        ImageView iv_prommotion;
+        TextView tv_prommotion;
     }
 
 }

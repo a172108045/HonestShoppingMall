@@ -39,7 +39,7 @@ import retrofit2.Response;
  * Created by yspc on 2017/1/11.
  */
 
-public class HotsaleFragment extends Fragment implements View.OnClickListener{
+public class HotsaleFragment extends Fragment {
     private static final int TIME = 3000;
 
     private View view;
@@ -72,13 +72,11 @@ public class HotsaleFragment extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        ((HomeActivity)mContext).changeTitle("限时抢购");
         view = inflater.inflate(R.layout.item_hotsale, container, false);
         viewPager = (ViewPager) view.findViewById(R.id.rotate_hotsale_vp);
         pointLl = (LinearLayout) view.findViewById(R.id.rotate_point_container);
         mLv_hotsale = (ListView) view.findViewById(R.id.lv_hotsale);
-        mLiner_back = (LinearLayout) view.findViewById(R.id.liner_back);
-        mLiner_back.setOnClickListener(this);
         initNetData();
 
 
@@ -239,13 +237,4 @@ public class HotsaleFragment extends Fragment implements View.OnClickListener{
 
     }
 
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.liner_back:
-                ((HomeActivity) mContext).changeFragment(new HomeFragment(),"HomeFragment");
-                break;
-        }
-    }
 }

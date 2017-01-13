@@ -25,7 +25,7 @@ import retrofit2.Response;
  * Created by yspc on 2017/1/11.
  */
 
-public class DesenoFragment extends BaseFragment implements View.OnClickListener {
+public class DesenoFragment extends BaseFragment {
 
     private View mView;
     private List<DesenoBean.ProductListBean> mData ;
@@ -40,8 +40,6 @@ public class DesenoFragment extends BaseFragment implements View.OnClickListener
         this.mData = new ArrayList<>();
         mView = View.inflate(mContext, R.layout.fragment_deseno, null);
         lv_deseno = (ListView) mView.findViewById(R.id.lv_deseno);
-        fragment_deseno_break = (LinearLayout) mView.findViewById(R.id.fragment_deseno_break);
-        fragment_deseno_break.setOnClickListener(this);
         return mView;
     }
 
@@ -83,12 +81,4 @@ public class DesenoFragment extends BaseFragment implements View.OnClickListener
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fragment_deseno_break:
-                ((HomeActivity) mContext).changeFragment(new HomeFragment(),"HomeFragment");
-                break;
-        }
-    }
 }

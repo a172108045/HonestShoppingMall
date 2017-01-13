@@ -5,42 +5,6 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/pink"
-        tools:targetApi="lollipop">
-
-        <LinearLayout
-            android:id="@+id/liner_back"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/goods_desc_back"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="返回"
-                    android:textColor="#fff"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:text="限时促销"
-            android:textColor="#fff"
-            />
-
-    </Toolbar>
-
     <FrameLayout
         android:id="@+id/hotsale_rotate"
         android:layout_width="match_parent"
