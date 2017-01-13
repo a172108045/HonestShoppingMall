@@ -1,6 +1,7 @@
 package com.song.honestshoppingmall.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -50,11 +51,11 @@ public class HotSaleListAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.list_hotsale_item, null);
-            holder.iv_hotsale                = (ImageView) convertView.findViewById(R.id.iv_hotsale);
-            holder.tv_hotsale_name           = (TextView) convertView.findViewById(R.id.tv_hotsale_name);
+            holder.iv_hotsale = (ImageView) convertView.findViewById(R.id.iv_hotsale);
+            holder.tv_hotsale_name = (TextView) convertView.findViewById(R.id.tv_hotsale_name);
             holder.tv_hotsale_origin_price = (TextView) convertView.findViewById(R.id.tv_hotsale_origin_price);
-            holder.tv_hotsale_nowprice       = (TextView) convertView.findViewById(R.id.tv_hotsale_nowprice);
-            holder.btn_hotsale_buy           = (Button) convertView.findViewById(R.id.btn_hotsale_buy);
+            holder.tv_hotsale_nowprice = (TextView) convertView.findViewById(R.id.tv_hotsale_nowprice);
+            holder.btn_hotsale_buy = (Button) convertView.findViewById(R.id.btn_hotsale_buy);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -66,9 +67,9 @@ public class HotSaleListAdapter extends BaseAdapter {
 
 
         holder.tv_hotsale_name.setText(item.getName());
-        holder.tv_hotsale_origin_price.setText(item.getPrice()+"");
-        holder.tv_hotsale_nowprice.setText(item.getLimitPrice()+"");
-
+        holder.tv_hotsale_origin_price.setText(""+item.getPrice());
+        holder.tv_hotsale_nowprice.setText("$"+item.getLimitPrice());
+        holder.tv_hotsale_origin_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
         return convertView;
     }
 

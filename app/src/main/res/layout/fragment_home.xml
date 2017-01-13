@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#9c9c9c">
+        android:background="#dbdbdb">
 
         <ImageView
             android:id="@+id/imager_hotsale"
@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#9c9c9c">
+        android:background="#dbdbdb">
 
         <ImageView
             android:id="@+id/imager_newon"

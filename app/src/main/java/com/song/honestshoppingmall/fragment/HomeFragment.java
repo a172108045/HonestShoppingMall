@@ -178,8 +178,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.imager_promotion:
                 break;
             case R.id.imager_deseno:
+                ((HomeActivity)mContext).changeFragment(new DesenoFragment(), "DesenoFragment");
                 break;
             case R.id.imager_newon:
+                ((HomeActivity) mContext).changeFragment(new NewonFragment(), "NewonFragment");
                 break;
             case R.id.imager_recommend:
                 break;
