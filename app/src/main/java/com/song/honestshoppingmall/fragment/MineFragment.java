@@ -47,6 +47,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("个人中心");
         if(SpUtil.getBoolean(mContext, Constants.LOGIN_STATE, false)) {
             if (SpUtil.getString(mContext, Constants.USERID, null) != null) {
                 ((HomeActivity) mContext).removeAllFragment();
@@ -102,7 +103,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 et_pass_login.getEditText().setText(null);
                 et_pass_confirm.getEditText().setText(null);
                 cb_aotologin.setVisibility(View.VISIBLE);
-                mHelp.setVisibility(View.VISIBLE);
                 mLogin.setText("登陆");
 
                 break;
@@ -116,7 +116,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 bt_title_register.setTextColor(Color.WHITE);
                 bt_title_login.setTextColor(Color.BLACK);
                 cb_aotologin.setVisibility(View.GONE);
-                mHelp.setVisibility(View.GONE);
                 mLogin.setText("注册");
 
                 break;

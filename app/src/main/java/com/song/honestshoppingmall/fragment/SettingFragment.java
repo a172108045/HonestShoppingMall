@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.morepagers.AboutPager;
 import com.song.honestshoppingmall.morepagers.BasePager;
 import com.song.honestshoppingmall.morepagers.HelpPager;
@@ -34,6 +35,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("更多");
         View view = View.inflate(mContext, R.layout.fragment_setting, null);
         mBtHelp = (Button) view.findViewById(bt_help);
         mBtRecord = (Button) view.findViewById(R.id.bt_record);

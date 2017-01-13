@@ -36,6 +36,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("首页");
         View view = View.inflate(mContext, R.layout.fragment_home, null);
         viewPager = (ViewPager) view.findViewById(R.id.rotate_vp);
         pointLl = (LinearLayout) view.findViewById(R.id.rotate_point_container);
@@ -177,8 +178,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.imager_promotion:
                 break;
             case R.id.imager_deseno:
+                ((HomeActivity)mContext).changeFragment(new DesenoFragment(), "DesenoFragment");
                 break;
             case R.id.imager_newon:
+                ((HomeActivity) mContext).changeFragment(new NewonFragment(), "NewonFragment");
                 break;
             case R.id.imager_recommend:
                 break;

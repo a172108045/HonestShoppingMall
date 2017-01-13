@@ -58,7 +58,6 @@ public class HotsaleFragment extends Fragment implements View.OnClickListener{
         }
     };
     private HotSaleListAdapter mAdapter;
-    private ImageView bt_hotsale_break;
     private LinearLayout mLiner_back;
 
     @Override
@@ -125,18 +124,20 @@ public class HotsaleFragment extends Fragment implements View.OnClickListener{
                         List<ScareBuyBean.ProductListBean> productList = body.getProductList();
                         mData.clear();
                         mData.addAll(productList);
-        if (mAdapter == null){
-            mAdapter = new HotSaleListAdapter(mContext, mData);
-            mLv_hotsale.setAdapter(mAdapter);
-        }else{
-            mAdapter.notifyDataSetChanged();
-        }
+
+                        if (mAdapter == null){
+                            mAdapter = new HotSaleListAdapter(mContext, mData);
+                            mLv_hotsale.setAdapter(mAdapter);
+                        }else{
+                            mAdapter.notifyDataSetChanged();
+                        }
 
 
                     }else{
                         Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
                     }
                 }
+
             }
 
             @Override
@@ -147,8 +148,6 @@ public class HotsaleFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initView() {
-        bt_hotsale_break = (ImageView) view.findViewById(R.id.bt_hotsale_break);
-
         HotSaleListAdapter adapter = new HotSaleListAdapter(mContext,mData);
         mLv_hotsale.setAdapter(adapter);
 

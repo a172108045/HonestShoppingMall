@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.MyOrderAdapter;
 import com.song.honestshoppingmall.bean.MyOrderBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
@@ -82,6 +83,7 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("我的订单");
         View view = View.inflate(mContext, R.layout.fragment_myorder, null);
         mBt_recent_order = (Button) view.findViewById(R.id.bt_recent_order);
         mBt_before_order = (Button) view.findViewById(R.id.bt_before_order);
@@ -105,8 +107,8 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
     private void initNetData() {
         Map<String, String> map = new HashMap<>();
         map.put("type", mGetType);
-        map.put("page", "0");
-        map.put("pageNum", (pager+1)*5 + "");
+        map.put("page", pager + "");
+        map.put("pageNum", "5");
         APIRetrofit retrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
         String userid = SpUtil.getString(mContext, Constants.USERID, "");
         retrofitInstance.getMyOrderBean(map, userid).enqueue(new Callback<MyOrderBean>() {
@@ -114,7 +116,11 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
             public void onResponse(Call<MyOrderBean> call, Response<MyOrderBean> response) {
                 if (response.isSuccessful()) {
                     mMyOrderBean = response.body();
-                    mOrderList = mMyOrderBean.getOrderList();
+                    if (mOrderList == null) {
+                        mOrderList = mMyOrderBean.getOrderList();
+                    } else {
+                        mOrderList.addAll(mMyOrderBean.getOrderList());
+                    }
                     if (mOrderList != null && mOrderList.size() != 0) {
                         mHandler.sendEmptyMessage(0);
                     } else {

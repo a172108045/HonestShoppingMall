@@ -41,6 +41,7 @@ public class SerchFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("商品搜索");
         View view = View.inflate(mContext, R.layout.fragment_serch, null);
         mSpinner = (Spinner) view.findViewById(R.id.spinner1);
         mGridLayout = (GridLayout) view.findViewById(R.id.grid_search);

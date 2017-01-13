@@ -4,22 +4,6 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content">
-<TextView
-        android:text="购物车"
-        style="@style/Title"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"/>
-        <ImageButton
-            android:id="@+id/ib_bianji_cart"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/cart_bianji"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
     <Button
         android:text="点击进入搜索页面"
         android:layout_width="match_parent"

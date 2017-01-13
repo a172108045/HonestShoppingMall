@@ -3,6 +3,7 @@ package com.song.honestshoppingmall.util;
 import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.AddressBean;
 import com.song.honestshoppingmall.bean.CheckOutBean;
+import com.song.honestshoppingmall.bean.DesenoBean;
 import com.song.honestshoppingmall.bean.FilterProductListBean;
 import com.song.honestshoppingmall.bean.DeleteCartBean;
 import com.song.honestshoppingmall.bean.HelpBean;
@@ -12,8 +13,10 @@ import com.song.honestshoppingmall.bean.HomeMsgBean;
 import com.song.honestshoppingmall.bean.LoginResultBean;
 import com.song.honestshoppingmall.bean.LogoutBean;
 import com.song.honestshoppingmall.bean.MyOrderBean;
+import com.song.honestshoppingmall.bean.NewonBean;
 import com.song.honestshoppingmall.bean.OrderDetailBean;
 import com.song.honestshoppingmall.bean.OrderSubmitBean;
+import com.song.honestshoppingmall.bean.PrommotionBean;
 import com.song.honestshoppingmall.bean.RegisterBean;
 import com.song.honestshoppingmall.bean.ScareBuyBean;
 import com.song.honestshoppingmall.bean.SearchDetailBean;
@@ -187,6 +190,12 @@ public interface APIRetrofit {
     @POST("logout")
     Call<LogoutBean> logOut(@Header("userid") String userid);
 
+    @GET("topic")
+    Call<PrommotionBean> getPrommotionBean(@QueryMap Map<String, String> params);
+
+    @GET("newproduct")
+    Call<DesenoBean> getDesenoBean(@QueryMap Map<String, String> params);
+
     @GET("help")
     Call<HelpBean> getHelpBean();
 
@@ -195,5 +204,8 @@ public interface APIRetrofit {
 
     @GET("addresslist")
     Call<AddressBean> getAddressBean(@Header("userid") String userid);
+
+    @GET("hotproduct")
+    Call<NewonBean> getNewonBean(@QueryMap Map<String, String> params);
 
 }

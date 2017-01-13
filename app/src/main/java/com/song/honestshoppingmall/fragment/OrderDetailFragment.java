@@ -127,6 +127,7 @@ public class OrderDetailFragment extends BaseFragment {
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("订单详情");
         View view = View.inflate(mContext, R.layout.fragment_orderdetail, null);
         assignViews(view);
         return view;

@@ -105,6 +105,7 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected View initView() {
+        ((HomeActivity)mContext).changeTitle("商品结算");
         View view = View.inflate(mContext, R.layout.fragment_checkout, null);
         assignViews(view);
         return view;

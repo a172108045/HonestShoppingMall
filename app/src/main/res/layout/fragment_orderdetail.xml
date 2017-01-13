@@ -4,12 +4,6 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <TextView
-        style="@style/Title"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="订单详情"
-        />
 
     <ScrollView
         android:layout_width="match_parent"
