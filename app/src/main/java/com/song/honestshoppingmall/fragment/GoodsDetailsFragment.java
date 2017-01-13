@@ -20,6 +20,7 @@ import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.DialogAlertUtils;
 import com.song.honestshoppingmall.util.RetrofitUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import retrofit2.Call;
@@ -104,6 +105,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                     List<ProductCommentBean.CommentBean> comment = response.body().getComment();
                     int size = comment.size();
                     mTv_comment_number.setText(size + "条评论");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                     for (int i = 0; i < size; i++) {
                         View view = View.inflate(mContext, R.layout.view_comment_item, null);
@@ -114,7 +116,8 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                         tv_comment_title.setText(comment.get(i).getTitle());
                         tv_conment_context.setText(comment.get(i).getContent());
                         tv_comment_name.setText(comment.get(i).getUsername());
-                        tv_comment_time.setText(comment.get(i).getTime());
+                        String time = sdf.format(comment.get(i).getTime());
+                        tv_comment_time.setText(time);
                         mLl_comments.addView(view);
                     }
 

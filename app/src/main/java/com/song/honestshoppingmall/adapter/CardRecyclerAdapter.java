@@ -102,7 +102,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("pId",mData.get(position).getProductId());
+                bundle.putInt("pId",mData.get(position).getProduct().getId());
                 ((HomeActivity) mContext).changeFragment(new GoodsDetailsFragment(),"GoodsDetailsFragment",bundle);
             }
         });
