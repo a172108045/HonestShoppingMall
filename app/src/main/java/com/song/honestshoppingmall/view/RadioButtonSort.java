@@ -3,6 +3,7 @@ package com.song.honestshoppingmall.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.song.honestshoppingmall.R;
 
@@ -51,21 +52,26 @@ public class RadioButtonSort extends RadioButton {
      */
     public void setDrawableRightImageResource(int imageResourceId) {
         //判断必须是接口中的imageId，如果不是抛出运行时异常
-        if (imageResourceId != UNSELECTED_DOWN_IMAGE
-                || imageResourceId != SELECTED_DOWN_IMAGE
+        switch (imageResourceId){
+            case UNSELECTED_DOWN_IMAGE:
+            case SELECTED_DOWN_IMAGE:
 
-                || imageResourceId != UNSELECTED_UP_IMAGE
-                || imageResourceId != SELECTED_UP_IMAGE
+            case UNSELECTED_UP_IMAGE:
+            case SELECTED_UP_IMAGE:
 
-                || imageResourceId != UNSELECTED_UP_DOWN_IMAGE
-                || imageResourceId != SELECTED_UP_T0_DOWN_IMAGE
-                || imageResourceId != SELECTED_DOWN_TO_UP_IMAGE
-                ) {
-            throw new RuntimeException("必须是接口中已存在的id，请根据RadioButtonSort.DrawableRightImage.来获取id");
+            case UNSELECTED_UP_DOWN_IMAGE:
+            case SELECTED_UP_T0_DOWN_IMAGE:
+            case SELECTED_DOWN_TO_UP_IMAGE:
+
+                //正常执行
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, imageResourceId, 0);
+                break;
+
+            default:
+                throw new RuntimeException("必须是接口中已存在的id，请根据RadioButtonSort.DrawableRightImage.来获取id");
+
         }
 
-        //正常执行
-        setCompoundDrawablesWithIntrinsicBounds(0, 0, imageResourceId, 0);
     }
 
     public void setTextColorByIsChecked(boolean isChecked) {
@@ -81,11 +87,43 @@ public class RadioButtonSort extends RadioButton {
     @Override
     public void toggle() {
         super.toggle();
+        if(this.mEnumRadioButtonState == Enum_RadioButton_State.UNSELECTED){
+            RadioGroup radioGroup = (RadioGroup) getParent();
+            for(int i = 0; i < radioGroup.getChildCount(); i++){
+                RadioButtonSort radioButtonSort = (RadioButtonSort) radioGroup.getChildAt(i);
+                radioButtonSort.setRadioButtonState(Enum_RadioButton_State.UNSELECTED);
+                radioButtonSort.setTextColorByIsChecked(false);
+                radioButtonSort.setDrawableRightImageResource(radioButtonSort.getImageResourceId());
+            }
+        }
+
         //通过按钮是否被选中设置字体颜色
         setTextColorByIsChecked(isChecked());
-        //更改排序方式
-        this.mIsAscendingOrder = !this.mIsAscendingOrder;
 
+        if(isChecked()){
+            if(this.mEnumRadioButtonState == Enum_RadioButton_State.UNSELECTED){
+                this.mEnumRadioButtonState = Enum_RadioButton_State.SELECTED_DOWN_ORDER;
+                this.mIsAscendingOrder = false;
+            }else if(this.mEnumRadioButtonState == Enum_RadioButton_State.SELECTED_DOWN_ORDER){
+                this.mEnumRadioButtonState = Enum_RadioButton_State.SELECTED_UP_ORDER;
+                this.mIsAscendingOrder = false;
+            }else if(this.mEnumRadioButtonState == Enum_RadioButton_State.SELECTED_UP_ORDER){
+                this.mEnumRadioButtonState = Enum_RadioButton_State.SELECTED_DOWN_ORDER;
+                this.mIsAscendingOrder = true;
+            }
+        }else{
+            this.mEnumRadioButtonState = Enum_RadioButton_State.UNSELECTED;
+            this.mIsAscendingOrder = false;
+        }
+
+        setDrawableRightImageResource(getImageResourceId());
+    }
+
+    /**
+     * 通过自身成员变量获取需要设置的图片id（需要状态和类型）
+     * @return 图标id
+     */
+    public int getImageResourceId(){
         //默认未选中降序单三角图标显示
         int imageResourceId = UNSELECTED_DOWN_IMAGE;
 
@@ -117,9 +155,9 @@ public class RadioButtonSort extends RadioButton {
                     break;
             }
         }
-
-        setDrawableRightImageResource(imageResourceId);
+        return imageResourceId;
     }
+
 
     /**
      * 设置是否升序排序
@@ -200,7 +238,7 @@ public class RadioButtonSort extends RadioButton {
     /**
      * 单选按钮三种状态（未选中，降序，升序）
      */
-    enum Enum_RadioButton_State {
+    public enum Enum_RadioButton_State {
         UNSELECTED,
         SELECTED_DOWN_ORDER,
         SELECTED_UP_ORDER
@@ -209,7 +247,7 @@ public class RadioButtonSort extends RadioButton {
     /**
      * 三角个数类型（一个三角还是一两个三角）
      */
-    enum Enum_RadioButton_Triangle_Type {
+    public enum Enum_RadioButton_Triangle_Type {
         SINGLE,
         DOUBLE
     }

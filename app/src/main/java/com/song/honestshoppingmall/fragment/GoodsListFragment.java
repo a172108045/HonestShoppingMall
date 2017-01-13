@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
@@ -42,6 +43,7 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
     private RadioButtonSort mRb_fragment_goodslist_time;
     private RadioButtonSort mRb_fragment_goodslist_comment;
     private Button mBtn_fragment_goodslist_filter;
+    private RadioGroup mRadioGroup;
 
     @Override
     protected View initView() {
@@ -50,20 +52,24 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
         if (mRootView == null) {
             mRootView = View.inflate(mContext, R.layout.fragment_goodslist, null);
 
+            mRadioGroup = (RadioGroup) mRootView.findViewById(R.id.radiogroup);
             //初始化获取需要动态设置的子控件view
             //商品recyclerview
             mRv_fragment_goodslist_product = (RecyclerView) mRootView.findViewById(R.id.rv_fragment_goodslist_product);
             //销量
             mRb_fragment_goodslist_sale = (RadioButtonSort) mRootView.findViewById(R.id.rb_fragment_goodslist_sale);
+            mRb_fragment_goodslist_sale.setTriangle_Type(RadioButtonSort.Enum_RadioButton_Triangle_Type.SINGLE);
             //价格
             mRb_fragment_goodslist_price = (RadioButtonSort) mRootView.findViewById(rb_fragment_goodslist_price);
+            mRb_fragment_goodslist_price.setTriangle_Type(RadioButtonSort.Enum_RadioButton_Triangle_Type.DOUBLE);
             //时间
             mRb_fragment_goodslist_time = (RadioButtonSort) mRootView.findViewById(R.id.rb_fragment_goodslist_time);
+            mRb_fragment_goodslist_time.setTriangle_Type(RadioButtonSort.Enum_RadioButton_Triangle_Type.SINGLE);
             //评价
             mRb_fragment_goodslist_comment = (RadioButtonSort) mRootView.findViewById(R.id.rb_fragment_goodslist_comment);
+            mRb_fragment_goodslist_comment.setTriangle_Type(RadioButtonSort.Enum_RadioButton_Triangle_Type.SINGLE);
             //筛选
             mBtn_fragment_goodslist_filter = (Button) mRootView.findViewById(R.id.btn_fragment_goodslist_filter);
-
 
             //添加按钮事件监听
             addBtnOnClickListener();
@@ -143,10 +149,13 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+//        ((RadioButtonSort) v).toggle();
+
         switch (v.getId()) {
             //销量
             case R.id.rb_fragment_goodslist_sale:
-                mRb_fragment_goodslist_sale.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.up_pink_new, 0);
+//                mRb_fragment_goodslist_sale.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.up_pink_new, 0);
+//                mRb_fragment_goodslist_sale.toggle();
                 break;
             //价格
             case rb_fragment_goodslist_price:
