@@ -16,10 +16,12 @@ import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.GoodsPagerAdapter;
 import com.song.honestshoppingmall.bean.GoodsBean;
 import com.song.honestshoppingmall.bean.ProductCommentBean;
+import com.song.honestshoppingmall.dao.RecordDao;
 import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.DialogAlertUtils;
 import com.song.honestshoppingmall.util.RetrofitUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,7 +55,6 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
         ((HomeActivity) mContext).changeTitle("商品详情");
         if (mRootView == null) {
             mRootView = View.inflate(mContext, R.layout.fragment_goods, null);
-
 
             //获取商品详情界面需要动态设置属性的子控件
             //商品的翻页viewpager
@@ -91,6 +92,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
     @Override
     protected void initData() {
         int pId = (int) this.getArguments().get("pId");
+        new RecordDao(mContext).insert(pId + "");
         getProductDataByPid(pId);
         getProductComment(pId);
 
@@ -104,6 +106,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                     List<ProductCommentBean.CommentBean> comment = response.body().getComment();
                     int size = comment.size();
                     mTv_comment_number.setText(size + "条评论");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                     for (int i = 0; i < size; i++) {
                         View view = View.inflate(mContext, R.layout.view_comment_item, null);
@@ -114,7 +117,8 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                         tv_comment_title.setText(comment.get(i).getTitle());
                         tv_conment_context.setText(comment.get(i).getContent());
                         tv_comment_name.setText(comment.get(i).getUsername());
-                        tv_comment_time.setText(comment.get(i).getTime());
+                        String time = sdf.format(comment.get(i).getTime());
+                        tv_comment_time.setText(time);
                         mLl_comments.addView(view);
                     }
 
@@ -145,7 +149,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
                             Log.d("GoodsDetailsFragment", successResponse);
 
                             //设置商品图片翻页
-                            setViewPager(mProductBean.getPics());
+                            setViewPager(mProductBean.getBigPic());
                             //设置价格
                             setPrice(mProductBean.getPrice());
                             //设置市场价格

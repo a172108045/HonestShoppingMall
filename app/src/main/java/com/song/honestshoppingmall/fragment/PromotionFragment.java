@@ -1,12 +1,12 @@
 package com.song.honestshoppingmall.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
+import com.song.honestshoppingmall.adapter.PrommotionAdapter;
 import com.song.honestshoppingmall.bean.PrommotionBean;
 import com.song.honestshoppingmall.util.APIRetrofit;
 import com.song.honestshoppingmall.util.RetrofitUtil;
@@ -27,24 +27,18 @@ import retrofit2.Response;
 public class PromotionFragment extends BaseFragment {
 
     private List<PrommotionBean.TopicBean> mData ;
-    private RecyclerView mRecyclerView;
+    private PrommotionAdapter mAdapter;
+    private View mView;
+    private GridView gv_prommotion;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        FragmentActivity activity = getActivity();
-        this.mContext = activity;
-        this.mData = new ArrayList<>();
-
-    }
 
     @Override
     protected View initView() {
-
-        View view = View.inflate(mContext, R.layout.fragment_prommotion, null);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_prommotion);
-
-        return view;
+        ((HomeActivity) mContext).changeTitle("促销快报");
+        mView = View.inflate(mContext, R.layout.fragment_prommotion, null);
+        gv_prommotion = (GridView) mView.findViewById(R.id.gv_prommotion);
+        mData = new ArrayList<>();
+        return mView;
     }
 
 
@@ -55,19 +49,35 @@ public class PromotionFragment extends BaseFragment {
     }
 
     private void initNetData() {
+
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
-        final Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("page", "1");
         map.put("pageNum", "8");
         apiRetrofitInstance.getPrommotionBean(map).enqueue(new Callback<PrommotionBean>() {
             @Override
             public void onResponse(Call<PrommotionBean> call, Response<PrommotionBean> response) {
-
+                if (response.isSuccessful()) {
+                    PrommotionBean body = response.body();
+                    if (body.error == null) {
+                        List<PrommotionBean.TopicBean> productList = body.getTopic();
+                        mData.clear();
+                        mData.addAll(productList);
+                        if (mAdapter == null) {
+                            mAdapter = new PrommotionAdapter(mContext, mData);
+                            gv_prommotion.setAdapter(mAdapter);
+                        } else {
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<PrommotionBean> call, Throwable t) {
-
+                Toast.makeText(mContext, t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -2,6 +2,7 @@ package com.song.honestshoppingmall.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.song.honestshoppingmall.R;
+import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.bean.ScareBuyBean;
+import com.song.honestshoppingmall.fragment.GoodsDetailsFragment;
 import com.song.honestshoppingmall.util.Urls;
 
 import java.util.List;
@@ -45,7 +48,7 @@ public class HotSaleListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder = null;
         if (convertView == null) {
@@ -70,6 +73,19 @@ public class HotSaleListAdapter extends BaseAdapter {
         holder.tv_hotsale_origin_price.setText(""+item.getPrice());
         holder.tv_hotsale_nowprice.setText("$"+item.getLimitPrice());
         holder.tv_hotsale_origin_price.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG );
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GoodsDetailsFragment fragment = new GoodsDetailsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("pId", mData.get(position).getId());
+                fragment.setArguments(bundle);
+                ((HomeActivity)mContext).changeFragment(fragment, "GoodsDetailsFragment");
+            }
+        });
+
+
         return convertView;
     }
 

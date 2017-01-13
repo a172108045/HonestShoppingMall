@@ -5,15 +5,16 @@
               android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/iv_fragment_recommend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/hot"/>
+        android:src="@mipmap/home_title_pic3"/>
 
-    <ListView
-        android:id="@+id/lv_newon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <ExpandableListView
+        android:id="@+id/lv_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </ListView>
+    </ExpandableListView>
 
 </LinearLayout>

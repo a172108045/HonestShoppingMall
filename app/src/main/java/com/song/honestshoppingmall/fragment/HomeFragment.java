@@ -5,16 +5,22 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.RotateVpAdapter;
 import com.song.honestshoppingmall.bean.RotateBean;
+import com.song.honestshoppingmall.event.FirstEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 烈焰红唇  Blazing Red Lips
  * Created by Judy on 2017/1/8.
  */
 
@@ -36,6 +42,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View initView() {
+        //在要接收消息的页面注册Eventbus
+        // EventBus.getDefault().register(this);
+
         ((HomeActivity)mContext).changeTitle("首页");
         View view = View.inflate(mContext, R.layout.fragment_home, null);
         viewPager = (ViewPager) view.findViewById(R.id.rotate_vp);
@@ -176,6 +185,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 ((HomeActivity)mContext).changeFragment(new HotsaleFragment(), "HotsaleFragment");
                 break;
             case R.id.imager_promotion:
+                ((HomeActivity)mContext).changeFragment(new PromotionFragment(), "PromotionFragment");
                 break;
             case R.id.imager_deseno:
                 ((HomeActivity)mContext).changeFragment(new DesenoFragment(), "DesenoFragment");
@@ -184,6 +194,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 ((HomeActivity) mContext).changeFragment(new NewonFragment(), "NewonFragment");
                 break;
             case R.id.imager_recommend:
+                ((HomeActivity) mContext).changeFragment(new RecommendFragment(), "RecommendFragment");
                 break;
             case R.id.imager_classify:
                 break;
@@ -193,6 +204,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
-
-
+    @Subscribe
+    public void onEventMainThread(FirstEvent event) {
+        String msg = "onEventMainThread收到了消息：" + event.getMsg();
+        Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //反注册EventBus
+        EventBus.getDefault().unregister(this);
+    }
 }
