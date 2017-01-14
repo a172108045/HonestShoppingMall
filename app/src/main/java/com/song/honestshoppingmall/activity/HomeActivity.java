@@ -81,6 +81,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
             actionBar.setHomeAsUpIndicator(R.mipmap.out);
         }
         actionBar.setTitle("");
+
         mTv_title.setText("老实商城");
         mRadioGroup.setOnCheckedChangeListener(this);
 
@@ -89,6 +90,7 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     private void initData() {
         mFragmentManager.beginTransaction().replace(R.id.fl_home, new HomeFragment()).commit();
         mRadioGroup.check(R.id.rb_home);
+
 
         mNav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -123,13 +125,12 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
                         //分享
                         break;
 
-
                 }
-
 
                 return true;
             }
         });
+
     }
 
     /**
@@ -189,8 +190,6 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
                 .commit();
     }
 
-    ;
-
     /**
      * 清空回退栈中的所有Fragment
      */
@@ -237,10 +236,6 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
                 if(mFragmentManager.getBackStackEntryCount() > 1)
                     onBackPressed();
                 break;
-/*            case R.id.cart:
-                removeAllFragment();
-                changeFragment(new ShopCartFragment(), "ShopCartFragment");
-                break;*/
             case R.id.explore:
                 changeFragment(new SerchFragment(), "SerchFragment");
                 break;
@@ -255,14 +250,22 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar, menu);
+        /*final MenuItem item = mToolbar_main.getMenu().getItem(0);
+        mFragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (mFragmentManager.getBackStackEntryCount() > 1) {
+                    item.setVisible(true);
+                } else {
+                    item.setVisible(false);
+                }
+            }
+        });*/
         return true;
     }
 
     public void changeTitle(String title) {
         mTv_title.setText(title);
     }
-
-
-
 
 }

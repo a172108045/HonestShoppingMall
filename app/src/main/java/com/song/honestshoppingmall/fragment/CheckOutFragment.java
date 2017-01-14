@@ -213,12 +213,17 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
     private void initNetData() {
         System.out.println("sku="+sku);
         String userid = SpUtil.getString(mContext, Constants.USERID, "");
+        if (TextUtils.isEmpty(userid)) {
+            Toast.makeText(mContext, "请先进行登录", Toast.LENGTH_SHORT).show();
+            ((HomeActivity)mContext).popBackStack();
+            return;
+        }
         RetrofitUtil.getAPIRetrofitInstance().getCheckOutBean(sku, userid).enqueue(new Callback<CheckOutBean>() {
             @Override
             public void onResponse(Call<CheckOutBean> call, Response<CheckOutBean> response) {
                 if (response.isSuccessful()) {
                     mCheckOutBean = response.body();
-                    if (mCheckOutBean != null) {
+                    if (mCheckOutBean.getAddressInfo() != null) {
                         mHandler.sendEmptyMessage(0);
                     } else {
                         mHandler.sendEmptyMessage(1);

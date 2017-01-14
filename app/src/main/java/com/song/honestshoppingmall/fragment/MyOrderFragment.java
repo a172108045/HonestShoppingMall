@@ -6,9 +6,11 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
@@ -114,12 +116,17 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
         map.put("pageNum", "5");
         APIRetrofit retrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
         String userid = SpUtil.getString(mContext, Constants.USERID, "");
+        if (TextUtils.isEmpty(userid)) {
+            Toast.makeText(mContext, "请先登录", Toast.LENGTH_SHORT).show();
+            ((HomeActivity)mContext).popBackStack();
+            return;
+        }
         retrofitInstance.getMyOrderBean(map, userid).enqueue(new Callback<MyOrderBean>() {
             @Override
             public void onResponse(Call<MyOrderBean> call, Response<MyOrderBean> response) {
                 if (response.isSuccessful()) {
                     mMyOrderBean = response.body();
-                    if (mMyOrderBean != null && mMyOrderBean.getOrderList().size() > 0) {
+                    if (mMyOrderBean.getOrderList() != null && mMyOrderBean.getOrderList().size() > 0) {
                         if (mPreGetType.equals(mGetType)) {
                             if (mOrderList == null) {
                                 mOrderList = new ArrayList<MyOrderBean.OrderListBean>();
