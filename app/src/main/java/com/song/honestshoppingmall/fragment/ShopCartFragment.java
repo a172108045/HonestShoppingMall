@@ -115,18 +115,18 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 Bundle bundle = new Bundle();
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < mData.size(); i++) {
-                    if (mCardRecyclerAdapter.checkedData[i]) {
-                        int id = mData.get(i).getProductId();
-                        int count = mData.get(i).getProductCount();
-                        int ppid = mData.get(i).getProperty().getId();
-                        if (count > 0) {
-                            if (i != mData.size() - 1) {
-                                sb.append(id + ":" + count + ":" + ppid + "|");
-                            } else {
-                                sb.append(id + ":" + count + ":" + ppid);
+                        if (mCardRecyclerAdapter.checkedData[i]) {
+                            int id = mData.get(i).getProductId();
+                            int count = mData.get(i).getProductCount();
+                            int ppid = mData.get(i).getProperty().getId();
+                            if (count > 0) {
+                                if (i != mData.size() - 1) {
+                                    sb.append(id + ":" + count + ":" + ppid + "|");
+                                } else {
+                                    sb.append(id + ":" + count + ":" + ppid);
+                                }
                             }
                         }
-                    }
                 }
                 if (!sb.toString().equals("")) {
                     bundle.putString("sku", sb.toString());
@@ -134,6 +134,7 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 } else {
                     Toast.makeText(mContext, "请选择商品！", Toast.LENGTH_SHORT).show();
                 }
+                getDeleteCart();
                 break;
 
         }
