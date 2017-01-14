@@ -14,13 +14,16 @@ import android.widget.Toast;
 import com.song.honestshoppingmall.R;
 import com.song.honestshoppingmall.activity.HomeActivity;
 import com.song.honestshoppingmall.adapter.GoodsPagerAdapter;
+import com.song.honestshoppingmall.bean.AddCollectionBean;
 import com.song.honestshoppingmall.bean.GoodsBean;
 import com.song.honestshoppingmall.bean.ProductCommentBean;
 import com.song.honestshoppingmall.dao.RecordDao;
 import com.song.honestshoppingmall.event.FirstEvent;
 import com.song.honestshoppingmall.util.APIRetrofit;
+import com.song.honestshoppingmall.util.Constants;
 import com.song.honestshoppingmall.util.DialogAlertUtils;
 import com.song.honestshoppingmall.util.RetrofitUtil;
+import com.song.honestshoppingmall.util.SpUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -54,6 +57,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
     private View mRootView;
     private TextView mTv_comment_number;
     private LinearLayout mLl_comments;
+    private Button mBtn_fragment_goods_collection;
     private int mProductId;
 
     @Override
@@ -75,7 +79,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
             //商品名称
             mTv_fragment_goods_name = (TextView) mRootView.findViewById(R.id.tv_fragment_goods_name);
             //收藏按钮
-            Button btn_fragment_goods_collection = (Button) mRootView.findViewById(R.id.btn_fragment_goods_collection);
+            mBtn_fragment_goods_collection = (Button) mRootView.findViewById(R.id.btn_fragment_goods_collection);
             //加入购物车按钮
             Button btn_fragment_goods_addCart = (Button) mRootView.findViewById(R.id.btn_fragment_goods_addCart);
             //购买按钮
@@ -87,7 +91,7 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
             //显示评论按钮
             LinearLayout ll_conment_show = (LinearLayout) mRootView.findViewById(R.id.ll_conment_show);
 
-            btn_fragment_goods_collection.setOnClickListener(this);
+            mBtn_fragment_goods_collection.setOnClickListener(this);
             btn_fragment_goods_addCart.setOnClickListener(this);
             btn_fragment_goods_buy.setOnClickListener(this);
             ll_conment_show.setOnClickListener(this);
@@ -179,14 +183,56 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
 
     }
 
+    public void requestAddCollection(String userid, int pId){
+        APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
+        apiRetrofitInstance.addProductCollection(pId, userid)
+                .enqueue(new Callback<AddCollectionBean>() {
+                    @Override
+                    public void onResponse(Call<AddCollectionBean> call, Response<AddCollectionBean> response) {
+                        AddCollectionBean addCollectionBean = response.body();
+                        if (response.isSuccessful()) {
+                            if("addfavorites".equals(addCollectionBean.response)){
+                                //添加收藏成功,跳转到收藏列表
+                                Toast.makeText(mContext, "商品收藏成功：" + addCollectionBean.toString(), Toast.LENGTH_SHORT).show();
+                                if(mBtn_fragment_goods_collection != null){
+                                    mBtn_fragment_goods_collection.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.good_shocang, 0, 0, 0);
+                                }
+                                Log.d("GoodsDetailsFragment", addCollectionBean.toString());
+                            }else if("1533".equals(addCollectionBean.error_code)){
+                                //需要重新登录
+                                Toast.makeText(mContext, "请重新登录：" + addCollectionBean.error_code, Toast.LENGTH_SHORT).show();
+                                ((HomeActivity) mContext).removeAllFragment();
+                                ((HomeActivity) mContext).changeFragment(new MineFragment(), "MineFragment");
+                                ((HomeActivity) mContext).switchButton(R.id.rb_mine);
+                            }else if("1535".equals(addCollectionBean.error_code)){
+                                //商品已经添加
+                                Toast.makeText(mContext, "商品已经添加收藏：" + addCollectionBean.error_code, Toast.LENGTH_SHORT).show();
+                                if(mBtn_fragment_goods_collection != null){
+                                    mBtn_fragment_goods_collection.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.good_shocang, 0, 0, 0);
+                                }
+                            }else{
+                                Toast.makeText(mContext, "商品收藏未判断错误码：" + addCollectionBean.error_code, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(mContext, "商品收藏请求错误码：" + addCollectionBean.error_code, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AddCollectionBean> call, Throwable t) {
+                        Toast.makeText(mContext, "商品收藏请求失败：", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            /*case R.id.iv_fragment_goods_back:
-                ((HomeActivity) mContext).popBackStack();
-                break;*/
             case R.id.btn_fragment_goods_collection:
-                //收藏
+                //请求添加收藏
+                String userid = SpUtil.getString(mContext, Constants.USERID, "");
+                requestAddCollection(userid, mProductBean.getId());
+
                 break;
             case R.id.btn_fragment_goods_addCart:
                 //加入购物车
