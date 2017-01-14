@@ -45,7 +45,7 @@ public class NewonFragment extends BaseFragment {
     @Override
     protected void initData() {
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
-         Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("page", "1");
         map.put("pageNum", "10");
         map.put("orderby", "saleDown");
