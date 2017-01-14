@@ -141,6 +141,7 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
                 SpUtil.saveString(mContext, Constants.ADDRESS_NAME, name);
                 SpUtil.saveString(mContext, Constants.ADDRESS_NUMBER, number);
                 SpUtil.saveString(mContext, Constants.ADDRESS_LOCATION, location);
+
                 bt_manage.setTextColor(Color.BLACK);
                 bt_manage.setEnabled(true);
                 if (!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(number)&&!TextUtils.isEmpty(location)
