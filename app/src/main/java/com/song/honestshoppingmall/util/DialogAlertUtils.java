@@ -148,7 +148,7 @@ public class DialogAlertUtils implements View.OnClickListener {
 
     public void refreshDialog() {
         // setProductImage(mData.getPics().get(0));
-        if (mData.getBigPic().size() >= 0) {
+        if (mData.getBigPic().size() > 0) {
             setProductImage(mData.getBigPic().get(0));
         }
 
