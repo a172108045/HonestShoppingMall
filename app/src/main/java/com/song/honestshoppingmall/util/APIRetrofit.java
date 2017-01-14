@@ -18,6 +18,8 @@ import com.song.honestshoppingmall.bean.NewonBean;
 import com.song.honestshoppingmall.bean.OrderDetailBean;
 import com.song.honestshoppingmall.bean.OrderSubmitBean;
 import com.song.honestshoppingmall.bean.ProductCommentBean;
+import com.song.honestshoppingmall.bean.PrommoItem1Bean;
+import com.song.honestshoppingmall.bean.PrommoItem2Bean;
 import com.song.honestshoppingmall.bean.PrommotionBean;
 import com.song.honestshoppingmall.bean.RecommendBean;
 import com.song.honestshoppingmall.bean.RegisterBean;
@@ -226,5 +228,9 @@ public interface APIRetrofit {
     @GET("product/comment")
     Call<ProductCommentBean> getProductCommentBean(@Query("pId") String pId, @Query("page") String page, @Query("pageNum") String pageNum);
 
+    @GET("topic/plist")
+    Call<PrommoItem1Bean> getPrommoItem1Bean(@QueryMap Map<String, String> params);
 
+    @GET("topic")
+    Call<PrommoItem2Bean> getPrommoItem2Bean(@QueryMap Map<String, String> params);
 }
