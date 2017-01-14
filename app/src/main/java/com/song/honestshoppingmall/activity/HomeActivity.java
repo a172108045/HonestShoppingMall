@@ -268,4 +268,9 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         mTv_title.setText(title);
     }
 
+    public void switchButton(int id){
+        mRadioGroup.check(id);
+    }
+
+
 }

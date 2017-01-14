@@ -2,8 +2,11 @@ package com.song.honestshoppingmall.util;
 
 import com.song.honestshoppingmall.bean.AddCartBean;
 import com.song.honestshoppingmall.bean.AddNewAddressBean;
+import com.song.honestshoppingmall.bean.AddCollectionBean;
 import com.song.honestshoppingmall.bean.AddressBean;
 import com.song.honestshoppingmall.bean.CheckOutBean;
+import com.song.honestshoppingmall.bean.DeleteCartBean;
+import com.song.honestshoppingmall.bean.CollectionBean;
 import com.song.honestshoppingmall.bean.DeleteCartBean;
 import com.song.honestshoppingmall.bean.DesenoBean;
 import com.song.honestshoppingmall.bean.FilterProductListBean;
@@ -178,6 +181,25 @@ public interface APIRetrofit {
      */
     @GET("product")
     Call<GoodsBean> getProductData(@Query("pId") int pId);
+
+    /**
+     * 添加商品收藏
+     * @param pId 商品的pId
+     * @value 用户登录之后拥有的id
+     * @return 收藏请求回复
+     */
+    @GET("product/favorites")
+    Call<AddCollectionBean> addProductCollection(@Query("pId") int pId, @Header("userid") String value);
+
+    /**
+     *
+     * @param page 页码
+     * @param pageNum 每页个数
+     * @param value 用户id
+     * @return
+     */
+    @GET("favorites")
+    Call<CollectionBean> getCollectionData(@Query("page") int page, @Query("pageNum") int pageNum, @Header("userid") String value);
 
     /***
      * 搜索推荐
