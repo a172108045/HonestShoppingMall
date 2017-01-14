@@ -28,7 +28,7 @@
             <TextView
                 android:id="@+id/tv_hotsale_nowprice"
                 android:text="$1"
-                android:textColor="#f00"
+                android:textColor="@color/pink"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -51,7 +51,7 @@
             android:text="立即抢购"
             android:padding="5dp"
             android:textStyle="bold"
-            android:background="#f00"
+            android:background="@color/pink"
             android:textColor="#fff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

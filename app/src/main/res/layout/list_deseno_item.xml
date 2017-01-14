@@ -35,14 +35,15 @@
             android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             android:layout_height="28dp"
-            android:background="#f00">
+            android:background="@color/pink">
 
             <TextView
                 android:id="@+id/tv_deseno_name_x"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textColor="#fff"/>
 
             <TextView
                 android:layout_marginLeft="40dp"
@@ -50,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="马上抢"
+                android:textColor="#fff"
                 android:textSize="20sp"/>
 
         </RelativeLayout>
