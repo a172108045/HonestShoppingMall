@@ -174,6 +174,36 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/pink_changtu"/>
 
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/home_kuang_new">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="©2008 烈焰红唇 Powered By 老实商场 Version 1.0.0"
+                    android:textSize="13dp"
+                    android:textStyle="bold"
+                    android:textColor="#707070"/>
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="This app copyright belongs to Yang Song Li Laoshi Zhang Yesong, Zanzan, all xiang-dong xiong"
+                    android:textColor="#8a8a8a"
+                    android:textSize="10dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/tu_ios_android"
+                    />
+
             </LinearLayout>
 
 
