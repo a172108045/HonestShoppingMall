@@ -44,7 +44,7 @@ import static com.song.honestshoppingmall.R.id.tv_price;
 
 public class DialogAlertUtils implements View.OnClickListener {
     private static AlertDialog           dialog;
-    private final boolean mIsAddCart;
+    private final  boolean               mIsAddCart;
     private        Context               mContext;
     private        GoodsBean.ProductBean mData;
     private        Button                mBtn_card_remove;
@@ -147,7 +147,11 @@ public class DialogAlertUtils implements View.OnClickListener {
     }
 
     public void refreshDialog() {
-        setProductImage(mData.getPics().get(0));
+        // setProductImage(mData.getPics().get(0));
+        if (mData.getBigPic().size() >= 0) {
+            setProductImage(mData.getBigPic().get(0));
+        }
+
         setProductName(mData.getName());
         setProductPrice(mData.getPrice());
     }
@@ -177,7 +181,7 @@ public class DialogAlertUtils implements View.OnClickListener {
                     sku.append(id).append(":").append(number).append(":").append("1").append(",").append("3");
                     Bundle bundle = new Bundle();
                     bundle.putString("sku", sku.toString());
-                    ((HomeActivity)mContext).changeFragment(new CheckOutFragment(), "CheckOutFragment", bundle);
+                    ((HomeActivity) mContext).changeFragment(new CheckOutFragment(), "CheckOutFragment", bundle);
                     DialogAlertUtils.dismissScanNumberDialog();
                 }
                 break;
