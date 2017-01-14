@@ -124,26 +124,12 @@ public class HotsaleFragment extends Fragment {
                         mData.clear();
                         mData.addAll(productList);
 
-/*                        mLv_hotsale.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                System.out.println("设置了");
-                                GoodsDetailsFragment fragment = new GoodsDetailsFragment();
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("pId", mData.get(position).getId());
-                                fragment.setArguments(bundle);
-                                ((HomeActivity)mContext).changeFragment(fragment, "GoodsDetailsFragment");
-                            }
-                        });*/
-
                         if (mAdapter == null){
                             mAdapter = new HotSaleListAdapter(mContext, mData);
                             mLv_hotsale.setAdapter(mAdapter);
                         }else{
                             mAdapter.notifyDataSetChanged();
                         }
-
-
 
                     }else{
                         Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();

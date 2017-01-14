@@ -4,8 +4,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_alignParentBottom="true"
-            android:fillViewport="true"
-    >
+            android:fillViewport="true">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,7 +18,7 @@
         <FrameLayout
             android:id="@+id/popularrecommoend"
             android:layout_width="match_parent"
-            android:layout_height="230dp">
+            android:layout_height="200dp">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/rotate_vp"
@@ -40,10 +39,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/pink">
 
             <ImageView
                 android:layout_width="80dp"
@@ -69,7 +66,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@mipmap/home_time_limit"/>
+                        android:src="@mipmap/home_time_limit"
+                        />
 
                     <ImageView
                         android:id="@+id/imager_promotion"
@@ -115,14 +113,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/home_kuang_new"
                 android:orientation="horizontal">
 
@@ -132,6 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:background="@color/pink"
                     android:src="@mipmap/home_title_pic1"/>
 
                 <ImageView
@@ -139,6 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@color/pink"
                     android:src="@mipmap/home_title_pic2"/>
 
             </LinearLayout>

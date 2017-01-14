@@ -158,12 +158,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private void buildDatas() {
         datas = new ArrayList<>();
-        datas.add(new RotateBean(R.mipmap.image1));
-        datas.add(new RotateBean(R.mipmap.image2));
-        datas.add(new RotateBean(R.mipmap.image3));
-        datas.add(new RotateBean(R.mipmap.image4));
-        datas.add(new RotateBean(R.mipmap.image5));
-        datas.add(new RotateBean(R.mipmap.image6));
+        datas.add(new RotateBean(R.mipmap.a1));
+        datas.add(new RotateBean(R.mipmap.a2));
+        datas.add(new RotateBean(R.mipmap.a3));
+        datas.add(new RotateBean(R.mipmap.a4));
+        datas.add(new RotateBean(R.mipmap.a5));
+        datas.add(new RotateBean(R.mipmap.a6));
     }
 
     @Override

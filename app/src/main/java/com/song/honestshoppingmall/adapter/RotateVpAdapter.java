@@ -54,7 +54,6 @@ public class RotateVpAdapter extends PagerAdapter {
         View convertView = mInflater.inflate(R.layout.item_vp, container, false);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.item_iv);
         TextView textView = (TextView) convertView.findViewById(R.id.item_tv);
-        textView.setText("热卖" + newPosition);
         imageView.setImageResource(datas.get(newPosition).getImgId());
         container.addView(convertView);
         return convertView;
