@@ -5,10 +5,19 @@
               android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/tv_lv_recommend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="红孩子专区"
         />
+
+    <com.song.honestshoppingmall.view.MyGridView
+        android:id="@+id/gv_recommend"
+        android:numColumns="4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.song.honestshoppingmall.view.MyGridView>
 
 
 
