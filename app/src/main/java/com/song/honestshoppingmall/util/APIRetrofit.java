@@ -54,10 +54,12 @@ import retrofit2.http.QueryMap;
 public interface APIRetrofit {
     /**
      * 添加地址
+     *
      * @return
      */
+    @FormUrlEncoded
     @POST("addresssave")
-    Call<AddNewAddressBean> addNewAddress(@FieldMap Map<String,String> map,@Header("userid") String value);
+    Call<AddNewAddressBean> addNewAddress(@FieldMap Map<String, String> map, @Header("userid") String value);
 
     /**
      * 获取主页数据

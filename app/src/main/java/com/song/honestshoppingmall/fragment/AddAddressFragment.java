@@ -1,6 +1,5 @@
 package com.song.honestshoppingmall.fragment;
 
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -37,15 +36,18 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
 
     //    private PopupWindow mPopupWindow;
     private TextView address_selector;
-    private String   mProvinceName;
-    private String   mCity;
-    private String   mCounty;
+    private String mProvinceName;
+    private String mCity;
+    private String mCounty;
     private EditText et_name;
     private EditText et_num;
     private EditText et_location;
-    private Button   bt_manage;
-    private Button   bt_save;
-    private Button   setting_add;
+    private Button bt_manage;
+    private Button bt_save;
+    private Button setting_add;
+    private String mName;
+    private String mNumber;
+    private String mLocation;
 
     @Override
     protected View initView() {
@@ -56,7 +58,6 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
         et_name = (EditText) view.findViewById(R.id.et_name);
         et_num = (EditText) view.findViewById(R.id.et_num);
         et_location = (EditText) view.findViewById(R.id.et_location);
-        bt_manage = (Button) view.findViewById(R.id.bt_address_manage);
         bt_save = (Button) view.findViewById(R.id.bt_address_save);
         setting_add = (Button) view.findViewById(R.id.bt_setting_add_address);
 
@@ -66,6 +67,8 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
 
     private void initOnClick() {
         address_selector.setOnClickListener(this);
+        bt_save.setOnClickListener(this);
+        setting_add.setOnClickListener(this);
     }
 
     @Override
@@ -125,57 +128,58 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
                 });
                 dialog.show();
                 break;
-            case R.id.bt_address_manage:
-                bt_save.setTextColor(Color.WHITE);
-                bt_save.setEnabled(false);
-                ((HomeActivity) mContext).changeFragment(new AddressFragment(), "AddressFragment");
 
-                break;
             case R.id.bt_address_save:
-                String name = et_name.getText().toString().trim();
-                String number = et_num.getText().toString().trim();
-                String location = et_location.getText().toString();
+                mName = et_name.getText().toString().trim();
+                mNumber = et_num.getText().toString().trim();
+                mLocation = et_location.getText().toString();
                 SpUtil.saveString(mContext, Constants.ADDRESS_PROVINCE, mProvinceName);
                 SpUtil.saveString(mContext, Constants.ADDRESS_CITY, mCity);
                 SpUtil.saveString(mContext, Constants.ADDRESS_COUNTY, mCounty);
-                SpUtil.saveString(mContext, Constants.ADDRESS_NAME, name);
-                SpUtil.saveString(mContext, Constants.ADDRESS_NUMBER, number);
-                SpUtil.saveString(mContext, Constants.ADDRESS_LOCATION, location);
+                SpUtil.saveString(mContext, Constants.ADDRESS_NAME, mName);
+                SpUtil.saveString(mContext, Constants.ADDRESS_NUMBER, mNumber);
+                SpUtil.saveString(mContext, Constants.ADDRESS_LOCATION, mLocation);
 
-                bt_manage.setTextColor(Color.BLACK);
-                bt_manage.setEnabled(true);
-                if (!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(number)&&!TextUtils.isEmpty(location)
-                &&!TextUtils.isEmpty(mProvinceName)&&!TextUtils.isEmpty(mCity)){
-                    postAddressNew(name,number,location,mProvinceName,mCity,mCounty);
+                if (!TextUtils.isEmpty(mName) && !TextUtils.isEmpty(mNumber) && !TextUtils.isEmpty(mLocation)
+                        && !TextUtils.isEmpty(mProvinceName) && !TextUtils.isEmpty(mCity)) {
+                    postAddressNew(mName, mNumber, mProvinceName, mCity, mLocation, mCounty);
+                } else {
+                    Toast.makeText(mContext, "信息不能为空!", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
             case R.id.bt_setting_add_address:
+
                 break;
         }
     }
 
-    private void postAddressNew(String name, String number, String location, String provinceName, String city, String county) {
-        Map<String,String> map = new HashMap<>();
-        map.put("name",name);
-        map.put("phoneNumber",number);
-        map.put("province",provinceName);
-        map.put("city",city);
-        map.put("addressArea",location);
-        map.put("isDefault","1");
+    private void postAddressNew(String name, String number, String provinceName, String city, String location, String county) {
+        Map<String, String> map = new HashMap<>();
+        map.put("name", name);
+        map.put("phoneNumber", number);
+        map.put("province", provinceName);
+        map.put("city", city);
+        map.put("addressArea", county);
+        map.put("isDefault", "1");
+        map.put("addressDetail", location);
+
+        String mUserid = SpUtil.getString(mContext, Constants.USERID, "");
 
         APIRetrofit apiRetrofitInstance = RetrofitUtil.getAPIRetrofitInstance();
 
-        apiRetrofitInstance.addNewAddress(map,SpUtil.getString(mContext,Constants.USERID,"")).enqueue(new Callback<AddNewAddressBean>() {
+        apiRetrofitInstance.addNewAddress(map, mUserid).enqueue(new Callback<AddNewAddressBean>() {
             @Override
             public void onResponse(Call<AddNewAddressBean> call, Response<AddNewAddressBean> response) {
                 if (response.isSuccessful()) {
                     AddNewAddressBean body = response.body();
                     if (TextUtils.isEmpty(body.error)) {
                         Toast.makeText(mContext, "添加地址成功", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         Toast.makeText(mContext, body.error, Toast.LENGTH_SHORT).show();
                     }
+                }else {
+                    Toast.makeText(mContext, "不知道什么错,反正就是错!", Toast.LENGTH_SHORT).show();
                 }
             }
 
