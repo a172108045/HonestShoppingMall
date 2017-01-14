@@ -1,6 +1,7 @@
 package com.song.honestshoppingmall.util;
 
 import com.song.honestshoppingmall.bean.AddCartBean;
+import com.song.honestshoppingmall.bean.AddNewAddressBean;
 import com.song.honestshoppingmall.bean.AddressBean;
 import com.song.honestshoppingmall.bean.CheckOutBean;
 import com.song.honestshoppingmall.bean.DeleteCartBean;
@@ -46,6 +47,13 @@ import retrofit2.http.QueryMap;
  */
 
 public interface APIRetrofit {
+    /**
+     * 添加地址
+     * @return
+     */
+    @POST("addresssave")
+    Call<AddNewAddressBean> addNewAddress(@FieldMap Map<String,String> map,@Header("userid") String value);
+
     /**
      * 获取主页数据
      *
@@ -119,11 +127,12 @@ public interface APIRetrofit {
 
     /**
      * 删除购物车
+     *
      * @param params
      * @return
      */
     @GET("deleteCart")
-    Call<DeleteCartBean> deleteCart(@QueryMap Map<String,String> params);
+    Call<DeleteCartBean> deleteCart(@QueryMap Map<String, String> params);
 
     /**
      * 订单列表操作
@@ -155,6 +164,7 @@ public interface APIRetrofit {
 
     /**
      * 获取筛选商品列表
+     *
      * @param params
      * @return
      */
@@ -187,7 +197,7 @@ public interface APIRetrofit {
     Call<RegisterBean> sendRegister(@FieldMap Map<String, String> registerMap);
 
     @GET("limitbuy")
-    Call<ScareBuyBean> getScareBuy(@QueryMap Map<String,String> params);
+    Call<ScareBuyBean> getScareBuy(@QueryMap Map<String, String> params);
 
     @POST("logout")
     Call<LogoutBean> logOut(@Header("userid") String userid);
@@ -215,7 +225,6 @@ public interface APIRetrofit {
 
     @GET("product/comment")
     Call<ProductCommentBean> getProductCommentBean(@Query("pId") String pId, @Query("page") String page, @Query("pageNum") String pageNum);
-
 
 
 }
