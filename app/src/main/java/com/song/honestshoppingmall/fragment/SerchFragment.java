@@ -67,9 +67,8 @@ public class SerchFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void gridRecentAddItem() {
-        for (int i = 0; i < mDataRecent.size(); i++) {
-            addRecentItem(mDataRecent.get(i));
-        }
+        if (mDataRecent.size()>0)
+            addRecentItem(mDataRecent.get(0));
     }
 
     private void initNetData() {
@@ -172,6 +171,7 @@ public class SerchFragment extends BaseFragment implements View.OnClickListener 
     public void onResume() {
         super.onResume();
         gridRecentAddItem();
+
         ((HomeActivity)mContext).changeTitle("商品搜索");
     }
 
