@@ -1,6 +1,9 @@
 package com.song.honestshoppingmall.fragment;
 
+import android.graphics.Color;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.song.honestshoppingmall.R;
@@ -26,6 +29,12 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
     private String mProvinceName;
     private String mCity;
     private String mCounty;
+    private EditText et_name;
+    private EditText et_num;
+    private EditText et_location;
+    private Button bt_manage;
+    private Button bt_save;
+    private Button setting_add;
 
     @Override
     protected View initView() {
@@ -33,6 +42,12 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
         View view = View.inflate(mContext, R.layout.fragment_address_add, null);
 
         address_selector = (TextView) view.findViewById(R.id.tv_address_selector);
+        et_name = (EditText) view.findViewById(R.id.et_name);
+        et_num = (EditText) view.findViewById(R.id.et_num);
+        et_location = (EditText) view.findViewById(R.id.et_location);
+        bt_manage = (Button) view.findViewById(R.id.bt_address_manage);
+        bt_save = (Button) view.findViewById(R.id.bt_address_save);
+        setting_add = (Button) view.findViewById(R.id.bt_setting_add_address);
 
         initOnClick();
         return view;
@@ -88,18 +103,37 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
                                         (county == null ? "" : "\n" + county.name) +
                                         (street == null ? "" : "\n" + street.name);
 
-//                        T.showShort(mContext, s);
+                        //                        T.showShort(mContext, s);
                         mProvinceName = province.name.toString();
                         mCity = city.name.toString();
                         mCounty = county.name.toString();
                         SpUtil.saveString(mContext, Constants.ADDRESS_PROVINCE, mProvinceName);
                         SpUtil.saveString(mContext, Constants.ADDRESS_CITY, mCity);
-                        SpUtil.saveString(mContext, Constants.ADDRESS_PROVINCE, mCounty);
+                        SpUtil.saveString(mContext, Constants.ADDRESS_COUNTY, mCounty);
                         address_selector.setText(" " + mProvinceName + " " + mCity + " " + mCounty);
                         dialog.dismiss();
                     }
                 });
                 dialog.show();
+                break;
+            case R.id.bt_address_manage:
+                bt_save.setTextColor(Color.WHITE);
+                bt_save.setEnabled(false);
+                ((HomeActivity) mContext).changeFragment(new AddressFragment(), "AddressFragment");
+
+                break;
+            case R.id.bt_address_save:
+                String name = et_name.getText().toString().trim();
+                String number = et_num.getText().toString().trim();
+                String location = et_location.getText().toString();
+                SpUtil.saveString(mContext, Constants.ADDRESS_NAME, name);
+                SpUtil.saveString(mContext, Constants.ADDRESS_NUMBER, number);
+                SpUtil.saveString(mContext, Constants.ADDRESS_LOCATION, location);
+                bt_manage.setTextColor(Color.BLACK);
+                bt_manage.setEnabled(true);
+
+                break;
+            case R.id.bt_setting_add_address:
                 break;
         }
     }

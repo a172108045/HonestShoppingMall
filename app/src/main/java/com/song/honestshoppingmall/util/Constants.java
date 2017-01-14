@@ -19,9 +19,13 @@ public interface Constants {
     String PASSWORD = "password";
     String DB_NAME = "localDB";
     String TABLE_RECORD = "record";
+
     String ADDRESS_PROVINCE = "provincename";
     String ADDRESS_CITY = "cityname";
     String ADDRESS_COUNTY = "countyname";
+    String ADDRESS_NAME = "name";
+    String ADDRESS_NUMBER = "number";
+    String ADDRESS_LOCATION = "location";
 
     String SORT_SALE_DOWN = "saleDown";
     String SORT_SALE_UP = "saleDown";
