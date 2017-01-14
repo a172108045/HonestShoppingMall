@@ -70,7 +70,7 @@ public class SplashActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                SystemClock.sleep(1000);
+                SystemClock.sleep(3000);
                 Boolean isFirst = SpUtil.getBoolean(SplashActivity.this, "isFirst", true);
 
                 if (isFirst) {
