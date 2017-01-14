@@ -272,5 +272,9 @@ public class HomeActivity extends AppCompatActivity implements RadioGroup.OnChec
         mRadioGroup.check(id);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        SpUtil.saveString(this, Constants.USERID, null);
+        super.onDestroy();
+    }
 }

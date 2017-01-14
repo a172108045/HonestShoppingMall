@@ -25,7 +25,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="25dp"
-            android:background="@mipmap/home_title_dialogbox"
+            android:background="@drawable/selector_button_pink"
             android:text="添加新地址"
             android:textColor="#fff"
             android:textSize="18dp"
