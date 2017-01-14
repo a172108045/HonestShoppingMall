@@ -82,4 +82,10 @@ public class PromotionFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("促销快报");
+    }
+
 }

@@ -91,4 +91,10 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
         ((HomeActivity) mContext).changeFragment(new MineFragment(), "MineFragment");
         Toast.makeText(mContext, "Good Bye,Honey!", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("个人中心");
+    }
 }

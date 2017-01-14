@@ -259,4 +259,10 @@ public class SerchDetailFragment extends BaseFragment implements View.OnClickLis
 
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("搜索详情");
+    }
 }

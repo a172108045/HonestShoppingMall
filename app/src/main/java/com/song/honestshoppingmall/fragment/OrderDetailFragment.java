@@ -223,5 +223,11 @@ public class OrderDetailFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("订单详情");
+    }
+
 
 }

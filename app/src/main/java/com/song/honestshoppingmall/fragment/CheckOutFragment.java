@@ -329,4 +329,10 @@ public class CheckOutFragment extends BaseFragment implements View.OnClickListen
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("商品结算");
+    }
+
 }

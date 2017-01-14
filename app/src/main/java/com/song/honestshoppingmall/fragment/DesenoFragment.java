@@ -82,5 +82,10 @@ public class DesenoFragment extends BaseFragment {
             }
         });
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("新品上架");
+    }
 
 }

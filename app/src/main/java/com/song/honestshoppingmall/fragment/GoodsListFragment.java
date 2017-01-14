@@ -222,4 +222,10 @@ public class GoodsListFragment extends BaseFragment implements View.OnClickListe
             requestNetData(1, 10, this.mCategoryId, this.mOrderByStr, mFilter);
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("商品列表");
+    }
 }

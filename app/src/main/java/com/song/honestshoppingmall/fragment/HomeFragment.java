@@ -170,6 +170,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         isRotate = true;
+        ((HomeActivity)mContext).changeTitle("首页");
     }
 
     @Override
@@ -215,4 +216,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         //反注册EventBus
         EventBus.getDefault().unregister(this);
     }
+
+
 }

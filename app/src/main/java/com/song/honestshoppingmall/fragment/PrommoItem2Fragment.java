@@ -76,4 +76,10 @@ public class PrommoItem2Fragment extends BaseFragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("促销快报");
+    }
 }

@@ -155,4 +155,10 @@ public class CategoryFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("商品分类");
+    }
+
 }

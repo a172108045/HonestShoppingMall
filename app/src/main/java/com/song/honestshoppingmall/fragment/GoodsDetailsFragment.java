@@ -267,4 +267,10 @@ public class GoodsDetailsFragment extends BaseFragment implements View.OnClickLi
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("商品详情");
+    }
 }

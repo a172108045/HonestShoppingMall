@@ -234,6 +234,7 @@ public class HotsaleFragment extends Fragment {
     public void onResume() {
         super.onResume();
         isRotate = true;
+        ((HomeActivity)mContext).changeTitle("限时抢购");
     }
 
     @Override

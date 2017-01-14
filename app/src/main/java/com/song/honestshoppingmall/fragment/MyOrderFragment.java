@@ -203,6 +203,7 @@ public class MyOrderFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onResume() {
+        ((HomeActivity)mContext).changeTitle("我的订单");
         super.onResume();
         switch (mGetType) {
             case "1":

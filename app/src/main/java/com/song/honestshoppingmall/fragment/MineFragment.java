@@ -231,5 +231,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("个人中心");
+    }
+
 
 }

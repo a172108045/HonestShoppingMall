@@ -172,6 +172,7 @@ public class SerchFragment extends BaseFragment implements View.OnClickListener 
     public void onResume() {
         super.onResume();
         gridRecentAddItem();
+        ((HomeActivity)mContext).changeTitle("商品搜索");
     }
 
     @Override
@@ -196,4 +197,6 @@ public class SerchFragment extends BaseFragment implements View.OnClickListener 
 
         }
     }
+
+
 }

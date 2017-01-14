@@ -180,4 +180,10 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("更多");
+    }
+
 }

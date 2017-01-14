@@ -138,4 +138,9 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity) mContext).changeTitle("添加地址");
+    }
 }

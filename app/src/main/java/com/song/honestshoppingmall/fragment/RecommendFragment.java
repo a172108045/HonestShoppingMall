@@ -19,4 +19,10 @@ public class RecommendFragment extends BaseFragment {
     protected void initData() {
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("推荐品牌");
+    }
 }

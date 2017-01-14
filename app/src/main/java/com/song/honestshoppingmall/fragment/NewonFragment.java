@@ -77,5 +77,11 @@ public class NewonFragment extends BaseFragment {
        });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("热门单品");
+    }
+
 
 }

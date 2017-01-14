@@ -232,6 +232,12 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
         mCardRecyclerAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)mContext).changeTitle("购物车");
+    }
+
 
 }
 
