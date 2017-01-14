@@ -53,7 +53,7 @@ public class CollectionFragment extends BaseFragment {
     @Override
     protected void initData() {
         String userid = SpUtil.getString(mContext, Constants.USERID, "");
-        requestColletionData(userid, 1, 10);
+        requestColletionData(userid, 0, 10);
     }
 
     public void requestColletionData(String userid, int page, int pageNum){
