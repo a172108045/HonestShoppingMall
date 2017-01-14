@@ -59,14 +59,12 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
 
 
             mIb_clean = (ImageButton) mView.findViewById(R.id.ib_clean);
-            mBtn_select = (Button) mView.findViewById(R.id.btn_select);
 
             mImageView = (ImageView) mView.findViewById(R.id.iv_getdatafailed);
             mBtn_guangguang = (Button) mView.findViewById(R.id.btn_guangguang);
 
             mBtn_guangguang.setOnClickListener(this);
             mIb_clean.setOnClickListener(this);
-            mBtn_select.setOnClickListener(this);
             mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view);
             mRelative_pay = (RelativeLayout) mView.findViewById(R.id.relative_pay);
             mCb_card_checkall = (CheckBox) mView.findViewById(R.id.cb_card_checkall);
@@ -136,11 +134,6 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                 } else {
                     Toast.makeText(mContext, "请选择商品！", Toast.LENGTH_SHORT).show();
                 }
-                break;
-            case R.id.btn_select:
-                ((HomeActivity) mContext).changeFragment(new SerchFragment(), "SerchFragment");
-                break;
-            default:
                 break;
 
         }
