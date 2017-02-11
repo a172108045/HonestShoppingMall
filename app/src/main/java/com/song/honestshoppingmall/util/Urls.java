@@ -15,6 +15,7 @@ public class Urls {
      */
     public static final String HOME = "home";
 
+
     /**
      * 商品分类接口地址
      */
