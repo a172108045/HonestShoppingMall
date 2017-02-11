@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textColor="#000"
         android:textSize="20sp"
-        android:text="传智播客黑马上海校区\n安卓就业18期烈焰红唇项目组"/>
+        android:text="烈焰红唇项目组"/>
     <TextView
         android:layout_marginTop="20dp"
         android:padding="5dp"

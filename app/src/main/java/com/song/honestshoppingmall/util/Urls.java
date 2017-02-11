@@ -9,7 +9,7 @@ public class Urls {
     /**
      * 基础地址
      */
-    public static final String BASE_URL = "http://10.0.2.2:8080/market/";
+    public static final String BASE_URL = "http://15n64g3806.imwork.net:31233//market/";
     /**
      * 轮播图接口地址
      */

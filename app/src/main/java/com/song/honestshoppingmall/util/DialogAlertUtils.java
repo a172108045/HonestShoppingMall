@@ -231,7 +231,7 @@ public class DialogAlertUtils implements View.OnClickListener {
 
                         dismissScanNumberDialog();
                     } else {
-                        Toast.makeText(mContext, response.body().error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, response.body().error+"，请确认是否登录！", Toast.LENGTH_SHORT).show();
                     }
 
                 }

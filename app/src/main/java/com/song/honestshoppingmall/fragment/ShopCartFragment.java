@@ -156,7 +156,6 @@ public class ShopCartFragment extends BaseFragment implements View.OnClickListen
                         if (response.isSuccessful()){
                             DeleteCartBean body = response.body();
                             if (TextUtils.isEmpty(body.error)){
-                                Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
                                 //刷新数据
                                 getShopCart();
                                 mCardRecyclerAdapter.notifyDataSetChanged();

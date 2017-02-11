@@ -48,14 +48,27 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     private TextView                     mTvTotalPrice;
     private Context                      mContext;
     private List<SerchCardBean.CartBean> mData;
+    private int TrueCount = 0;
     public boolean checkedData[]  ;
     public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            FragmentManager supportFragmentManager = ((HomeActivity) mContext).getSupportFragmentManager();
-            ShopCartFragment shopCartFragment = (ShopCartFragment) supportFragmentManager.findFragmentByTag("ShopCartFragment");
-            shopCartFragment.refreshData();
+            switch (msg.what) {
+                case 0:
+                    FragmentManager supportFragmentManager = ((HomeActivity) mContext).getSupportFragmentManager();
+                    ShopCartFragment shopCartFragment = (ShopCartFragment) supportFragmentManager.findFragmentByTag("ShopCartFragment");
+                    shopCartFragment.refreshData();
+                    break;
+                case 1:
+                    mCb_card_checkall.setChecked(true);
+                    break;
+                case 2:
+                    mCb_card_checkall.setChecked(false);
+                    break;
+
+            }
+
         }
     };
     public CardRecyclerAdapter(Context context, List<SerchCardBean.CartBean> body, TextView tv_totalPrice, CheckBox cb_card_checkall) {
@@ -121,8 +134,6 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
             @Override
             public void onClick(View view) {
                 updateNetDataRemove(productCount,productId);
-
-
             }
         });
 
